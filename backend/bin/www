@@ -1,0 +1,30 @@
+// backend/bin/www
+
+// Import environment variables
+require('dotenv').config();
+
+const { port } = require('../config');
+const { PrismaClient } = require('@prisma/client')
+
+
+const app = require('../app');
+
+const prisma = new PrismaClient()
+
+// Check the database connection before starting the app
+//!@#$ - I need to check with A/a staff if calling this as function is ok
+
+async function main() {
+    const allUsers = await prisma.user.findMany()
+    console.log("ALL_DB_USERS: ", allUsers)
+}
+
+main()
+    .then(async () => {
+        app.listen(port, () => console.log(`Listening on port ${port}...`));
+    })
+    .catch(async (e) => {
+        console.log('Database connection failure.');
+        await prisma.$disconnect()
+        process.exit(1)
+    })
