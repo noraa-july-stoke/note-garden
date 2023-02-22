@@ -15,6 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
@@ -26,8 +28,8 @@
     "morgan": "^1.10.0",
     "per-env": "^1.0.2",
     "pg": "^8.9.0",
-    "sequelize":"^6.28.1",
-    "sequelize-cli":"^6.6.0"
+    "sequelize": "^6.28.1",
+    "sequelize-cli": "^6.6.0"
   },
   "devDependencies": {
     "dotenv-cli": "^7.0.0",

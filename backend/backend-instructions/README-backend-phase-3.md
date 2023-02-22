@@ -98,7 +98,7 @@ the default constraints for the `createdAt` and `updatedAt` columns.
 
 You should
 also define the schema name for the Postgres production database in the options object at the top of the file, and include
-the options object in both the up and down functions.  All `queryInterface` method calls except `createTable` will require 
+the options object in both the up and down functions.  All `queryInterface` method calls except `createTable` will require
 the options object as the first argument, with the appropriate `tableName` property.
 
 If completed correctly, your migration file should look something like this:
