@@ -22,12 +22,11 @@ function Navigation({ isLoaded }) {
             <li>
                 <OpenModalButton
                     buttonText="Log In"
-                    modalComponent={<LoginFormModal />}
-                />
+                    modalComponent={<LoginFormModal />}/>
+
                 <OpenModalButton
                     buttonText="Sign Up"
-                    modalComponent={<SignupFormModal />}
-                />
+                    modalComponent={<SignupFormModal />}/>
             </li>
         );
     }
