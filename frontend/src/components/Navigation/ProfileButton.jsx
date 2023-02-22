@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 
-function ProfileButton({ user }) {
+const ProfileButton = ({ user }) => {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
 
-    const openMenu = () => {
+    const openMenu = (e) => {
+        e.preventDefault()
         if (showMenu) return;
         setShowMenu(true);
     };
