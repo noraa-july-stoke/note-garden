@@ -16,7 +16,6 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
 
-
 // Security Middleware
 if (!isProduction) {
     // enable cors only in development
@@ -41,9 +40,7 @@ app.use(
     })
 );
 
-
 app.use(routes);
-
 
 app.use((_req, _res, next) => {
     const err = new Error("The requested resource couldn't be found.");
@@ -52,7 +49,6 @@ app.use((_req, _res, next) => {
     err.status = 404;
     next(err);
 });
-
 
 app.use((err, _req, res, _next) => {
     res.status(err.status || 500);
