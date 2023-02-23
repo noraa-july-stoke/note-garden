@@ -1,1 +1,3 @@
-left off at end of phase-0
+DB FOR FIRST FEATURES DONE
+
+need to finish backend for bucket image upload
