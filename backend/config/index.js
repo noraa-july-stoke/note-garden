@@ -1,3 +1,13 @@
+const Cloud = require('@google-cloud/storage')
+const path = require('path')
+const serviceKey = path.join(__dirname, './southern-surge-378705-44c56a09fd5d.json')
+
+const { Storage } = Cloud
+const storage = new Storage({
+    keyFilename: serviceKey,
+    projectId: process.env.GCLOUD_PROJECT_ID
+})
+
 module.exports = {
     environment: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 5000,
@@ -12,5 +22,6 @@ module.exports = {
         database: process.env.DB_DATABASE,
         host: process.env.DB_HOST,
         schema: process.env.SCHEMA
-    }
+    },
+    storage:storage
 };

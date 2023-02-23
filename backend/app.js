@@ -6,15 +6,33 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
+const bodyParser = require('body-parser')
+const multer = require('multer')
 
 const { environment } = require('./config');
 const isProduction = environment === 'production';
 
 const app = express();
 
+const multerMid = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024,
+    },
+    fileFilter: function (req, file, callback) {
+        if (!file.mimetype.startsWith('image/')) {
+            return callback(new Error('Only image files are allowed!'));
+        }
+        callback(null, true);
+    }
+})
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
+app.use(multerMid.single('file'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // Security Middleware
 if (!isProduction) {
