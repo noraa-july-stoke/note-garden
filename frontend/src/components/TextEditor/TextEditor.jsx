@@ -19,14 +19,16 @@ const TextEditor = () => {
         []
     )
 
-    const [value, setValue] = useState([
-        {
-            type: 'paragraph',
-            children: [{ text: 'A line of text in a paragraph.' }],
-        },
-    ])
+    //!@#$ Might not need this anymore???
+    // const [value, setValue] = useState([
+    //     {
+    //         type: 'paragraph',
+    //         children: [{ text: 'A line of text in a paragraph.' }],
+    //     },
+    // ])
 
     useEffect(()=> {
+        //!@#$ dispatch thunk here tomorrow
 
     })
 
