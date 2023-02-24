@@ -16,7 +16,7 @@ const OpenModalButton = ({
     };
 
     return (
-        <button onClick={onClick}>{buttonText}</button>
+        <button className="utility-button feedback-button" onClick={onClick}>{buttonText}</button>
     );
 }
 

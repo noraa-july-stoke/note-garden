@@ -47,7 +47,7 @@ const ImageUploadForm = () => {
                     onChange={handleNameChange}
                 />
             </div>
-            <button type="submit">Upload</button>
+            <button className="utility-button feedback-button" type="submit">Upload</button>
         </form>
     );
 }

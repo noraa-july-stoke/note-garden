@@ -1,4 +1,15 @@
 /* TODO Add site wide styles */
+
+* {
+    box-sizing: border-box;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+    font-family: "Arial", monospace;
+}
+
 .hidden{
     display: none;
 }
@@ -6,8 +17,52 @@
 .text-editor{
     width: 500px;
     height: 300px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     resize: both;
     overflow: auto;
 
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+button{
+    border: none;
+}
+
+.feedback-button {
+    display: flex;
+    flex-direction: row;
+    width: 175px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in;
+}
+
+.feedback-button:hover {
+    color: black;
+    background-color: white;
+}
+
+.feedback-button:active {
+    background-color: rgba(205, 205, 205, 0.5);
+    transform: translateY(0.5px) translateX(0.5px);
+}
+
+.icon-button {
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+    width: fit-content;
+}
+
+.icon-button:active {
+    transform: translateY(0.5px) translateX(0.5px);
 }

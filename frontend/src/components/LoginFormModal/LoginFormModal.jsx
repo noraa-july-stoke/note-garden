@@ -51,7 +51,7 @@ const LoginFormModal = () => {
                         required
                     />
                 </label>
-                <button type="submit">Log In</button>
+                <button className="utility-button feedback-button" type="submit">Log In</button>
             </form>
         </>
     );

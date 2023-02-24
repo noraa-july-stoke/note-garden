@@ -90,7 +90,7 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                <button type="submit">Sign Up</button>
+                <button className="utility-button feedback-button" type="submit">Sign Up</button>
             </form>
         </>
     );

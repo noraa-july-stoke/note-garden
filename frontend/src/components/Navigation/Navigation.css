@@ -1,0 +1,21 @@
+.nav-header {
+    display: flex;
+    flex-direction: row;
+    border: 4px solid white;
+    background: black;
+    display: flex;
+    Justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar {
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    transition: width 0.2s ease;
+    width: 20%;
+}
+
+.search-bar:active{
+    width: 100%;
+}

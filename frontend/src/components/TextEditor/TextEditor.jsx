@@ -3,11 +3,12 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { createEditor, Editor, Transforms, useSlate } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
+import html from '../ComponentHelpers/html-deserializer';
+import './TextEditor.css'
 
-
-const TextEditor = () => {
-
+const TextEditor = ({initialText}) => {
     //Preserves data through a re-render before updating based on previous value
+
     const initialValue = useMemo(
         () =>
             JSON.parse(
@@ -19,14 +20,6 @@ const TextEditor = () => {
             ],
         []
     )
-
-    //!@#$ Might not need this anymore???
-    // const [value, setValue] = useState([
-    //     {
-    //         type: 'paragraph',
-    //         children: [{ text: 'A line of text in a paragraph.' }],
-    //     },
-    // ])
 
     useEffect(()=> {
         //!@#$ dispatch thunk here tomorrow
@@ -49,7 +42,6 @@ const TextEditor = () => {
 
             // const { selection } = editor
             const marks = Editor.marks(editor)
-
             if (marks) {
                 if (marks.bold) {
                     Editor.removeMark(editor, 'bold')
@@ -63,7 +55,6 @@ const TextEditor = () => {
                     Editor.removeMark(editor, 'color')
                 }
             }
-
             insertText(text)
         }
 
@@ -84,16 +75,10 @@ const TextEditor = () => {
     }
 
     const editor = useMemo(() => withFormatting(withReact(createEditor())), [])
-
-
     const renderLeaf = ({ attributes, children, leaf }) => {
-        if (leaf.bold) {
-            children = <strong>{children}</strong>
-        }
+        if (leaf.bold) { children = <strong>{children}</strong> }
 
-        if (leaf.italic) {
-            children = <em>{children}</em>
-        }
+        if (leaf.italic) { children = <em>{children}</em> }
 
         if (leaf.color) {
             const style = { color: leaf.color }
@@ -104,9 +89,9 @@ const TextEditor = () => {
     }
 
     const handleChange = value => {
-        const isAstChange = editor.operations.some(
-            op => 'set_selection' !== op.type
-        )
+        // const isAstChange = editor.operations.some(
+        //     op => 'set_selection' !== op.type
+        // )
         const content = JSON.stringify(value)
         localStorage.setItem('content', content)
     }
@@ -155,19 +140,18 @@ const TextEditor = () => {
     }
 
     return (
-        <div>
-            <div>
-            <button onClick={handleBoldClick}>Bold</button>
-            <button onClick={handleItalicClick}>Italic</button>
-            <button onClick={handleResetFormatting}>Reset Formatting</button>
-            <input type="color" onChange={handleColorChange} />
-            Noraa's Text Editor
+        <div className='text-editor-container' >
+            <div className="text-editor-toolbar">
+                <button className="utility-button feedback-button" onClick={handleBoldClick}><b>Bold</b></button>
+            <button className="utility-button feedback-button" onClick={handleItalicClick}><em>Italic</em></button>
+            <button className="utility-button feedback-button" onClick={handleResetFormatting}>Reset Formatting</button>
+                <input className="utility-button feedback-button" type="color" onChange={handleColorChange} />
             </div>
 
             <Slate editor={editor} value={initialValue} onChange={handleChange}>
                 <Editable className='text-editor' renderLeaf={renderLeaf} />
             </Slate>
-            <button onClick={handleSaveClick}> Save your progress </button>
+            <button className="utility-button feedback-button save-button" onClick={handleSaveClick}> Save your progress </button>
         </div>
     )
 }

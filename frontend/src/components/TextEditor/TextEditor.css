@@ -1,0 +1,14 @@
+.text-editor-toolbar{
+    display: flex;
+    flex-direction: row;
+}
+
+.text-editor-container {
+    border: 2px solid black;
+    width: fit-content;
+    overflow: hidden;
+}
+
+.save-button{
+    width: 100%
+}

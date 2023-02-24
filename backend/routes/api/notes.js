@@ -56,7 +56,6 @@ router.post('/image-note', async (req, res, next) => {
         next(error)
     }
 
-
     console.log("DATA FOR ROUTE:", req.user.id, req.body.name, imageUrl)
     const newImageNote = ImageNote.build({
         authorId: req.user.id,
@@ -74,7 +73,10 @@ router.post('/image-note', async (req, res, next) => {
 });
 
 router.post('/text-note', async (req, res, next) => {
+    const note = req.body.note
+    console.log(note)
 
+    res.json("route functional")
 
 })
 module.exports = router;

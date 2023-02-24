@@ -39,33 +39,42 @@ function ProfileButton({ user }) {
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
+        //!@#$ make dropdown look like this
+
     return (
         <>
-            <button onClick={openMenu}>
+            <button className="utility-button feedback-button" onClick={openMenu}>
                 <i className="fas fa-user-circle" />
             </button>
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <>
-                        <li>{user.username}</li>
-                        <li>{user.firstName} {user.lastName}</li>
-                        <li>{user.email}</li>
-                        <li>
-                            <button onClick={logout}>Log Out</button>
-                        </li>
+                    <div className="user-info-container">
+                        <span className = "user-dropdown-info">{user.username}</span>
+                        <span className="user-dropdown-info">{user.firstName} {user.lastName}</span>
+                        <span className="user-dropdown-info">{user.email}</span>
+                    </div>
+
+                        <span className="user-dropdown-logout">
+                            <button className="utility-button feedback-button" onClick={logout}>Log Out</button>
+                        </span>
                     </>
                 ) : (
                     <>
+                        <span classname ='modal-button'>
                         <OpenModalMenuItem
                             itemText="Log In"
                             onItemClick={closeMenu}
                             modalComponent={<LoginFormModal />}
                         />
+                        </span>
+                        <span classname='modal-button'>
                         <OpenModalMenuItem
                             itemText="Sign Up"
                             onItemClick={closeMenu}
                             modalComponent={<SignupFormModal />}
                         />
+                        </span>
                     </>
                 )}
             </ul>

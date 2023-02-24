@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import ImageUploadForm from "./components/Forms";
 import TextEditor from "./components/TextEditor";
 import AllNotes from "./components/NotesComponents/AllNotes";
+import MakeNote from "./components/NotesComponents/MakeNote";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
           </Route>
           <Route path='/all-notes'>
             <AllNotes />
+            <MakeNote/>
             <TextEditor/>
           </Route>
 
