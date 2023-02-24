@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {uploadImage} from '../../store/image-uploads'
+import {uploadImage} from '../../store/uploads'
 
 const ImageUploadForm = () => {
     const [image, setImage] = useState(null);
@@ -22,10 +22,9 @@ const ImageUploadForm = () => {
         const formData = new FormData();
         formData.append('file', image);
         formData.append('name', name);
+        // console.log(image, name, formData);
 
-        console.log(image, name, formData);
-
-        dispatch(uploadImage(formData));
+        const imgUrl = dispatch(uploadImage(formData));
     };
 
     return (

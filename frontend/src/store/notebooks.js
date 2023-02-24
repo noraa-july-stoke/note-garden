@@ -10,23 +10,6 @@ const actionLoadNotebooks = (notebooks) => {
     };
 };
 
-export const thunkLoadUserNotebooks = () => async (dispatch) => {
-    const response = await csrfFetch('/api/notebooks');
-    let data;
-    if (response.ok) {
-        data = await response.json();
-        const userNotebooks = {};
-        const collabNotebooks = {};
-        data.forEach((notebook) => {
-            if (notebook.isCollaborative) {
-                collabNotebooks[notebook.id] = notebook;
-            } else {
-                userNotebooks[notebook.id] = notebook;
-            }
-        });
-        dispatch(actionLoadNotebooks({ userNotebooks, collabNotebooks }));
-    }
-};
 
 const initialState = { userNotebooks: {}, collabNotebooks: {} };
 
@@ -35,13 +18,9 @@ const notebookReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case LOAD_NOTEBOOKS:
-            return {
-                ...state,
-                userNotebooks: action.notebooks.userNotebooks,
-                collabNotebooks: action.notebooks.collabNotebooks
-            };
+            return action.payload
         case ADD_NOTEBOOK:
-            return state;
+            return action.payload;
         default:
             return state;
     }
