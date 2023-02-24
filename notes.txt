@@ -1,3 +1,11 @@
 DB FOR FIRST FEATURES DONE
 
-need to finish backend for bucket image upload
+https://github.com/Paxa/postbird/releases
+
+https://github.com/jdrichardsappacad/aws-s3-pern-demo/blob/master/frontend/src/store/session.js
+
+need to dispatch note to server somehow
+
+need to add default notebook Id to user upon creation;
+
+finish save note thunk

@@ -1,32 +1,32 @@
 let options = {};
 options.schema = process.env.SCHEMA;
-options.tableName = "Users";
-  // define your schema in options object
+options.tableName = "ImageNotes"
 
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable(options, {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable(options, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      authorId: {
         type: Sequelize.INTEGER,
-        unique: true
+        allowNull: false
       },
-      username: {
-        type: Sequelize.STRING(30),
-        allowNull: false,
-        unique: true
+      notebookId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
-      email: {
-        type: Sequelize.STRING(256),
-        allowNull: false,
-        unique: true
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      url: {
+        type: Sequelize.STRING,
         allowNull: false
       },
       createdAt: {
@@ -41,7 +41,7 @@ module.exports = {
       }
     }, options);
   },
-  down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable(options, options);
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable(options, options);
   }
 };

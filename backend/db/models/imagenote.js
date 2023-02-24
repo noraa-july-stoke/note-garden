@@ -3,35 +3,35 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class TextNote extends Model {
+  class ImageNote extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      TextNote.belongsTo(models.User, {
+      ImageNote.belongsTo(models.User, {
         foreignKey: "authorId"
       });
 
-      TextNote.belongsTo(models.Notebook, {
+      ImageNote.belongsTo(models.Notebook, {
         foreignKey: "notebookId"
       });
-  }};
+  }}
 
-  TextNote.init({
+  ImageNote.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       unique: true
     },
-    authorId:{
+    authorId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true
     },
-    notebookId : {
+    notebookId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true
@@ -40,13 +40,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(60),
       allowNull: false
     },
-      note: {
-        type: DataTypes.STRING(2000),
-        allowNull: false
+    url: {
+      type: DataTypes.STRING(255),
+      allowNull: false
   }},
   {
     sequelize,
-    modelName: 'TextNote',
+    modelName: 'ImageNote',
   });
-  return TextNote;
+  return ImageNote;
 };

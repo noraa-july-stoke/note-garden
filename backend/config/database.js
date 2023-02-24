@@ -11,6 +11,7 @@ module.exports = {
     password: config.db.password,
     database: config.db.database,
     host: config.db.host,
+    schema: process.env.SCHEMA,
     define: {
       schema: process.env.SCHEMA
     }

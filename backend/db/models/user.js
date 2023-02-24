@@ -53,7 +53,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "authorId",
         onDelete: "CASCADE",
         hooks: true
-  })}};
+      })
+
+      User.hasMany(models.ImageNote, {
+        foreignKey: "authorId",
+        onDelete: "CASCADE",
+        hooks: true
+      })
+    }};
 
   User.init(
     {

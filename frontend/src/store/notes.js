@@ -5,7 +5,7 @@ const LOAD_NOTES_FAILED = "LOAD_FAILED"
 
 const actionLoadNotes = (notes) => ({
     type: LOAD_NOTES,
-    notes,
+    notes
 });
 
 
@@ -39,7 +39,8 @@ const initialState = {textNotes: {}, imageNotes: {}};
 const notesReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_NOTES:
-            return {textNotes: {...action.textNotes}, imageNotes: {...action.imageNotes}};
+            console.log(action.notes)
+            return {textNotes: {...action.notes.textNotes}, imageNotes: {...action.notes.imageNotes}};
         case SAVE_NOTE:
             return {...state};
         default:
