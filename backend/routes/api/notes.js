@@ -13,7 +13,6 @@ router.get('/all-notes', async (req, res) => {
     let notes = {}
     let textNotes = {}
     let imageNotes = {}
-    let collabNotes = {}
 
     const textNoteData = await TextNote.findAll({
         where: {
@@ -48,19 +47,25 @@ router.post('/image-note', async (req, res, next) => {
     let imageUrl
     try {
         const newFile = req.file
-        console.log(newFile)
         imageUrl = await uploadImage(newFile)
-        res
-            .status(200)
-            .json({
-                message: "Upload was successful",
-                data: imageUrl
-            })
     } catch (error) {
         next(error)
     }
 
+    const newTextNote = TextNote.build({
+        authorId: req.user.id,
+
+    })
+
+    res
+        .status(200)
+        .json({
+            message: "Upload was successful",
+            data: imageUrl
+        })
+
     console.log(imageUrl)
+    console.log(req.body.name)
 })
 
 router.post('/text-note', async (req, res, next) => {

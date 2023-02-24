@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     notebookId : {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       foreignKey: true
     },
     name: {

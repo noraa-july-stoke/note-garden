@@ -9,3 +9,17 @@ need to dispatch note to server somehow
 need to add default notebook Id to user upon creation;
 
 finish save note thunk
+
+    // const newSpot = Spot.build({
+    //     ownerId: req.user.id,
+    //     address,
+    //     city,
+    //     state,
+    //     country,
+    //     lat,
+    //     lng,
+    //     name,
+    //     description,
+    //     price
+    // });
+    // await newSpot.save();
