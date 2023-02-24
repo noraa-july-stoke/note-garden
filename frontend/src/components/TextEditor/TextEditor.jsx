@@ -6,10 +6,12 @@ import { Slate, Editable, withReact } from 'slate-react'
 import { serialize, deserialize } from '../ComponentHelpers/html-serializers'
 import './TextEditor.css'
 
+//At it's core, the slate editor is just a node list wrapped in an outer "<p></p>" tag.
+
 
 // !@#$ ultimately I want to pass in initial value as a prop with the noteid.
-// Maybe with
-const TextEditor = ({initialEditor}) => {
+// Maybe i can pass in the individual note and then deserialize the note html???
+const TextEditor = ({note}) => {
     //Preserves data through a re-render before updating based on previous value
 
     //!@#$ Might not need this anymore???
@@ -20,11 +22,12 @@ const TextEditor = ({initialEditor}) => {
     //     },
     // ])
 
-
+    const storedValue = JSON.parse(localStorage.getItem('content'))
+    //!@#$ we will set propvalue to the html of note;
+    // const propValue = null;
     const initialValue = useMemo(
         () =>
-            JSON.parse(
-                localStorage.getItem('content')) || [
+            storedValue || [
                 {
                     type: 'paragraph',
                     children: [{ text: 'What are you thinking about...?' }],
@@ -83,7 +86,6 @@ const TextEditor = ({initialEditor}) => {
 
     const editor = useMemo(() => withFormatting(withReact(createEditor())), [])
 
-
     const renderLeaf = ({ attributes, children, leaf }) => {
         if (leaf.bold) { children = <strong>{children}</strong> }
 
@@ -138,10 +140,10 @@ const TextEditor = ({initialEditor}) => {
         }
     }
 
-    const handleSaveClick = e => {
+    const handleSaveClick = async e => {
         // !@#$ trigger dispatch to database here
-        const htemelements = serialize(editor)
-        const document = new DOMParser().parseFromString(htemelements, 'text/html')
+        const htemelements = serialize(editor) //this serializes into html string.
+        const document = new DOMParser().parseFromString(htemelements, 'text/html') //this parses a dom from an html string;
         console.log(htemelements, deserialize(document.body))
         return null
     }
