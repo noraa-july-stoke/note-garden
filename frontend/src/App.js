@@ -25,7 +25,7 @@ function App() {
           </Route>
           <Route path='/all-notes'>
             <AllNotes />
-            <MakeNote/>
+            {/* <MakeNote/> */}
             <TextEditor/>
           </Route>
 

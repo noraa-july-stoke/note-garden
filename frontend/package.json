@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "escape-html": "^1.0.3",
     "js-cookie": "^3.0.1",
     "react": "^17",
     "react-dnd": "^16.0.1",
@@ -16,6 +17,7 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "slate": "^0.91.4",
+    "slate-hyperscript": "^0.77.0",
     "slate-react": "^0.91.4"
   },
   "scripts": {

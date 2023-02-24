@@ -1,13 +1,25 @@
 // Import React dependencies.
 import React, { useState, useMemo, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { createEditor, Editor, Transforms, useSlate } from 'slate'
+import { createEditor, Editor, Transforms, useSlate, Node } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
-import html from '../ComponentHelpers/html-deserializer';
+import { serialize, deserialize } from '../ComponentHelpers/html-serializers'
 import './TextEditor.css'
 
-const TextEditor = ({initialText}) => {
+
+// !@#$ ultimately I want to pass in initial value as a prop with the noteid.
+// Maybe with
+const TextEditor = ({initialEditor}) => {
     //Preserves data through a re-render before updating based on previous value
+
+    //!@#$ Might not need this anymore???
+    // const [value, setValue] = useState([
+    //     {
+    //         type: 'paragraph',
+    //         children: [{ text: 'A line of text in a paragraph.' }],
+    //     },
+    // ])
+
 
     const initialValue = useMemo(
         () =>
@@ -20,11 +32,6 @@ const TextEditor = ({initialText}) => {
             ],
         []
     )
-
-    useEffect(()=> {
-        //!@#$ dispatch thunk here tomorrow
-
-    })
 
     const withFormatting = (editor) => {
         const { isVoid } = editor
@@ -75,6 +82,8 @@ const TextEditor = ({initialText}) => {
     }
 
     const editor = useMemo(() => withFormatting(withReact(createEditor())), [])
+
+
     const renderLeaf = ({ attributes, children, leaf }) => {
         if (leaf.bold) { children = <strong>{children}</strong> }
 
@@ -131,6 +140,9 @@ const TextEditor = ({initialText}) => {
 
     const handleSaveClick = e => {
         // !@#$ trigger dispatch to database here
+        const htemelements = serialize(editor)
+        const document = new DOMParser().parseFromString(htemelements, 'text/html')
+        console.log(htemelements, deserialize(document.body))
         return null
     }
 
