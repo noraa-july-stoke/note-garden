@@ -26,7 +26,6 @@ router.get('/all-notes', async (req, res) => {
         textNotes[note.id] = note
     }
 
-
     const imageNoteData = await ImageNote.findAll({
         where: {
             authorId: userId
@@ -38,16 +37,12 @@ router.get('/all-notes', async (req, res) => {
         imageNotes[note.id] = note
     }
 
-
-
     notes.textNotes = textNotes;
     notes.imageNotes = imageNotes;
     console.log(notes)
 
     res.status(200).json(notes)
 })
-
-
 
 router.post('/image-note', async (req, res, next) => {
     let imageUrl
