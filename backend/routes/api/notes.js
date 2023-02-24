@@ -8,12 +8,15 @@ const { User, Notebook, ImageNote, TextNote } = require('../../db/models');
 const router = express.Router();
 const uploadImage = require('../../utils/upload-helpers')
 
+
+//GET ALL THE USER'S NOTES
 router.get('/all-notes', async (req, res) => {
     const userId = req.user.id;
     let notes = {}
     let textNotes = {}
     let imageNotes = {}
 
+    //Text Note Query
     const textNoteData = await TextNote.findAll({
         where: {
             authorId: userId
@@ -25,6 +28,7 @@ router.get('/all-notes', async (req, res) => {
         textNotes[note.id] = note
     }
 
+    //Image Note Query
     const imageNoteData = await ImageNote.findAll({
         where: {
             authorId: userId
@@ -41,10 +45,10 @@ router.get('/all-notes', async (req, res) => {
     console.log(notes)
 
     res.status(200).json(notes)
-})
+});
 
 router.post('/image-note', async (req, res, next) => {
-    let imageUrl
+    let imageUrl;
     try {
         const newFile = req.file
         imageUrl = await uploadImage(newFile)
@@ -52,21 +56,22 @@ router.post('/image-note', async (req, res, next) => {
         next(error)
     }
 
-    const newTextNote = TextNote.build({
-        authorId: req.user.id,
 
+    console.log("DATA FOR ROUTE:", req.user.id, req.body.name, imageUrl)
+    const newImageNote = ImageNote.build({
+        authorId: req.user.id,
+        name: req.body.name,
+        url: imageUrl
     })
 
-    res
-        .status(200)
-        .json({
-            message: "Upload was successful",
-            data: imageUrl
-        })
+    console.log(newImageNote)
+    const responseNote = await newImageNote.save()
 
-    console.log(imageUrl)
-    console.log(req.body.name)
-})
+    res
+        .status(201)
+        .json(responseNote)
+
+});
 
 router.post('/text-note', async (req, res, next) => {
 

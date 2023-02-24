@@ -7,13 +7,14 @@ import { Slate, Editable, withReact } from 'slate-react'
 
 const TextEditor = () => {
 
+    //Preserves data through a re-render before updating based on previous value
     const initialValue = useMemo(
         () =>
             JSON.parse(
                 localStorage.getItem('content')) || [
                 {
                     type: 'paragraph',
-                    children: [{ text: 'A line of text in a paragraph.' }],
+                    children: [{ text: 'What are you thinking about...?' }],
                 },
             ],
         []
@@ -46,7 +47,7 @@ const TextEditor = () => {
                 return insertText(text)
             }
 
-            const { selection } = editor
+            // const { selection } = editor
             const marks = Editor.marks(editor)
 
             if (marks) {
@@ -144,6 +145,7 @@ const TextEditor = () => {
     }
 
     const handleSaveClick = e => {
+        // !@#$ trigger dispatch to database here
         return null
     }
 
