@@ -10,17 +10,25 @@ const actionLoadNotebooks = (notebooks) => {
     };
 };
 
+export const thunkLoadNotebooks = () => async (dispatch) => {
+return null
+}
 
-const initialState = { userNotebooks: {}, collabNotebooks: {} };
+export const thunkAddNotebook = () => async (dispatch) => {
+return null
+}
+
+const initialState = { userNotebooks: {}, collabsNoteBbok:{}};
 
 const notebookReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
         case LOAD_NOTEBOOKS:
-            return action.payload
+            return {userNotebooks: {...action.payload.userNotebooks}, collabsNotebook:{...action.payload.collabsNotebook}}
         case ADD_NOTEBOOK:
             return action.payload;
+
         default:
             return state;
     }

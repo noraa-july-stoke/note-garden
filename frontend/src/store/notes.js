@@ -1,11 +1,13 @@
 import { csrfFetch } from "./csrf";
 const LOAD_NOTES = "LOAD_NOTES";
 const SAVE_NOTE = "SAVE_NOTE"
+const LOAD_NOTES_FAILED = "LOAD_FAILED"
 
 const actionLoadNotes = (notes) => ({
     type: LOAD_NOTES,
     notes,
 });
+
 
 export const thunkLoadNotes = () => async (dispatch) => {
     try {
@@ -32,28 +34,17 @@ export const thunkSaveNote = (note) => async (dispatch) => {
     }
 }
 
-const initialState = {
-    notes: {},
-    loading: false,
-    error: null,
-};
+const initialState = {textNotes: {}, imageNotes: {}};
 
 const notesReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_NOTES:
-            return {
-                ...state,
-                notes: action.notes,
-                loading: false,
-                error: null,
-            };
-
+            return {textNotes: {...action.textNotes}, imageNotes: {...action.imageNotes}};
         case SAVE_NOTE:
             return {...state};
         default:
             return state;
     }
 };
-
 
 export default notesReducer;
