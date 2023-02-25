@@ -1,11 +1,16 @@
 import { csrfFetch } from "./csrf";
 const LOAD_NOTES = "LOAD_NOTES";
-const SAVE_NOTE = "SAVE_NOTE"
+const CREATE_NOTE = "SAVE_NOTE"
 const LOAD_NOTES_FAILED = "LOAD_FAILED"
 
 const actionLoadNotes = (notes) => ({
     type: LOAD_NOTES,
     notes
+});
+
+const actionCreateNotes = (note) => ({
+    type: CREATE_NOTE,
+    note
 });
 
 
@@ -21,28 +26,34 @@ export const thunkLoadNotes = () => async (dispatch) => {
     }
 };
 
-export const thunkSaveNote = (note) => async (dispatch) => {
+
+export const thunkCreateNote = (note) => async (dispatch) => {
     try {
         const response = await csrfFetch("/api/notes/text-notes", {
             method: "POST",
             body: note
         });
         const data = await response.json();
-        dispatch(actionLoadNotes(data));
+        dispatch(actionCreateNote(data));
     } catch (error) {
         console.error("Error saving note:", error);
     }
 }
 
-const initialState = {textNotes: {}, imageNotes: {}};
+const initialState = {textNotes: {}, imageNotes: {}, singleNote:{}};
 
 const notesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOAD_NOTES:
+        case LOAD_NOTES:{
             console.log(action.notes)
-            return {textNotes: {...action.notes.textNotes}, imageNotes: {...action.notes.imageNotes}};
-        case SAVE_NOTE:
-            return {...state};
+            return {textNotes: {...action.notes.textNotes}, imageNotes: {...action.notes.imageNotes}, singleNote:{...state.singleNote}};
+        }
+        case CREATE_NOTE:
+            return {
+                textNotes: { ...state.textNotes },
+                imageNotes: { ...state.imageNotes },
+                singleNote: { ...state.singleNote }
+            };
         default:
             return state;
     }

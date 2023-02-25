@@ -10,20 +10,15 @@ const {serialize, deserialize} = helpers;
 
 //At it's core, the slate editor is just a node list wrapped in an outer "<p></p>" tag.
 
-
 // !@#$ ultimately I want to pass in initial value as a prop with the noteid.
 // Maybe i can pass in the individual note and then deserialize the note html???
 const TextEditor = ({note}) => {
     //Preserves data through a re-render before updating based on previous value
 
-    // !@#$ Might not need this anymore???
-
     //State Variables. html contend will be rendered inside this starting div.
     const storedValue = localStorage.getItem('content')
     const [htmlContent, setHtmlContent] = useState(DOMPurify.sanitize(storedValue))
-    // const [element, setElement] = useState(<div></div>)
 
-    // console.log(element)
 
     let deserializedValue = null;
     if (storedValue){
@@ -58,7 +53,6 @@ const TextEditor = ({note}) => {
                 return insertText(text)
             }
 
-            // const { selection } = editor
             const marks = Editor.marks(editor)
             if (marks) {
                 if (marks.bold) {
@@ -129,7 +123,6 @@ const TextEditor = ({note}) => {
         Editor.removeMark(editor, Object.keys(marks))
     }
 
-
     const handleColorChange = (e) => {
         const color = e.target.value
 
@@ -149,17 +142,14 @@ const TextEditor = ({note}) => {
         // !@#$ trigger dispatch to database here
         const content = serialize(editor)
         localStorage.setItem('content', content)
+
     }
 
     const handleChange = value => {
-        const content = serialize(editor)
-        // localStorage.setItem('content', content)
         setHtmlContent(DOMPurify.sanitize(serialize(editor)))
-        // setElement(element.setHTML(htmlContent))
         const element = document.getElementById('custom-div');
         console.log(element)
         element.setHTML(htmlContent)
-        // console.log(editor)
     }
 
     return (

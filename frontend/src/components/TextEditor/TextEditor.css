@@ -12,3 +12,9 @@
 .save-button{
     width: 100%
 }
+
+#custom-div{
+    height: fit-content;
+    width: fit-content;
+    border: 1px solid black;
+}
