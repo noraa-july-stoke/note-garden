@@ -8,6 +8,12 @@ export const serialize = node => {
         if (node.bold) {
             string = `<strong>${string}</strong>`
         }
+        if (node.color) {
+            string = `<span style="color:${node.color}">${string}</span>`
+        }
+        if (node.style) {
+            string = `<span style="${node.style}">${string}</span>`
+        }
         return string
     }
 
@@ -36,10 +42,26 @@ export const deserialize = (el, markAttributes = {}) => {
 
     // define attributes for text nodes
     switch (el.nodeName) {
-        case 'strong':
+        case 'STRONG':
             nodeAttributes.bold = true
+            break
+        case 'SPAN':
+            if (el.style.color) {
+                nodeAttributes.color = el.style.color
+            }
+            if (el.style.fontStyle) {
+                nodeAttributes.style = `font-style:${el.style.fontStyle}`
+            }
+            if (el.style.fontWeight) {
+                nodeAttributes.style = `font-weight:${el.style.fontWeight}`
+            }
+            if (el.style.textDecoration) {
+                nodeAttributes.style = `text-decoration:${el.style.textDecoration}`
+            }
+            break
     }
 
+    // flatens each node into something that can be turned into a string.
     const children = Array.from(el.childNodes)
         .map(node => deserialize(node, nodeAttributes))
         .flat()
