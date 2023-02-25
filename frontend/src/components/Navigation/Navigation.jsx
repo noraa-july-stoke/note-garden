@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
@@ -26,4 +26,4 @@ function Navigation({isLoaded}) {
     );
 }
 
-export default Navigation;
+export default withRouter(Navigation);

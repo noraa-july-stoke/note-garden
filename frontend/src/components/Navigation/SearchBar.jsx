@@ -15,11 +15,12 @@ const SearchBar = () => {
         // Implement search logic here later
         // maybe make a fetch request to the server to get the search results
         // const
-
+        let route = '/'
         const command = actionGenerator(query)
         //!@#$ this is not working right???
-        console.log(command)
-        if (command) searchReducer(command, history)
+        if (command) route = searchReducer(command)
+        console.log(route, command)
+        history.push(route)
         setSearchQuery("")
     };
 
@@ -37,7 +38,7 @@ const SearchBar = () => {
             <input
                 className="search-bar"
                 type="text"
-                placeholder="Search..."
+                placeholder="What would you like to do?"
                 value={searchQuery}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}

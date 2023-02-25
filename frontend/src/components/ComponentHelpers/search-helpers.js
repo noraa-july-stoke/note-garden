@@ -1,39 +1,43 @@
 export const actionGenerator = (inputString) => {
     //Returns boolean if a valid command is not found in the phrase.
     const createKeywords = ["make", "create", "add", "generate", "new", "build", "mate", "creet", "cr8", "addin", "genarate", "neew", "bild"];
-    const noteKeywords = ["note", "memo", "reminder", "jot", "not", "meme", "remender", "jott", "nate"];
-    const notebookKeywords = ["notebook", "nootbook", "notbook", "journel", "jornal", "diery", "diarry", "logbok", "scrapbok", "scrapbuk", "recrod", "journal", "diary", "logbook", "scrapbook"];
+    const noteKeywords = ["note", "memo", "reminder", "jot", "not", "meme", "remender", "jott", "nate", "n8"];
+    const notebookKeywords = ["notebook", "nootbook","ntebook", "notbook", "journel", "jornal", "diery", "diarry", "logbok", "scrapbok", "scrapbuk", "recrod", "journal", "diary", "logbook", "scrapbook"];
 
     const words = inputString.toLowerCase().split(" ");
-    let newWord = "";
+    let newWords = [];
 
     for (let i = 0; i < words.length; i++) {
         if (createKeywords.includes(words[i])) {
-            newWord += "new ";
+            if (newWords.includes("new")) continue;
+            newWords.push("new");
         }
 
         if (notebookKeywords.includes(words[i])) {
-            newWord += "notebook ";
+            if (newWords.includes("notebook")) continue;
+            newWords.push("notebook")
         }
 
         if (noteKeywords.includes(words[i]) && words.indexOf("notebook") === -1) {
-            newWord += "note ";
+            if (newWords.includes("note")) continue;
+            newWords.push("note")
         }
-        if (newWord.split(' ').length > 2) return newWord
+
+        if (newWords.length > 1) return newWords.join("")
 
     }
-    if (newWord.split(' ').length < 2 ) return false
-    return newWord
+    if (newWords.length < 2) return false
+    return newWords.sort().join("")
 }
 
 
 //A mini switch statement I based on a redux pattern.
 export const searchReducer = (word, history) => {
     switch (word) {
-        case "new note":
-            return history.push("/new-note");
-        case "new notebook":
-            return history.push("/new-notebook");
+        case "newnote":
+            return "/new-note";
+        case "newnotebook":
+            return "/new-notebook";
         default:
             break;
     }

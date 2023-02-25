@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { createEditor, Editor, Transforms, useSlate, Node } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
+import DOMPurify from 'dompurify';
 import {helpers} from '../ComponentHelpers/index.js'
 import './TextEditor.css'
 const {serialize, deserialize} = helpers;
@@ -15,15 +16,15 @@ const {serialize, deserialize} = helpers;
 const TextEditor = ({note}) => {
     //Preserves data through a re-render before updating based on previous value
 
-    //!@#$ Might not need this anymore???
-    // const [value, setValue] = useState([
-    //     {
-    //         type: 'paragraph',
-    //         children: [{ text: 'A line of text in a paragraph.' }],
-    //     },
-    // ])
+    // !@#$ Might not need this anymore???
 
+    //State Variables. html contend will be rendered inside this starting div.
     const storedValue = localStorage.getItem('content')
+    const [htmlContent, setHtmlContent] = useState(DOMPurify.sanitize(storedValue))
+    // const [element, setElement] = useState(<div></div>)
+
+    // console.log(element)
+
     let deserializedValue = null;
     if (storedValue){
         const document = new DOMParser().parseFromString(storedValue, 'text/html')
@@ -151,13 +152,18 @@ const TextEditor = ({note}) => {
     }
 
     const handleChange = value => {
-        // const content = serialize(editor)
+        const content = serialize(editor)
         // localStorage.setItem('content', content)
-        // console.log(content)
+        setHtmlContent(DOMPurify.sanitize(serialize(editor)))
+        // setElement(element.setHTML(htmlContent))
+        const element = document.getElementById('custom-div');
+        console.log(element)
+        element.setHTML(htmlContent)
         // console.log(editor)
     }
 
     return (
+        <div>
         <div className='text-editor-container' >
             <div className="text-editor-toolbar">
                 <button className="utility-button feedback-button" onClick={handleBoldClick}><b>Bold</b></button>
@@ -170,6 +176,8 @@ const TextEditor = ({note}) => {
                 <Editable className='text-editor' renderLeaf={renderLeaf} />
             </Slate>
             <button className="utility-button feedback-button save-button" onClick={handleSaveClick}> Save your progress </button>
+        </div>
+        <div id="custom-div"></div>
         </div>
     )
 }
