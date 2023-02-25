@@ -1,3 +1,9 @@
+KNOWN BUGS:
+
+1. search reducer not working
+
+
+
 DB FOR FIRST FEATURES DONE
 
 https://github.com/Paxa/postbird/releases
@@ -15,3 +21,13 @@ need to work on command functionality
 
 
 need to make it so that the localstorage makes separate keys for the notes
+
+
+to do tomorrow:
+
+create, save, edit, delete text note;
+create, save, edit, delete notebook;
+
+
+
+make an all notes page please

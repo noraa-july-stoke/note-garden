@@ -1,4 +1,4 @@
-import { processString } from "./search-helper";
+import { actionGenerator, searchReducer } from "./search-helpers";
 import { serialize, deserialize } from "./html-serializers";
 
-export const helpers = {processString, serialize, deserialize}
+export const helpers = {searchReducer, actionGenerator, serialize, deserialize}
