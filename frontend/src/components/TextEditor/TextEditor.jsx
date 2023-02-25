@@ -22,9 +22,13 @@ const TextEditor = ({note}) => {
     //     },
     // ])
 
-    const storedValue = localStorage.getItem('content2')
-    const document = new DOMParser().parseFromString(storedValue, 'text/html')
-    const deserializedValue = deserialize(document.body)
+    const storedValue = localStorage.getItem('content')
+    let deserializedValue = null;
+    if (storedValue){
+        const document = new DOMParser().parseFromString(storedValue, 'text/html')
+        deserializedValue = deserialize(document.body)
+    }
+
     //!@#$ we will set propvalue to the html string of note;
     // const propValue = null;
     const initialValue = useMemo(
@@ -141,28 +145,16 @@ const TextEditor = ({note}) => {
 
     const handleSaveClick = async e => {
         // !@#$ trigger dispatch to database here
-        console.log(editor)
-        const htemelements = serialize(editor) //this serializes into html string.
-        const document = new DOMParser().parseFromString(htemelements, 'text/html') //this parses a dom from an html string;
-        console.log(htemelements, document.body, deserialize(document.body))
-        return null
+        const content = serialize(editor)
+        localStorage.setItem('content', content)
     }
 
     const handleChange = value => {
-        // const isAstChange = editor.operations.some(
-        //     op => 'set_selection' !== op.type
-        // )
+        // const content = serialize(editor)
+        // localStorage.setItem('content', content)
+        // console.log(content)
         // console.log(editor)
-        // console.log(value)
-        const content = JSON.stringify(value)
-        localStorage.setItem('content', content)
-        const content2 = serialize(editor)
-        localStorage.setItem('content2', content2)
-        console.log("ONE! ->>>>>>>", localStorage.getItem('content'), "TWO! ->>>>>>>", localStorage.getItem('content2'))
-        // const document = new DOMParser().parseFromString(content2, 'text/html')
-        // console.log(content2)
     }
-
 
     return (
         <div className='text-editor-container' >
