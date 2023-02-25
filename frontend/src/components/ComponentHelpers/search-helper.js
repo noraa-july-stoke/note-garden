@@ -1,4 +1,4 @@
-const processString = (inputString) => {
+export const processString = (inputString) => {
     const createKeywords = ["make", "create", "add", "generate", "new", "build", "mate", "creet", "cr8", "addin", "genarate", "neew", "bild"];
     const noteKeywords = ["note", "memo", "reminder", "jot", "not", "meme", "remender", "jott"];
     const notebookKeywords = ["notebook", "nootbook", "notbook", "journel", "jornal", "diery", "diarry", "logbok", "scrapbok", "scrapbuk", "recrod", "journal", "diary", "logbook", "scrapbook"];
@@ -21,3 +21,15 @@ const processString = (inputString) => {
     }
     return newWord
 }
+
+const searchReducer = (newWord, history) => {
+    switch (newWord) {
+        case "new note":
+            history.push("/new-note");
+            break;
+        case "new notebook":
+            history.push("/new-notebook");
+            break;
+        default:
+    }
+};

@@ -3,8 +3,9 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { createEditor, Editor, Transforms, useSlate, Node } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
-import { serialize, deserialize } from '../ComponentHelpers/html-serializers'
+import {helpers} from '../ComponentHelpers/index.js'
 import './TextEditor.css'
+const {serialize, deserialize} = helpers;
 
 //At it's core, the slate editor is just a node list wrapped in an outer "<p></p>" tag.
 

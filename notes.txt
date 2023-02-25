@@ -10,16 +10,8 @@ need to add default notebook Id to user upon creation;
 
 finish save note thunk
 
-    // const newSpot = Spot.build({
-    //     ownerId: req.user.id,
-    //     address,
-    //     city,
-    //     state,
-    //     country,
-    //     lat,
-    //     lng,
-    //     name,
-    //     description,
-    //     price
-    // });
-    // await newSpot.save();
+
+need to work on command functionality
+
+
+need to make it so that the localstorage makes separate keys for the notes
