@@ -6,6 +6,7 @@ import { Slate, Editable, withReact } from 'slate-react'
 import DOMPurify from 'dompurify';
 import {helpers} from '../ComponentHelpers/index.js'
 import './TextEditor.css'
+import { thunkCreateNote } from '../../store/notes.js';
 const {serialize, deserialize} = helpers;
 
 //At it's core, the slate editor is just a node list wrapped in an outer "<p></p>" tag.
@@ -16,15 +17,20 @@ const TextEditor = ({note}) => {
     //Preserves data through a re-render before updating based on previous value
 
     //State Variables. html contend will be rendered inside this starting div.
+    const dispatch = useDispatch();
     const storedValue = localStorage.getItem('content')
     const [htmlContent, setHtmlContent] = useState(DOMPurify.sanitize(storedValue))
-
+    const [name, setName] = useState("")
 
     let deserializedValue = null;
     if (storedValue){
         const document = new DOMParser().parseFromString(storedValue, 'text/html')
         deserializedValue = deserialize(document.body)
     }
+
+    useEffect(() => {
+        console.log(name, htmlContent);
+    }, [name, htmlContent]);
 
     //!@#$ we will set propvalue to the html string of note;
     // const propValue = null;
@@ -142,18 +148,27 @@ const TextEditor = ({note}) => {
         // !@#$ trigger dispatch to database here
         const content = serialize(editor)
         localStorage.setItem('content', content)
+        const note = {
+            name: name,
+            note: content
+        }
+        await dispatch(thunkCreateNote(note))
 
     }
 
-    const handleChange = value => {
+    const handleNameChange = e => {
+        setName(e.target.value)
+    }
+
+    const handleChange = e => {
         setHtmlContent(DOMPurify.sanitize(serialize(editor)))
         const element = document.getElementById('custom-div');
-        console.log(element)
         element.setHTML(htmlContent)
     }
 
     return (
         <div>
+            <input type="text" value={name} onChange={handleNameChange} placeholder='Enter a name for your note'></input>
         <div className='text-editor-container' >
             <div className="text-editor-toolbar">
                 <button className="utility-button feedback-button" onClick={handleBoldClick}><b>Bold</b></button>

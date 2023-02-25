@@ -73,10 +73,16 @@ router.post('/image-note', async (req, res, next) => {
 });
 
 router.post('/text-note', async (req, res, next) => {
-    const note = req.body.note
-    console.log(note)
+    const { note } = req.body;
 
-    res.json("route functional")
+    // const newNote = await TextNote.create({
+    //     authorId,
+    //     notebookId,
+    //     name,
+    //     note,
+    // });
+    res.json(note);
 
 })
+
 module.exports = router;

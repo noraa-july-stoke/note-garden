@@ -8,7 +8,7 @@ const actionLoadNotes = (notes) => ({
     notes
 });
 
-const actionCreateNotes = (note) => ({
+const actionCreateNote = (note) => ({
     type: CREATE_NOTE,
     note
 });
@@ -26,15 +26,18 @@ export const thunkLoadNotes = () => async (dispatch) => {
     }
 };
 
-
 export const thunkCreateNote = (note) => async (dispatch) => {
     try {
-        const response = await csrfFetch("/api/notes/text-notes", {
+        const response = await csrfFetch("/api/notes/text-note", {
             method: "POST",
-            body: note
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({note})
         });
         const data = await response.json();
-        dispatch(actionCreateNote(data));
+        console.log(data)
+        // dispatch(actionCreateNote(data));
     } catch (error) {
         console.error("Error saving note:", error);
     }
