@@ -13,7 +13,9 @@ const {serialize, deserialize} = helpers;
 
 // !@#$ ultimately I want to pass in initial value as a prop with the noteid.
 // Maybe i can pass in the individual note and then deserialize the note html???
-const TextEditor = ({note}) => {
+// the note prop coming into component is going to be a note object with a key that
+// contains the same value as what is put into locastorage
+const TextEditor = ({note, notebooks}) => {
     //Preserves data through a re-render before updating based on previous value
 
     //State Variables. html contend will be rendered inside this starting div.
@@ -171,15 +173,16 @@ const TextEditor = ({note}) => {
             <input type="text" value={name} onChange={handleNameChange} placeholder='Enter a name for your note'></input>
         <div className='text-editor-container' >
             <div className="text-editor-toolbar">
-                <button className="utility-button feedback-button" onClick={handleBoldClick}><b>Bold</b></button>
-            <button className="utility-button feedback-button" onClick={handleItalicClick}><em>Italic</em></button>
-            <button className="utility-button feedback-button" onClick={handleResetFormatting}>Reset Formatting</button>
-                <input className="utility-button feedback-button" type="color" onChange={handleColorChange} />
+                <button className="toolbar-button" onClick={handleBoldClick}><b>B</b></button>
+                    <button className="toolbar-button" onClick={handleItalicClick}><em>I</em></button>
+                    <button className="format-button" onClick={handleResetFormatting}>Reset Formatting</button>
+                    <input className="toolbar-button" type="color" onChange={handleColorChange} />
             </div>
-
+            <div className="editor-wrapper">
             <Slate editor={editor} value={initialValue} onChange={handleChange}>
                 <Editable className='text-editor' renderLeaf={renderLeaf} />
             </Slate>
+            </div>
             <button className="utility-button feedback-button save-button" onClick={handleSaveClick}> Save your progress </button>
         </div>
         <div id="custom-div"></div>

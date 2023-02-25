@@ -1,20 +1,79 @@
 .text-editor-toolbar{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background-color: black;
 }
 
 .text-editor-container {
     border: 2px solid black;
-    width: fit-content;
     overflow: hidden;
+    width: 700px;
+    border-radius: 5px;
 }
 
 .save-button{
     width: 100%
 }
 
+.editor-wrapper{
+    border: 2px solid black;
+}
+
 #custom-div{
     height: fit-content;
     width: fit-content;
-    border: 1px solid black;
+}
+
+
+.toolbar-button {
+    display: flex;
+    flex-direction: row;
+    width: 35px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in;
+    border: none;
+}
+
+.toolbar-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.toolbar-button:active {
+    background-color: rgba(205, 205, 205, 0.5);
+    transform: translateY(0.5px) translateX(0.5px);
+}
+
+
+.format-button {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in;
+    border: none;
+}
+
+.format-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.format-button:active {
+    background-color: rgba(205, 205, 205, 0.5);
+    transform: translateY(0.5px) translateX(0.5px);
 }

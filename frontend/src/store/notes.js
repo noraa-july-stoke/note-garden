@@ -30,9 +30,6 @@ export const thunkCreateNote = (note) => async (dispatch) => {
     try {
         const response = await csrfFetch("/api/notes/text-note", {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({note})
         });
         const data = await response.json();

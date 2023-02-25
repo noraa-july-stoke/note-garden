@@ -73,15 +73,19 @@ router.post('/image-note', async (req, res, next) => {
 });
 
 router.post('/text-note', async (req, res, next) => {
-    const { note } = req.body;
+    let { name, note, notebookId } = req.body.note;
+    notebookId ? null: notebookId = null;
+    const userId = req.user.id;
 
-    // const newNote = await TextNote.create({
-    //     authorId,
-    //     notebookId,
-    //     name,
-    //     note,
-    // });
-    res.json(note);
+    const newTextNote = await TextNote.create({
+        authorId: userId,
+        notebookId,
+        name,
+        note,
+    });
+    const responseNote = await newTextNote.save()
+    console.log("NAME", name, note, "NOTEBOOKID", notebookId)
+    res.json(responseNote);
 
 })
 
