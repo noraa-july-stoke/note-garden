@@ -12,6 +12,22 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
 
+    async getNotes() {
+      const ImageNote = sequelize.models.ImageNote;
+      const TextNote = sequelize.models.TextNote;
+
+      const imageNotes = await ImageNote.findAll({
+        where: { authorId: this.id },
+      });
+
+      const textNotes = await TextNote.findAll({
+        where: { authorId: this.id },
+      });
+
+      return { imageNotes, textNotes };
+    }
+
+
     async createDefaultNotebook() {
       const Notebook = sequelize.models.Notebook;
       const notebook = await Notebook.create({ name: 'Default', authorId: this.id });
@@ -134,7 +150,8 @@ module.exports = (sequelize, DataTypes) => {
         through: models.Pal,
         otherKey: "palOne"
       });
-    }};
+    }
+  };
 
   User.init(
     {
@@ -152,8 +169,10 @@ module.exports = (sequelize, DataTypes) => {
           isNotEmail(value) {
             if (Validator.isEmail(value)) {
               throw new Error("Cannot be an email.");
-      }}}},
-
+            }
+          }
+        }
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -161,8 +180,17 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: [3, 256],
           isEmail: true
-      }},
-      defaultNotebookId:{
+        }
+      },
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      defaultNotebookId: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
@@ -175,7 +203,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           len: [60, 60]
-      }}},
+        }
+      }
+    },
 
     {
       sequelize,
@@ -191,7 +221,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         loginUser: {
           attributes: {}
-      }}});
+        }
+      }
+    });
 
   return User;
 };

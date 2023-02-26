@@ -1,5 +1,9 @@
 const { ImageNotebook, User } = require('../models');
 
+let options = {};
+options.schema = process.env.SCHEMA; // define your schema in options object
+options.tableName = 'ImageNotebooks';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const users = await User.findAll();
@@ -8,18 +12,16 @@ module.exports = {
       for (let i = 0; i < 3; i++) {
         notebooks.push({
           authorId: user.id,
-          name: `Image Notebook ${i + 1}`,
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          name: `Image Notebook ${i + 1}`
         });
       }
     }
-    return queryInterface.bulkInsert('ImageNotebooks', notebooks, {});
+    return queryInterface.bulkInsert(options, notebooks, {});
   },
 
   down: async (queryInterface, Sequelize) => {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('ImageNotebooks', {
+    return queryInterface.bulkDelete(options, {
       name: { [Op.in]: ['Image Notebook 1', 'Image Notebook 2', 'Image Notebook 3'] },
     }, {});
   },

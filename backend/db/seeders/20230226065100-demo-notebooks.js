@@ -1,5 +1,5 @@
 'use strict';
-const { Notebook, User } = require('../models');
+const { User } = require('../models');
 
 let options = {};
 options.schema = process.env.SCHEMA; // define your schema in options object

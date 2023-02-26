@@ -21,6 +21,14 @@ module.exports = {
           len: [3, 30]
         }
       },
+      firstName: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
+      lastName: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
       defaultNotebookId: {
         type: Sequelize.INTEGER,
         allowNull: true
