@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       ImageNote.belongsTo(models.Notebook, {
         foreignKey: "notebookId"
       });
-  }}
+    }
+  }
 
   ImageNote.init({
     id: {
@@ -43,10 +44,11 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING(255),
       allowNull: false
-  }},
-  {
-    sequelize,
-    modelName: 'ImageNote',
-  });
+    }
+  },
+    {
+      sequelize,
+      modelName: 'ImageNote',
+    });
   return ImageNote;
 };

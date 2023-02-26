@@ -1,0 +1,137 @@
+
+let options = {};
+options.schema = process.env.SCHEMA;  // define your schema in options object
+options.tableName = 'Notebooks';
+
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert(options, [
+      {
+        name: 'Notebook One',
+        authorId: 1
+      },
+      {
+        name: 'Notebook Two',
+        authorId: 1
+      },
+      {
+        name: 'Notebook Three',
+        authorId: 1
+      },
+    ], {});
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(options, {
+      authorId: 1
+    }, {});
+  }
+};
+
+
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    /**
+     * Add seed commands here.
+     *
+     * Example:
+     * await queryInterface.bulkInsert('People', [{
+     *   name: 'John Doe',
+     *   isBetaMember: false
+     * }], {});
+    */
+  },
+
+  async down (queryInterface, Sequelize) {
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
+  }
+};
+
+
+
+let options = {};
+options.schema = process.env.SCHEMA;  // define your schema in options object
+options.tableName = 'TextNotes';
+
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert(options, [
+      {
+        name: 'Note One',
+        authorId: 1,
+        notebookId: 1,
+        note: "this is demo text-note one"
+      },
+      {
+        name: 'Note Two',
+        authorId: 1,
+        notebookId: 1,
+        note: "this is demo text-note one"
+      },
+      {
+        name: 'Note Three',
+        authorId: 1,
+        notebookId: 2,
+        note: "this is demo text-note one"
+      },
+    ], {});
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(options, {
+      authorId:1
+    }, {});
+  }
+};
+
+
+
+
+let options = {};
+options.schema = process.env.SCHEMA;  // define your schema in options object
+options.tableName = 'ImageNotes';
+
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert(options, [
+      {
+        name: 'Note One',
+        authorId: 1,
+        notebookId: 1,
+        url: "https://www.etsy.com/img/35559346/r/il/89bc21/3901020588/il_1588xN.3901020588_53lr.jpg"
+      },
+      {
+        name: 'Note Two',
+        authorId: 1,
+        notebookId: 1,
+        url: "https://www.etsy.com/img/35559346/r/il/89bc21/3901020588/il_1588xN.3901020588_53lr.jpg"
+      },
+      {
+        name: 'Note Three',
+        authorId: 1,
+        notebookId: 2,
+        url: "https://www.etsy.com/img/35559346/r/il/89bc21/3901020588/il_1588xN.3901020588_53lr.jpg"
+      },
+    ], {});
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(options, {
+      authorId: 1
+    }, {});
+  }
+};

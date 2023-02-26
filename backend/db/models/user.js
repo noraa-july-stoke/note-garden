@@ -4,12 +4,18 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, username, email } = this; // context will be the User instance
-      return { id, username, email };
+      const { id, username, email, defaultNotebookId } = this; // context will be the User instance
+      return { id, username, email, defaultNotebookId };
     }
 
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
+    }
+
+    async createDefaultNotebook() {
+      const Notebook = sequelize.models.Notebook;
+      const notebook = await Notebook.create({ name: 'Default Notebook', authorId: this.id });
+      await this.update({ defaultNotebookId: notebook.id });
     }
 
     static getCurrentUserById(id) {
@@ -49,11 +55,17 @@ module.exports = (sequelize, DataTypes) => {
         hooks: true
       });
 
+      User.hasMany(models.ImageNotebook, {
+        foreignKey: "authorId",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
       User.hasMany(models.TextNote, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
         hooks: true
-      })
+      });
 
       User.hasMany(models.ImageNote, {
         foreignKey: "authorId",
@@ -83,6 +95,10 @@ module.exports = (sequelize, DataTypes) => {
           len: [3, 256],
           isEmail: true
       }},
+      defaultNotebookId:{
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
         allowNull: false,

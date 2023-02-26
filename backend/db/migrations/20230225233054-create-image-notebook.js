@@ -1,7 +1,6 @@
 let options = {};
 options.schema = process.env.SCHEMA;
-options.tableName = "Notebooks"
-
+options.tableName = "ImageNotebooks"
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -11,16 +10,13 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
-        unique: true
+        type: Sequelize.INTEGER
       },
       authorId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -31,7 +27,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-
       }
     }, options);
   },

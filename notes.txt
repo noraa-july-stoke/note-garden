@@ -31,3 +31,22 @@ create, save, edit, delete notebook;
 
 
 make an all notes page please
+
+
+
+ROUTES NEEDED:
+
+route that gives all notes froma specific notebook,
+get single note by id;
+
+
+
+
+RENDER: get google api working with render by no later than tomorrow!!(sunday)
+
+
+
+
+REXUX:
+
+working in redux notes: LOAD_NOTES, SINGLE_NOTE, CREATE_NOTE

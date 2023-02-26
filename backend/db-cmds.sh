@@ -8,9 +8,10 @@ npx dotenv sequelize db:migrate:undo:all
 User Model:
 npx sequelize model:generate --name User --attributes username:string,email:string,hashedPassword:string
 
-NoteBook Model
+Notebook Model
 npx sequelize model:generate --name Notebook --attributes authorId:integer,name:string
-
+ImageNotebook Model
+npx sequelize model:generate --name ImageNotebook --attributes authorId:integer,name:string
 TextNote
 npx sequelize model:generate --name TextNote --attributes authorId:integer,name:string,note:string
 

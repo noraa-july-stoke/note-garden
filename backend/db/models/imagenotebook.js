@@ -3,52 +3,42 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class TextNote extends Model {
+  class ImageNotebook extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      TextNote.belongsTo(models.User, {
-        foreignKey: "authorId"
+
+      ImageNotebook.hasMany(models.ImageNote, {
+        foreignKey: "notebookId",
+        hooks: true
       });
 
-      TextNote.belongsTo(models.Notebook, {
-        foreignKey: "notebookId"
+      ImageNotebook.belongsTo(models.User, {
+        foreignKey: "authorId"
       });
     }
   };
 
-  TextNote.init({
+  ImageNotebook.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true,
-      unique: true
+      primaryKey: true
     },
     authorId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      foreignKey: true
-    },
-    notebookId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      foreignKey: true
+      allowNull: false
     },
     name: {
       type: DataTypes.STRING(60),
       allowNull: false
-    },
-    note: {
-      type: DataTypes.STRING(2000),
-      allowNull: false
     }
-  },
-    {
-      sequelize,
-      modelName: 'TextNote',
-    });
-  return TextNote;
+  }, {
+    sequelize,
+    modelName: 'ImageNotebook',
+  });
+  return ImageNotebook;
 };

@@ -1,19 +1,33 @@
 import { csrfFetch } from "./csrf";
+
 const LOAD_NOTES = "LOAD_NOTES";
-const CREATE_NOTE = "SAVE_NOTE"
-const LOAD_NOTES_FAILED = "LOAD_FAILED"
+const LOAD_NOTEBOOK_NOTES = "LOAD_NOTEBOOK_NOTES";
+const LOAD_SINGLE_NOTE = "LOAD_SINGLE_NOTE";
+const CREATE_TEXT_NOTE = "CREATE_TEXT_NOTE";
 
 const actionLoadNotes = (notes) => ({
     type: LOAD_NOTES,
     notes
 });
 
-const actionCreateNote = (note) => ({
-    type: CREATE_NOTE,
+const actionLoadNotebookNotes = (notes) => ({
+    type: LOAD_NOTEBOOK_NOTES,
+    notes
+});
+
+const actionLoadSingleNote = (note) => ({
+    type: LOAD_SINGLE_NOTE,
     note
 });
 
+const actionCreateTextNote = (singleNote) => ({
+    type: CREATE_TEXT_NOTE,
+    singleNote
+});
 
+
+
+//Loads user's imagenotes and textnotes
 export const thunkLoadNotes = () => async (dispatch) => {
     try {
         const response = await  csrfFetch("/api/notes/all-notes", {
@@ -26,33 +40,65 @@ export const thunkLoadNotes = () => async (dispatch) => {
     }
 };
 
-export const thunkCreateNote = (note) => async (dispatch) => {
+
+//Loads Notes from a single notebook.
+export const thunkLoadNotebookNotes = () => async (dispatch) => {
+    return null
+}
+
+
+// Loads a single note.
+export const thunkLoadSingleNote = (noteId) => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/notes/text-notes/${noteId}`, {
+            method: "GET"
+        });
+        const data = await response.json();
+        dispatch(actionLoadSingleNote(data));
+    } catch (error) {
+        console.error("Error loading note:", error);
+    }
+}
+
+//creates a new note and sends it to DB & updates state with new note
+export const thunkCreateTextNote = (note) => async (dispatch) => {
     try {
         const response = await csrfFetch("/api/notes/text-note", {
             method: "POST",
             body: JSON.stringify({note})
         });
         const data = await response.json();
-        console.log(data)
-        // dispatch(actionCreateNote(data));
+        dispatch(actionCreateTextNote)
     } catch (error) {
         console.error("Error saving note:", error);
     }
 }
 
-const initialState = {textNotes: {}, imageNotes: {}, singleNote:{}};
-
+const initialState = {textNotes: {}, imageNotes: {}, notebookNotes:{}, singleNote:{}};
 const notesReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_NOTES:{
-            console.log(action.notes)
-            return {textNotes: {...action.notes.textNotes}, imageNotes: {...action.notes.imageNotes}, singleNote:{...state.singleNote}};
+            return {
+                textNotes: { ...action.notes.textNotes },
+                imageNotes: { ...action.notes.imageNotes },
+                notebookNotes: { ...state.notebookNotes },
+                singleNote: { ...state.singleNote }};
         }
-        case CREATE_NOTE:
+
+        case LOAD_SINGLE_NOTE:
             return {
                 textNotes: { ...state.textNotes },
                 imageNotes: { ...state.imageNotes },
-                singleNote: { ...state.singleNote }
+                notebookNotes: { ...state.notebookNotes },
+                singleNote: { ...action.note }
+            };
+
+        case CREATE_TEXT_NOTE:
+            return {
+                textNotes: { ...state.textNotes },
+                imageNotes: { ...state.imageNotes },
+                notebookNotes: {...state.notebookNotes},
+                singleNote: { ...action.singleNote }
             };
         default:
             return state;

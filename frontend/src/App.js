@@ -6,8 +6,7 @@ import Navigation from "./components/Navigation";
 import ImageUploadForm from "./components/Forms";
 import TextEditor from "./components/TextEditor";
 import AllNotes from "./components/NotesComponents/AllNotes";
-import MakeNote from "./components/NotesComponents/MakeNote";
-
+import SingleNotePage from "./components/NotesComponents/SingleNotePage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -18,23 +17,28 @@ function App() {
 
   return (
     <>
-
       <Switch>
         <Route path="/">
-      <Navigation isLoaded={isLoaded}/>
+          <Navigation isLoaded={isLoaded} />
         </Route>
       </Switch>
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-            <ImageUploadForm/>
+            <ImageUploadForm />
           </Route>
           <Route path='/all-notes'>
             <AllNotes />
-            {/* <MakeNote/> */}
-            <TextEditor/>
           </Route>
-
+          <Route path='/text-notes/:noteId'>
+            <SingleNotePage />
+          </Route>
+          <Route path='/new-note'>
+            <TextEditor editMode={false} />
+          </Route>
+          <Route path='/edit-note/:noteId'>
+            <TextEditor editMode={true} />
+          </Route>
         </Switch>
       )}
     </>

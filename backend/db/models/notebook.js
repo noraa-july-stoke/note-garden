@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
+      Notebook.hasMany(models.TextNote, {
+        foreignKey: "notebookId",
+        hooks: true
+      })
+
       Notebook.belongsTo(models.User, {
         foreignKey: "authorId"
       });
@@ -22,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    authorId:  {
+    authorId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },

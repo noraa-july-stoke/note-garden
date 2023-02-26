@@ -1,5 +1,7 @@
 import { csrfFetch } from './csrf';
 
+//!@#$ needs refactored to iclude action creators.
+
 const UPLOAD_IMAGE_PENDING = 'UPLOAD_IMAGE_PENDING';
 const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 const UPLOAD_IMAGE_FAILED = 'UPLOAD_IMAGE_FAILED';

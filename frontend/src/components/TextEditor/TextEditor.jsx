@@ -6,7 +6,7 @@ import { Slate, Editable, withReact } from 'slate-react'
 import DOMPurify from 'dompurify';
 import {helpers} from '../ComponentHelpers/index.js'
 import './TextEditor.css'
-import { thunkCreateNote } from '../../store/notes.js';
+import { thunkCreateTextNote } from '../../store/notes.js';
 const {serialize, deserialize} = helpers;
 
 //At it's core, the slate editor is just a node list wrapped in an outer "<p></p>" tag.
@@ -15,7 +15,9 @@ const {serialize, deserialize} = helpers;
 // Maybe i can pass in the individual note and then deserialize the note html???
 // the note prop coming into component is going to be a note object with a key that
 // contains the same value as what is put into locastorage
-const TextEditor = ({note, notebooks}) => {
+const TextEditor = ({note}) => {
+
+    const notebooks = [{name: "meow", id: 1}, {name: "howdy", id: 2}]
     //Preserves data through a re-render before updating based on previous value
 
     //State Variables. html contend will be rendered inside this starting div.
@@ -23,16 +25,17 @@ const TextEditor = ({note, notebooks}) => {
     const storedValue = localStorage.getItem('content')
     const [htmlContent, setHtmlContent] = useState(DOMPurify.sanitize(storedValue))
     const [name, setName] = useState("")
+    const [selectedNotebook, setSelectedNotebook] = useState("");
 
     let deserializedValue = null;
     if (storedValue){
         const document = new DOMParser().parseFromString(storedValue, 'text/html')
         deserializedValue = deserialize(document.body)
     }
-
     useEffect(() => {
-        console.log(name, htmlContent);
-    }, [name, htmlContent]);
+        console.log(name, htmlContent, selectedNotebook);
+    }, [name, htmlContent, selectedNotebook]);
+
 
     //!@#$ we will set propvalue to the html string of note;
     // const propValue = null;
@@ -152,9 +155,11 @@ const TextEditor = ({note, notebooks}) => {
         localStorage.setItem('content', content)
         const note = {
             name: name,
-            note: content
+            note: content,
+            notebookId: selectedNotebook
         }
-        await dispatch(thunkCreateNote(note))
+        console.log("NOTE",note)
+        await dispatch(thunkCreateTextNote(note))
 
     }
 
@@ -168,9 +173,27 @@ const TextEditor = ({note, notebooks}) => {
         element.setHTML(htmlContent)
     }
 
+    const handleNotebookChange = (event) => {
+        setSelectedNotebook(event.target.value);
+        console.log(selectedNotebook)
+    };
+
     return (
         <div>
-            <input type="text" value={name} onChange={handleNameChange} placeholder='Enter a name for your note'></input>
+            <div>
+                <label htmlFor="name">Name your notebook:</label>
+                <input type="text" value={name} onChange={handleNameChange} placeholder='Enter a name for your note'></input>
+            </div>
+            <div>
+                <label htmlFor="notebook-select">Select Notebook:</label>
+                <select id="notebook-select" value={selectedNotebook} onChange={handleNotebookChange}>
+                    <option value="">Add to a notebook...</option>
+                    {notebooks.map((notebook) => (
+                        <option key={notebook.id} value={notebook.id}>{notebook.name}</option>
+                    ))}
+                </select>
+            </div>
+
         <div className='text-editor-container' >
             <div className="text-editor-toolbar">
                 <button className="toolbar-button" onClick={handleBoldClick}><b>B</b></button>

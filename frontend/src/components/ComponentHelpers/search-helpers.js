@@ -1,33 +1,29 @@
+//optimized to use a set for faster lookup
 export const actionGenerator = (inputString) => {
-    //Returns boolean if a valid command is not found in the phrase.
-    const createKeywords = ["make", "create", "add", "generate", "new", "build", "mate", "creet", "cr8", "addin", "genarate", "neew", "bild"];
-    const noteKeywords = ["note", "memo", "reminder", "jot", "not", "meme", "remender", "jott", "nate", "n8"];
-    const notebookKeywords = ["notebook", "nootbook","ntebook", "notbook", "journel", "jornal", "diery", "diarry", "logbok", "scrapbok", "scrapbuk", "recrod", "journal", "diary", "logbook", "scrapbook"];
+    const createKeywords = new Set(["make", "create", "add", "generate", "new", "build", "mate", "creet", "cr8", "addin", "genarate", "neew", "bild"]);
+    const noteKeywords = new Set(["note", "memo", "reminder", "jot", "not", "meme", "remender", "jott", "nate", "n8"]);
+    const notebookKeywords = new Set(["notebook", "nootbook", "ntebook", "notbook", "journel", "jornal", "diery", "diarry", "logbok", "scrapbok", "scrapbuk", "recrod", "journal", "diary", "logbook", "scrapbook"]);
 
     const words = inputString.toLowerCase().split(" ");
-    let newWords = [];
-
+    const newWords = new Set();
     for (let i = 0; i < words.length; i++) {
-        if (createKeywords.includes(words[i])) {
-            if (newWords.includes("new")) continue;
-            newWords.push("new");
+        if (createKeywords.has(words[i])) {
+            newWords.add("new");
         }
 
-        if (notebookKeywords.includes(words[i])) {
-            if (newWords.includes("notebook")) continue;
-            newWords.push("notebook")
+        if (notebookKeywords.has(words[i])) {
+            newWords.add("notebook")
         }
 
-        if (noteKeywords.includes(words[i]) && words.indexOf("notebook") === -1) {
-            if (newWords.includes("note")) continue;
-            newWords.push("note")
+        if (noteKeywords.has(words[i]) && !newWords.has("notebook")) {
+            newWords.add("note")
         }
 
-        if (newWords.length > 1) return newWords.join("")
-
+        if (newWords.size > 1) return [...newWords].sort().join("");
     }
-    if (newWords.length < 2) return false
-    return newWords.sort().join("")
+
+    if (newWords.size < 2) return false;
+    return [...newWords].sort().join("");
 }
 
 
