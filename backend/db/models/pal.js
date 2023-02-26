@@ -2,17 +2,16 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Pal extends Model {
     static associate(models) {
       Pal.belongsTo(models.User, {
-        foreignKey: "palOne",
-        as: "palOneUser"
+        foreignKey: "palOne"
       });
 
       Pal.belongsTo(models.User, {
-        foreignKey: "palTwo",
-        as: "palTwoUser"
+        foreignKey: "palTwo"
       });
     }
   }
@@ -41,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Pal',
+    indexes: [{
+      unique: true,
+      fields: ['palOne', 'palTwo']
+    }]
   });
   return Pal;
 };

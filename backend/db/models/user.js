@@ -18,15 +18,15 @@ module.exports = (sequelize, DataTypes) => {
 
       const imageNotes = await ImageNote.findAll({
         where: { authorId: this.id },
+        order: [['createdAt']]
       });
 
       const textNotes = await TextNote.findAll({
         where: { authorId: this.id },
+        order: [['createdAt']]
       });
-
       return { imageNotes, textNotes };
     }
-
 
     async createDefaultNotebook() {
       const Notebook = sequelize.models.Notebook;

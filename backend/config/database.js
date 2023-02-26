@@ -12,6 +12,7 @@ module.exports = {
     database: config.db.database,
     host: config.db.host,
     schema: process.env.SCHEMA,
+    logging: console.log,
     define: {
       schema: process.env.SCHEMA
     }

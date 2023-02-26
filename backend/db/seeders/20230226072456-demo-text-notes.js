@@ -18,7 +18,7 @@ module.exports = {
             authorId: user.id,
             notebookId: notebook.id,
             name: `Text Note ${i + 1}`,
-            note: "this is demo comment by a demo user. hello!"
+            note: "<p>this is demo note by a demo user.</p>"
           });
         }
       }

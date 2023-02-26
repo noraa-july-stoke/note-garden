@@ -16,11 +16,13 @@ module.exports = (sequelize, DataTypes) => {
 
       if (this.textNote) {
         Post.belongsTo(models.TextNote, {
-          foreignKey: 'noteId'
+          foreignKey: 'noteId',
+          otherKey: 'id'
         });
       } else {
         Post.belongsTo(models.ImageNote, {
-          foreignKey: 'noteId'
+          foreignKey: 'noteId',
+          otherKey: 'id'
         });
       }
     }

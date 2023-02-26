@@ -25,13 +25,7 @@ module.exports = {
       },
       noteId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'TextNotes',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        allowNull: false
       },
       textNote: {
         type: Sequelize.BOOLEAN,

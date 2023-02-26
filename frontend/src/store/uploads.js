@@ -6,7 +6,6 @@ const UPLOAD_IMAGE_PENDING = 'UPLOAD_IMAGE_PENDING';
 const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 const UPLOAD_IMAGE_FAILED = 'UPLOAD_IMAGE_FAILED';
 
-
 export const uploadImage = (formData) => async (dispatch) => {
     try {
         dispatch({ type: UPLOAD_IMAGE_PENDING });
