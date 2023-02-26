@@ -216,6 +216,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
+
 'use strict';
 const {
   Model
@@ -270,6 +271,8 @@ module.exports = (sequelize, DataTypes) => {
 };
 
 
+
+
 'use strict';
 const {
   Model
@@ -321,4 +324,272 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'ImageNote',
   });
   return ImageNote;
+};
+
+
+
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Pal extends Model {
+    static associate(models) {
+      Pal.belongsTo(models.User, {
+        foreignKey: "palOne",
+        as: "palOneUser"
+      });
+
+      Pal.belongsTo(models.User, {
+        foreignKey: "palTwo",
+        as: "palTwoUser"
+      });
+    }
+  }
+  Pal.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    palOne: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id'
+      }
+    },
+    palTwo: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id'
+      }
+    }
+  }, {
+    sequelize,
+    modelName: 'Pal',
+  });
+  return Pal;
+};
+
+
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Collaboration extends Model {
+    static associate(models) {
+      Collaboration.belongsTo(models.User, {
+        foreignKey: "authorId"
+      });
+
+      Collaboration.belongsTo(models.User, {
+        foreignKey: "collaboratorId"
+      });
+
+      Collaboration.belongsTo(models.TextNote, {
+        foreignKey: "noteId"
+      });
+    }
+  }
+  Collaboration.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    authorId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    collaboratorId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    noteId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    textNote: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    }
+  }, {
+    sequelize,
+    modelName: 'Collaboration',
+  });
+  return Collaboration;
+};
+
+
+
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Post extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      Post.belongsTo(models.User, {
+        foreignKey: 'authorId'
+      });
+
+      if (this.textNote) {
+        Post.belongsTo(models.TextNote, {
+          foreignKey: 'noteId'
+        });
+      } else {
+        Post.belongsTo(models.ImageNote, {
+          foreignKey: 'noteId'
+        });
+      }
+    }
+  }
+  Post.init({
+    authorId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
+    noteId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Notes',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
+    textNote: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    caption: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  }, {
+    sequelize,
+    modelName: 'Post',
+  });
+  return Post;
+};
+
+
+
+
+
+
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Reaction extends Model {
+    static associate(models) {
+      Reaction.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+      Reaction.belongsTo(models.User, { foreignKey: 'authorId', as: 'author' });
+      Reaction.belongsTo(models.Post, { foreignKey: 'postId', as: 'post' });
+    }
+  }
+  Reaction.init({
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    authorId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    postId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    reactionType: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true,
+        isIn: [['like', 'dislike']],
+      }
+    }
+  }, {
+    sequelize,
+    modelName: 'Reaction',
+  });
+  return Reaction;
+};
+
+
+'use strict';
+const { Model } = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Comment extends Model {
+    static associate(models) {
+      Comment.belongsTo(models.User, { foreignKey: 'authorId' });
+      Comment.belongsTo(models.Post, { foreignKey: 'postId' });
+      Comment.belongsTo(models.Comment, { foreignKey: 'parentCommentId' });
+      Comment.hasMany(models.Comment, { foreignKey: 'parentCommentId' });
+    }
+  }
+
+  Comment.init(
+    {
+      authorId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      postId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Posts',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      parentCommentId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'Comments',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      content: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
+    },
+    {
+      sequelize,
+      modelName: 'Comment'
+    }
+  );
+
+  return Comment;
 };

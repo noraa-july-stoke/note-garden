@@ -25,6 +25,10 @@ need to make it so that the localstorage makes separate keys for the notes
 
 to do tomorrow:
 
+
+get a query all route for every model and have a page for each, where it maps them all out
+
+
 create, save, edit, delete text note;
 create, save, edit, delete notebook;
 

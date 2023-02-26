@@ -7,25 +7,18 @@ export const actionGenerator = (inputString) => {
     const words = inputString.toLowerCase().split(" ");
     const newWords = new Set();
     for (let i = 0; i < words.length; i++) {
-        if (createKeywords.has(words[i])) {
-            newWords.add("new");
-        }
+        if (createKeywords.has(words[i])) newWords.add("new");
+        if (notebookKeywords.has(words[i])) newWords.add("notebook")
 
-        if (notebookKeywords.has(words[i])) {
-            newWords.add("notebook")
-        }
 
-        if (noteKeywords.has(words[i]) && !newWords.has("notebook")) {
-            newWords.add("note")
-        }
+        if (noteKeywords.has(words[i]) && !newWords.has("notebook")) newWords.add("note")
 
-        if (newWords.size > 1) return [...newWords].sort().join("");
+        // if (newWords.size > 1) return [...newWords].sort().join("");
     }
 
     if (newWords.size < 2) return false;
     return [...newWords].sort().join("");
 }
-
 
 //A mini switch statement I based on a redux pattern.
 export const searchReducer = (word, history) => {

@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
 
     async createDefaultNotebook() {
       const Notebook = sequelize.models.Notebook;
-      const notebook = await Notebook.create({ name: 'Default Notebook', authorId: this.id });
+      const notebook = await Notebook.create({ name: 'Default', authorId: this.id });
       await this.update({ defaultNotebookId: notebook.id });
+    }
+
+    async createDefaultImageNotebook() {
+      const ImageNotebook = sequelize.models.ImageNotebook;
+      const notebook = await ImageNotebook.create({ name: 'Default Photo Album', authorId: this.id });
+      await this.update({ defaultImageNotebookId: notebook.id });
     }
 
     static getCurrentUserById(id) {
@@ -96,6 +102,10 @@ module.exports = (sequelize, DataTypes) => {
           isEmail: true
       }},
       defaultNotebookId:{
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      defaultImageNotebookId: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },

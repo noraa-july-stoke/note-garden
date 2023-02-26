@@ -1,40 +1,50 @@
 let options = {};
 options.schema = process.env.SCHEMA;
-options.tableName = "Users";
-  // define your schema in options object
+options.tableName = "Comments";
 
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable(options, {
+    await queryInterface.createTable(options, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      authorId: {
         type: Sequelize.INTEGER,
-        unique: true
-      },
-      username: {
-        type: Sequelize.STRING(30),
         allowNull: false,
-        unique: true
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      defaultNotebookId: {
+      postId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Posts',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      parentCommentId: {
         type: Sequelize.INTEGER,
         allowNull: true,
+        references: {
+          model: 'Comments',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      defaultImageNotebookId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
-      email: {
-        type: Sequelize.STRING(256),
-        allowNull: false,
-        unique: true
-      },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      content: {
+        type: Sequelize.STRING,
         allowNull: false
       },
       createdAt: {
@@ -50,6 +60,6 @@ module.exports = {
     }, options);
   },
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable(options, options);
+    await queryInterface.dropTable(options, options);
   }
 };
