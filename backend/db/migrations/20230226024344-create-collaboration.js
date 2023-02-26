@@ -38,8 +38,6 @@ module.exports = {
       noteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

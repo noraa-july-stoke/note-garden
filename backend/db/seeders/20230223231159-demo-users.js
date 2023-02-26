@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 let options = {};
-options.schema = process.env.SCHEMA;  // define your schema in options object
+options.schema = process.env.SCHEMA;
 options.tableName = 'Users';
 
 module.exports = {
@@ -9,18 +9,28 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         email: 'user1@user.io',
-        username: 'UserOne',
+        username: 'User One',
         hashedPassword: bcrypt.hashSync('password1')
       },
       {
         email: 'user2@user.io',
-        username: 'UserTwo',
+        username: 'User Two',
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
         email: 'user3@user.io',
-        username: 'UserThree',
+        username: 'User Three',
         hashedPassword: bcrypt.hashSync('password3')
+      },
+      {
+        email: 'user4@user.io',
+        username: 'User Four',
+        hashedPassword: bcrypt.hashSync('password4')
+      },
+      {
+        email: 'user5@user.io',
+        username: 'User Five',
+        hashedPassword: bcrypt.hashSync('password5')
       }
     ], {});
   },
@@ -29,7 +39,7 @@ module.exports = {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['UserOne', 'UserTwo', 'UserThree'] }
+      username: { [Op.in]: ['User One', 'User Two', 'User Three', 'User Four', 'User Five'] }
     }, {});
   }
 };

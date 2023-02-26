@@ -77,11 +77,72 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "authorId",
         onDelete: "CASCADE",
         hooks: true
-      })
+      });
+
+      User.hasMany(models.Reaction, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
+      User.hasMany(models.Comment, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
+      User.hasMany(models.Collaboration, {
+        foreignKey: "authorId",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
+      User.hasMany(models.Collaboration, {
+        foreignKey: "collaboratorId",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
+      User.hasMany(models.Post, {
+        foreignKey: "authorId",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
+      User.hasMany(models.Pal, {
+        foreignKey: "palOne",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
+      User.hasMany(models.Pal, {
+        foreignKey: "palTwo",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
+      User.belongsToMany(models.User, {
+        as: "palOne",
+        foreignKey: "palOne",
+        through: models.Pal,
+        otherKey: "palTwo"
+      });
+
+      User.belongsToMany(models.User, {
+        as: "palTwo",
+        foreignKey: "palTwo",
+        through: models.Pal,
+        otherKey: "palOne"
+      });
     }};
 
   User.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false,

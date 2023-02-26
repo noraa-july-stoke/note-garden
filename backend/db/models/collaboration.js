@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
 
       // the scope here determine which association to choose based on whether the collaboration is via a textnote or not
       Collaboration.belongsTo(models.TextNote, {
-        as: 'textNote',
         foreignKey: 'noteId',
         constraints: false,
         scope: {
@@ -25,16 +24,15 @@ module.exports = (sequelize, DataTypes) => {
 
       // the scope here determine which association to choose
       Collaboration.belongsTo(models.ImageNote, {
-        as: 'imageNote',
         foreignKey: 'noteId',
         constraints: false,
         scope: {
           textNote: false
         }
       });
-
     }
   }
+
   Collaboration.init({
     id: {
       type: DataTypes.INTEGER,
@@ -53,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    textNote: {
+    textNoteBoolean: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     }
