@@ -12,19 +12,25 @@ module.exports = {
     for (const user of users) {
       const notes = await user.getNotes();
 
-        await Post.create({
+      console.log(notes.textNotes[0].id)
+
+        const post1 = await Post.build({
           authorId: user.id,
           noteId: notes.textNotes[0].id,
           textNote: true,
           caption: 'My text note'
         });
 
-        await Post.create({
+        console.log(post1)
+
+        const post2 = await Post.build({
           authorId: user.id,
           noteId: notes.imageNotes[0].id,
           textNote: false,
           caption: 'My image note'
         });
+      console.log(post2)
+
     }
   },
 

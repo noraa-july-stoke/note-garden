@@ -8,6 +8,10 @@ const storage = new Storage({
     projectId: process.env.GCLOUD_PROJECT_ID
 })
 
+if (process.env.NODE_ENV === 'production') {
+    storage.keyFileName = '/etc/secrets/southern-surge-378705-44c56a09fd5d.json'
+}
+
 module.exports = {
     environment: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 5000,
