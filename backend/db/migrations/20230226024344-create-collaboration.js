@@ -31,19 +31,15 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      noteId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'TextNotes',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      },
       textNote: {
         type: Sequelize.BOOLEAN,
         allowNull: false
+      },
+      noteId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

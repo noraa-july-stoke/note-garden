@@ -15,11 +15,19 @@ module.exports = {
       },
       authorId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       notebookId: {
         type: Sequelize.INTEGER,
-        allowNull: true
+        allowNull: true,
+        references: {
+          model: 'ImageNotebooks',
+          key: 'id'
+        }
       },
       name: {
         type: Sequelize.STRING,

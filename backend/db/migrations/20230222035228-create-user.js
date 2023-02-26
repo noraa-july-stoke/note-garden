@@ -1,7 +1,6 @@
 let options = {};
 options.schema = process.env.SCHEMA;
 options.tableName = "Users";
-  // define your schema in options object
 
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
@@ -12,30 +11,39 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
-        unique: true
+        type: Sequelize.INTEGER
       },
       username: {
         type: Sequelize.STRING(30),
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+          len: [3, 30]
+        }
       },
       defaultNotebookId: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: true
       },
       defaultImageNotebookId: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: true
       },
       email: {
         type: Sequelize.STRING(256),
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+          isEmail: true,
+          len: [3, 256]
+        }
       },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          len: [60, 60]
+        }
       },
       createdAt: {
         allowNull: false,

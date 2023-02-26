@@ -13,9 +13,26 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "collaboratorId"
       });
 
+      // the scope here determine which association to choose based on whether the collaboration is via a textnote or not
       Collaboration.belongsTo(models.TextNote, {
-        foreignKey: "noteId"
+        as: 'textNote',
+        foreignKey: 'noteId',
+        constraints: false,
+        scope: {
+          textNote: true
+        }
       });
+
+      // the scope here determine which association to choose
+      Collaboration.belongsTo(models.ImageNote, {
+        as: 'imageNote',
+        foreignKey: 'noteId',
+        constraints: false,
+        scope: {
+          textNote: false
+        }
+      });
+
     }
   }
   Collaboration.init({
