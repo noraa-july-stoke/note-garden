@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import sessionReducer from './session';
 import uploadReducer from "./uploads";
 import notesReducer from "./notes";
+import collaborationsReducer from "./collaborations";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   uploads: uploadReducer,
-  notes: notesReducer
+  notes: notesReducer,
+  collaborations: collaborationsReducer
 });
 
 let enhancer;

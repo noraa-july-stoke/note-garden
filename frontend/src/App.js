@@ -7,6 +7,7 @@ import ImageUploadForm from "./components/Forms";
 import TextEditor from "./components/TextEditor";
 import AllNotes from "./components/NotesComponents/AllNotes";
 import SingleNotePage from "./components/NotesComponents/SingleNotePage";
+import TestComponent from "./components/TestComponent/TestComponent";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -26,6 +27,9 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <ImageUploadForm />
+          </Route>
+          <Route path="/test">
+            <TestComponent/>
           </Route>
           <Route path='/all-notes'>
             <AllNotes />

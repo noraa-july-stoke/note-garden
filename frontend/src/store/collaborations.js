@@ -17,10 +17,9 @@ export const thunkLoadCollaborations = () => async (dispatch) => {
         const data = await response.json();
         dispatch(actionLoadCollaborations(data));
     } catch (error) {
-        console.error("Error loading note:", error);
+        console.error("Error loading collaboration", error);
     }
 }
-
 
 const initialState = { userCollaborations: {}};
 
@@ -30,7 +29,7 @@ const collaborationsReducer = (state = initialState, action) => {
 
         case LOAD_COLLABORATIONS: {
 
-            return {collaborations: {...action.collaborations}}
+            return {userCollaborations: {...action.collaborations}}
         }
         default:
             return state;
