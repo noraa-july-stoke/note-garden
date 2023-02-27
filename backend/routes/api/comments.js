@@ -8,13 +8,10 @@ const router = express.Router();
 
 // Get all comments
 router.get('/', requireAuth, async (req, res) => {
-    try {
         const comments = await Comment.findAll();
         res.json(comments);
-    } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server Error' });
-    }
 });
 
 // Get a single comment by ID
