@@ -50,7 +50,7 @@ router.get('/all-notes', async (req, res) => {
 });
 
 //GETS A TEXTNOTE BY IT'S ID
-router.get('/text-notes/:noteId', async (req, res) => {
+router.get('/text-notes/:noteId(\\d+)', async (req, res) => {
     try {
         const noteId = req.params.noteId;
         const textNote = await TextNote.findOne({
@@ -68,7 +68,7 @@ router.get('/text-notes/:noteId', async (req, res) => {
 });
 
 //GETS AN IMAGENOTE BY IT'S ID
-router.get('/image-notes/:noteId', async (req, res) => {
+router.get('/image-notes/:noteId(\\d+)', async (req, res) => {
     const noteId = req.params.noteId;
     try {
         const imageNote = await ImageNote.findOne({

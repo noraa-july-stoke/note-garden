@@ -1,4 +1,4 @@
-const { Model, Validator } = require('sequelize');
+const { Model, Validator, Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
@@ -26,6 +26,98 @@ module.exports = (sequelize, DataTypes) => {
         order: [['createdAt']]
       });
       return { imageNotes, textNotes };
+    }
+
+    // query notebook model for any notebooks and any image notebooks that belong to the user and return them as arrays inside
+    // a composite object
+    async getNotebooks() {
+      const Notebook = sequelize.models.Notebook;
+      const ImageNotebook = sequelize.models.ImageNotebook;
+
+      const notebooks = await Notebook.findAll({
+        where: { authorId: this.id },
+        order: [['createdAt']]
+      });
+
+      const imageNotebooks = await ImageNotebook.findAll({
+        where: { authorId: this.id },
+        order: [['createdAt']]
+      });
+
+      return { notebooks, imageNotebooks };
+    }
+
+
+    // getpals gets any of the pal relationships of the user. the user could be found as palOne or palTwo
+    async getPals() {
+      const Pal = sequelize.models.Pal;
+
+      const pals = await Pal.findAll({
+        where: {
+          [Op.or]: [
+            { palOne: this.id },
+            { palTwo: this.id }
+          ]
+        }
+      });
+      return pals;
+    }
+
+    // query for and return any collaborations that the user exists in under the key collaboratorId
+    async getCollaborations() {
+      const Collaboration = sequelize.models.Collaboration;
+
+      const collaborations = await Collaboration.findAll({
+        where: { collaboratorId: this.id },
+        order: [['createdAt']]
+      });
+
+      const objectCollaborations = {}
+
+      for (let collaboration of collaborations) {
+        collaboration = collaboration.toJSON()
+        objectCollaborations[collaboration.id] = collaboration;
+      }
+
+      return objectCollaborations;
+    }
+
+    // query for and return any posts that the user exists in under the key authorIdId
+    async getPosts() {
+      const Post = sequelize.models.Post;
+
+      const posts = await Post.findAll({
+        where: { authorId: this.id },
+        order: [['createdAt']]
+      });
+
+      return posts;
+    }
+
+
+
+    // query for and return any comments the user has left on a post the user exists in under the key userId
+    async getComments() {
+      const Comment = sequelize.models.Comment;
+
+      const comments = await Comment.findAll({
+        where: { userId: this.id },
+        order: [['createdAt']]
+      });
+
+      return comments;
+    }
+
+    // query for and return any reactions the user has left on a post the user exists in under the key userId
+    async getReactions() {
+      const Reaction = sequelize.models.Reaction;
+
+      const reactions = await Reaction.findAll({
+        where: { userId: this.id },
+        order: [['createdAt']]
+      });
+
+      return reactions;
     }
 
     async createDefaultNotebook() {
@@ -101,8 +193,20 @@ module.exports = (sequelize, DataTypes) => {
         hooks: true
       });
 
+      User.hasMany(models.Reaction, {
+        foreignKey: "authorId",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
       User.hasMany(models.Comment, {
         foreignKey: "userId",
+        onDelete: "CASCADE",
+        hooks: true
+      });
+
+      User.hasMany(models.Comment, {
+        foreignKey: "authorId",
         onDelete: "CASCADE",
         hooks: true
       });
