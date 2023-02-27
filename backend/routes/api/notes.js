@@ -12,12 +12,11 @@ const uploadImage = require('../../utils/upload-helpers')
 //--------------------------------------------
 
 //GET ALL THE USER'S NOTES
-router.get('/all-notes', async (req, res) => {
+router.get('/', async (req, res) => {
     const userId = req.user.id;
-    const user = await User.findByPk(userId)
-    const notes = await user.getNotes()
-    console.log(notes)
-    res.status(200).json(notes)
+    const user = await User.findByPk(userId);
+    const notes = await user.getNotes();
+    res.status(200).json(notes);
 });
 
 //GETS A TEXTNOTE BY IT'S ID

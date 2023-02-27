@@ -28,7 +28,7 @@ const actionCreateTextNote = (singleNote) => ({
 //Loads user's imagenotes and textnotes
 export const thunkLoadNotes = () => async (dispatch) => {
     try {
-        const response = await  csrfFetch("/api/notes/all-notes", {
+        const response = await  csrfFetch("/api/notes", {
             method: "GET"
         });
         const data = await response.json();
@@ -42,7 +42,6 @@ export const thunkLoadNotes = () => async (dispatch) => {
 export const thunkLoadNotebookNotes = () => async (dispatch) => {
     return null
 }
-
 
 // Loads a single note.
 export const thunkLoadSingleNote = (noteId) => async (dispatch) => {

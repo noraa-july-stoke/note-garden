@@ -7,12 +7,24 @@ const { User, Notebook } = require('../../db/models');
 const router = express.Router();
 
 router.get('/', requireAuth, async (req, res) => {
-    let Notebooks = [];
     const userId = req.user.id;
+    const user = await User.findByPk(userId);
+    const notebooks = user.getNotebooks();
+    res.status(200).json(notebooks);
+});
 
-    let notebookList = await Notebook.findAll({
-        where: { authorId: userId }
-    });
-})
+router.post('/', requireAuth, async (req, res) => {
+
+    return "notebook post route working"
+});
+
+router.put('/noteBookId(\\d+)', requireAuth, async (req, res) => {
+    return "notebook put route working"
+});
+
+router.delete('/notebookId(\\d+)', requireAuth, async (req, res) => {
+    return "notebook delete route working"
+
+});
 
 module.exports = router;

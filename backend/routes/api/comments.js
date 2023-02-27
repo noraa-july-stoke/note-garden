@@ -11,8 +11,8 @@ const router = express.Router();
 //--------------------------------------------
 // Get all user's comments left on other user's posts
 router.get('/', requireAuth, async (req, res) => {
-        const userId = req.body;
-        const user = User.findByPk()
+        const userId = req.user.id;
+        const user = await User.findByPk(userId)
         const comments = await user.getComments(userId)
         res.status(200).json(comments);
 });

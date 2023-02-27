@@ -20,7 +20,6 @@ return null
 
 const initialState = { userTextNotebooks: {}, userImageNotebooks: {}, collabsNoteBook:{}};
 
-
 const notebookReducer = (state = initialState, action) => {
     switch (action.type) {
 

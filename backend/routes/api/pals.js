@@ -21,7 +21,7 @@ router.post('/', requireAuth, async (req, res) => {
     res.json({ pal });
 });
 
-router.delete('/:id(\\d+)', requireAuth, async (req, res) => {
+router.delete('/:palId(\\d+)', requireAuth, async (req, res) => {
     const { id } = req.params;
     const pal = await Pal.findByPk(id);
     if (!pal) return res.sendStatus(404);
