@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, username, email, defaultNotebookId } = this; // context will be the User instance
-      return { id, username, email, defaultNotebookId };
+      const { id, username, email, defaultNotebookId, defaultImagenotebookId } = this; // context will be the User instance
+      return { id, username, email, defaultNotebookId, defaultImagenotebookId };
     }
 
     validatePassword(password) {
@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     async getNotes() {
       const ImageNote = sequelize.models.ImageNote;
       const TextNote = sequelize.models.TextNote;
+      let objectTextNotes = {};
+      let objectImageNotes = {};
 
       const imageNotes = await ImageNote.findAll({
         where: { authorId: this.id },
@@ -25,7 +27,18 @@ module.exports = (sequelize, DataTypes) => {
         where: { authorId: this.id },
         order: [['createdAt']]
       });
-      return { imageNotes, textNotes };
+
+      for (let imageNote of imageNotes) {
+        imageNote = imageNote.toJSON();
+        objectImageNotes[imageNote.id] = imageNote;
+      }
+
+      for (let textNote of textNotes) {
+        textNote = textNote.toJSON();
+        objectTextNotes[textNote.id] = textNote;
+      }
+
+      return { imageNotes: objectImageNotes, textNotes: objectTextNotes };
     }
 
     // query notebook model for any notebooks and any image notebooks that belong to the user and return them as arrays inside
@@ -33,6 +46,8 @@ module.exports = (sequelize, DataTypes) => {
     async getNotebooks() {
       const Notebook = sequelize.models.Notebook;
       const ImageNotebook = sequelize.models.ImageNotebook;
+      const objectNotebooks = {}
+      const objectImageNotebooks = {}
 
       const notebooks = await Notebook.findAll({
         where: { authorId: this.id },
@@ -44,7 +59,17 @@ module.exports = (sequelize, DataTypes) => {
         order: [['createdAt']]
       });
 
-      return { notebooks, imageNotebooks };
+      for (let notebook of notebooks) {
+        notebook = notebook.toJSON()
+        objectNotebooks[notebook.id] = notebook;
+      }
+
+      for (let imageNotebook of imageNotebooks) {
+        imageNotebook = imageNotebook.toJSON()
+        objectNotebooks[imageNotebook.id] = imageNotebook;
+      }
+
+      return { notebooks: objectNotebooks, imageNotebooks: objectImageNotebooks };
     }
 
 
@@ -94,8 +119,6 @@ module.exports = (sequelize, DataTypes) => {
       return posts;
     }
 
-
-
     // query for and return any comments the user has left on a post the user exists in under the key userId
     async getComments() {
       const Comment = sequelize.models.Comment;
@@ -105,7 +128,13 @@ module.exports = (sequelize, DataTypes) => {
         order: [['createdAt']]
       });
 
-      return comments;
+      const objectComments = {}
+
+      for (let comment of comments) {
+        comment = comment.toJSON()
+        objectComments[comment.id] = comment;
+      }
+      return objectComments;
     }
 
     // query for and return any reactions the user has left on a post the user exists in under the key userId
@@ -152,12 +181,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async signup({ username, email, password }) {
+    static async signup({ username, email, password, firstName, lastName }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         username,
         email,
-        hashedPassword
+        hashedPassword,
+        firstName,
+        lastName
+
       });
       return await User.scope('currentUser').findByPk(user.id);
     }

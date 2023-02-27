@@ -1,7 +1,5 @@
 const { Storage } = require('@google-cloud/storage');
 const express = require('express')
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Notebook, ImageNote, TextNote } = require('../../db/models');
 
@@ -16,36 +14,9 @@ const uploadImage = require('../../utils/upload-helpers')
 //GET ALL THE USER'S NOTES
 router.get('/all-notes', async (req, res) => {
     const userId = req.user.id;
-    let notes = {}
-    let textNotes = {}
-    let imageNotes = {}
-
-    //Text Note Query
-    const textNoteData = await TextNote.findAll({
-        where: {
-            authorId: userId
-        }
-    })
-
-    for (let note of textNoteData) {
-        note = note.toJSON()
-        textNotes[note.id] = note
-    }
-
-    //Image Note Query
-    const imageNoteData = await ImageNote.findAll({
-        where: {
-            authorId: userId
-        }
-    })
-
-    for (let note of imageNoteData) {
-        note = note.toJSON()
-        imageNotes[note.id] = note
-    }
-
-    notes.textNotes = textNotes;
-    notes.imageNotes = imageNotes;
+    const user = await User.findByPk(userId)
+    const notes = await user.getNotes()
+    console.log(notes)
     res.status(200).json(notes)
 });
 

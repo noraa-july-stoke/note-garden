@@ -4,12 +4,14 @@ import sessionReducer from './session';
 import uploadReducer from "./uploads";
 import notesReducer from "./notes";
 import collaborationsReducer from "./collaborations";
+import commentsReducer from "./comments";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   uploads: uploadReducer,
   notes: notesReducer,
-  collaborations: collaborationsReducer
+  collaborations: collaborationsReducer,
+  comments: commentsReducer
 });
 
 let enhancer;

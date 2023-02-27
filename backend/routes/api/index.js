@@ -7,7 +7,7 @@ const palsRouter = require('./pals');
 const collaborationsRouter = require('./collaborations');
 const postsRouter = require('./posts');
 const reactionsRouter = require('./reactions');
-const commentsRouter = require('./reactions')
+const commentsRouter = require('./comments')
 
 const { restoreUser } = require("../../utils/auth.js");
 

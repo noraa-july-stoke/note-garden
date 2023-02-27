@@ -80,11 +80,10 @@ module.exports = {
           userCommentedAuthorsSet.add(authorId);
         }
       }
-
       const newComments = await Promise.all(commentPromises).then(comments => comments.filter(comment => comment !== undefined));
       promises.push(Comment.bulkCreate(newComments, { validate: true }));
     }
-
+    // Don't mind me, just flexing concurrency 💪🏻
     await Promise.all(promises);
   },
 

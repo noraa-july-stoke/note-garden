@@ -4,7 +4,7 @@ export const actionGenerator = (inputString) => {
     if (inputString === "test") return "test";
     const createKeywords = new Set(["make", "create", "add", "generate", "new", "build", "mate", "creet", "cr8", "addin", "genarate", "neew", "bild"]);
     const noteKeywords = new Set(["note", "memo", "reminder", "jot", "not", "meme", "remender", "jott", "nate", "n8"]);
-    const notebookKeywords = new Set(["notebook", "nootbook", "ntebook", "notbook", "journel", "jornal", "diery", "diarry", "logbok", "scrapbok", "scrapbuk", "recrod", "journal", "diary", "logbook", "scrapbook"]);
+    const notebookKeywords = new Set(["notebook", "nootbook", "ntebook", "notbook", "journel", "jornal", "diery", "diarry", "logbok", "scrapbok", "scrapbuk", "recrod", "journal", "diary", "logbook", "scrapbook", "natebook"]);
 
     const words = inputString.toLowerCase().split(" ");
     const newWords = new Set();
@@ -12,8 +12,6 @@ export const actionGenerator = (inputString) => {
         if (createKeywords.has(words[i])) newWords.add("new");
         if (notebookKeywords.has(words[i])) newWords.add("notebook")
         if (noteKeywords.has(words[i]) && !newWords.has("notebook")) newWords.add("note")
-
-        // if (newWords.size > 1) return [...newWords].sort().join("");
     }
 
     if (newWords.size < 2) return false;
@@ -21,7 +19,7 @@ export const actionGenerator = (inputString) => {
 }
 
 //A mini switch statement I based on a redux pattern.
-export const searchReducer = (word, history) => {
+export const searchReducer = (word) => {
     switch (word) {
         case "newnote":
             return "/new-note";

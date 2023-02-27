@@ -25,10 +25,14 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
+    //The flatMap method returns a new array formed by applying a given callback function to each element of the array,
+    //and then flattening the result by one level.It is identical to a map() followed by a flat() of depth 1(arr.map(...args).flat()),
+    //but slightly more efficient than calling those two methods separately
     options.tableName = 'Notebooks';
     const Op = Sequelize.Op;
     const users = await User.findAll();
     const notebookNames = users.flatMap((user) =>
+      //Method that builds and populates an array. This is javascript list comprehension basically. 😱
       Array.from({ length: 3 }, (_, i) => `Notebook${i + 1} of ${user.username}`)
     );
 

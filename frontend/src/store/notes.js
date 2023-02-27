@@ -25,8 +25,6 @@ const actionCreateTextNote = (singleNote) => ({
     singleNote
 });
 
-
-
 //Loads user's imagenotes and textnotes
 export const thunkLoadNotes = () => async (dispatch) => {
     try {
@@ -39,7 +37,6 @@ export const thunkLoadNotes = () => async (dispatch) => {
         console.error("Error loading notes:", error);
     }
 };
-
 
 //Loads Notes from a single notebook.
 export const thunkLoadNotebookNotes = () => async (dispatch) => {

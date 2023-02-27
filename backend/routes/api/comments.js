@@ -2,16 +2,19 @@ const express = require('express');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
-const { Comment } = require('../../db/models');
+const { Comment, User } = require('../../db/models');
 
 const router = express.Router();
 
-// Get all comments
+//--------------------------------------------
+// GET ROUTES
+//--------------------------------------------
+// Get all user's comments left on other user's posts
 router.get('/', requireAuth, async (req, res) => {
-        const comments = await Comment.findAll();
-        res.json(comments);
-        console.error(err);
-        res.status(500).json({ message: 'Server Error' });
+        const userId = req.body;
+        const user = User.findByPk()
+        const comments = await user.getComments(userId)
+        res.status(200).json(comments);
 });
 
 // Get a single comment by ID
@@ -23,7 +26,7 @@ router.get('/:id(\\d+)', requireAuth, async (req, res) => {
         if (!comment) {
             return res.status(404).json({ message: 'Comment not found' });
         }
-        res.json(comment);
+        res.json();
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server Error' });

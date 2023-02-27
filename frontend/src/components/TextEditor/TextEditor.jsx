@@ -32,6 +32,7 @@ const TextEditor = ({note}) => {
         const document = new DOMParser().parseFromString(storedValue, 'text/html')
         deserializedValue = deserialize(document.body)
     }
+
     useEffect(() => {
         console.log(name, htmlContent, selectedNotebook);
     }, [name, htmlContent, selectedNotebook]);

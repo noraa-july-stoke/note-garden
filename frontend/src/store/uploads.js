@@ -2,6 +2,8 @@ import { csrfFetch } from './csrf';
 
 //!@#$ needs refactored to iclude action creators.
 
+// any route that uploads something will be called from here instead of
+// the reducer associates with the item type.
 const UPLOAD_IMAGE_PENDING = 'UPLOAD_IMAGE_PENDING';
 const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 const UPLOAD_IMAGE_FAILED = 'UPLOAD_IMAGE_FAILED';

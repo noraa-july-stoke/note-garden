@@ -16,7 +16,6 @@ module.exports = {
 
     // Create a set to keep track of unique post-user combinations
     const reactionSet = new Set();
-
     // Loop through all possible post-user combinations
     for (const user of users) {
       for (const post of posts) {
