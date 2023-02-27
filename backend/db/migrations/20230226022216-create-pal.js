@@ -36,13 +36,19 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-
       }
     }, options);
+
+    // Add a unique constraint on the combination of palOne and palTwo
+    await queryInterface.addConstraint(options, {
+      type: 'unique',
+      name: 'pals_unique_constraint',
+      fields: ['palOne', 'palTwo']
+    });
   },
 
-
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeConstraint(options, 'pals_unique_constraint');
     await queryInterface.dropTable(options, options);
   }
 };

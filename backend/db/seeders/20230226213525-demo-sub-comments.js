@@ -37,11 +37,9 @@ module.exports = {
             parentCommentId: comment.id,
             content: 'This is a reply.'
           };
-
           return reply;
         }
       });
-
       // Filter out undefined values and create a new array of comments to be created
       const newReplies = await Promise.all(commentPromises).then(replies => replies.filter(reply => reply !== undefined));
 
