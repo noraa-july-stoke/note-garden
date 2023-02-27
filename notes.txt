@@ -51,6 +51,10 @@ RENDER: get google api working with render by no later than tomorrow!!(sunday)
 
 
 
-REXUX:
+REDUX:
 
 working in redux notes: LOAD_NOTES, SINGLE_NOTE, CREATE_NOTE
+
+
+
+ALL REDUX/ROUTES done tomorrow, no exceptions, no excuses!!!!!!!

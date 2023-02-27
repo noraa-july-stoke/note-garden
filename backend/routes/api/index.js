@@ -4,12 +4,10 @@ const usersRouter = require('./users.js');
 const notebooksRouter = require('./notebooks.js');
 const notesRouter = require('./notes');
 const palsRouter = require('./pals');
-const collaborationsRouter = require('./pals');
+const collaborationsRouter = require('./collaborations');
 const postsRouter = require('./posts');
 const reactionsRouter = require('./reactions');
 const commentsRouter = require('./reactions')
-
-
 
 const { restoreUser } = require("../../utils/auth.js");
 

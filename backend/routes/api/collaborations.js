@@ -7,9 +7,9 @@ const router = express.Router();
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const user = await User.findByPk(userId)
-
-    const collaborations = user.getCollaborations();
-
+    console.log(user)
+    const collaborations = await user.getCollaborations();
+    console.log(collaborations)
     res.status(200).json(collaborations)
 });
 

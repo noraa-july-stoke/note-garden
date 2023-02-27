@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    textNoteBoolean: {
+    textNote: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     }
