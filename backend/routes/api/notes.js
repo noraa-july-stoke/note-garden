@@ -23,14 +23,10 @@ router.get('/', async (req, res) => {
 router.get('/text-notes/:noteId(\\d+)', async (req, res) => {
     try {
         const noteId = req.params.noteId;
-        const textNote = await TextNote.findOne({
-            where: {
-                id: noteId
-            }
-        });
+        const textNote = await TextNote.findByPk(noteId);
         const resNote = textNote.toJSON();
         console.log(resNote)
-        res.json(resNote);
+        res.status(200).json(resNote);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });

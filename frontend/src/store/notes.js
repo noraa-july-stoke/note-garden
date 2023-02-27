@@ -4,6 +4,7 @@ const LOAD_NOTES = "LOAD_NOTES";
 const LOAD_NOTEBOOK_NOTES = "LOAD_NOTEBOOK_NOTES";
 const LOAD_SINGLE_NOTE = "LOAD_SINGLE_NOTE";
 const CREATE_TEXT_NOTE = "CREATE_TEXT_NOTE";
+const ERROR = "ERROR";
 
 const actionLoadNotes = (notes) => ({
     type: LOAD_NOTES,
@@ -23,6 +24,11 @@ const actionLoadSingleNote = (note) => ({
 const actionCreateTextNote = (singleNote) => ({
     type: CREATE_TEXT_NOTE,
     singleNote
+});
+
+const actionError = (errors) => ({
+    type: ERROR,
+    errors
 });
 
 //Loads user's imagenotes and textnotes
@@ -66,11 +72,12 @@ export const thunkCreateTextNote = (note) => async (dispatch) => {
         const data = await response.json();
         dispatch(actionCreateTextNote)
     } catch (error) {
-        console.error("Error saving note:", error);
+        // console.error("Error saving note:", error);
+        dispatch(actionError(error));
     }
 }
 
-const initialState = {textNotes: {}, imageNotes: {}, notebookNotes:{}, singleNote:{}};
+const initialState = {textNotes: {}, imageNotes: {}, notebookNotes:{}, singleNote:{}, errors:{}};
 const notesReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_NOTES:{
@@ -78,24 +85,31 @@ const notesReducer = (state = initialState, action) => {
                 textNotes: { ...action.notes.textNotes },
                 imageNotes: { ...action.notes.imageNotes },
                 notebookNotes: { ...state.notebookNotes },
-                singleNote: { ...state.singleNote }};
-        }
+                singleNote: { ...state.singleNote }
+        }};
 
-        case LOAD_SINGLE_NOTE:
+        case LOAD_SINGLE_NOTE:{
             return {
                 textNotes: { ...state.textNotes },
                 imageNotes: { ...state.imageNotes },
                 notebookNotes: { ...state.notebookNotes },
                 singleNote: { ...action.note }
-            };
+        }};
 
-        case CREATE_TEXT_NOTE:
+        case CREATE_TEXT_NOTE:{
             return {
                 textNotes: { ...state.textNotes },
                 imageNotes: { ...state.imageNotes },
                 notebookNotes: {...state.notebookNotes},
                 singleNote: { ...action.singleNote }
-            };
+        }};
+
+        case ERROR: {
+            return {
+                ...state,
+                errors:{...action.errors}
+            }
+        }
         default:
             return state;
     }

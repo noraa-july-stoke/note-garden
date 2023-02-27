@@ -14,7 +14,6 @@ router.get('/', requireAuth, async (req, res) => {
 });
 
 router.post('/', requireAuth, async (req, res) => {
-
     return "notebook post route working"
 });
 
