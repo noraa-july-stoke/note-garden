@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
+    async updateTextNote(data) {
+      const result = await this.update(data);
+      return result;
+    }
+
     static async deleteTextNoteById(id) {
       const rowsDeleted = await this.destroy({
         where: {

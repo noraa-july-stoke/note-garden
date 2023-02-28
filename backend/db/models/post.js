@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
+    async updatePost(data) {
+      const result = await this.update(data);
+      return result;
+    }
+
     static async deletePostById(id) {
       const rowsDeleted = await this.destroy({
         where: {

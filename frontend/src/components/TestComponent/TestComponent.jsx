@@ -6,6 +6,9 @@ import { thunkLoadComments } from '../../store/comments';
 import { thunkLoadNotes } from '../../store/notes';
 import { thunkLoadNotebooks } from '../../store/notebooks';
 import { thunkLoadPals } from '../../store/pals';
+import { thunkLoadPosts } from '../../store/posts';
+import { thunkLoadReactions } from '../../store/reactions';
+
 const TestComponent = () => {
 
     const dispatch = useDispatch();
@@ -21,6 +24,8 @@ const TestComponent = () => {
         dispatch(thunkLoadNotes());
         dispatch(thunkLoadNotebooks());
         dispatch(thunkLoadPals());
+        dispatch(thunkLoadPosts())
+        dispatch(thunkLoadReactions())
     }, [dispatch]);
     return (
         <div>

@@ -34,9 +34,23 @@ router.post('/', requireAuth, async (req, res) => {
 // PUT ROUTES
 //--------------------------------------------
 
-router.put('/', requireAuth, async (req, res) => {
-    return "collab put route"
+router.put('/:id(\\d+)', requireAuth, async (req, res) => {
+    const collaborationId = req.params.id;
+    const { /* keys to update */ } = req.body;
 
+    try {
+        const collaboration = await Collaboration.findByPk(collaborationId);
+        if (!collaboration) {
+            return res.status(404).json({ message: 'Collaboration not found' });
+        }
+        await collaboration.update({
+            /* keys to update */
+        });
+        return res.json(collaboration.toJSON());
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 //--------------------------------------------

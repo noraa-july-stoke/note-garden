@@ -41,17 +41,21 @@ router.post('/', requireAuth, async (req, res) => {
 });
 
 // Update an existing reaction by ID
-router.put('/:id(\\d+)', requireAuth, async (req, res) => {
+router.put('/:id(\\d+)/reaction', requireAuth, async (req, res) => {
+  const reactionId = req.params.id;
+  const { reactionType } = req.body;
   try {
-    const reaction = await Reaction.findByPk(req.params.id);
+    const reaction = await Reaction.findByPk(reactionId);
     if (!reaction) {
       return res.status(404).json({ message: 'Reaction not found' });
     }
-    await reaction.update(req.body);
-    res.json({ reaction });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    await reaction.update({
+      reaction,
+    });
+    return res.status(200).json({ message: 'Reaction updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 });
 

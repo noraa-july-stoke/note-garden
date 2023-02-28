@@ -17,6 +17,8 @@ router.get('/', requireAuth, async (req, res) => {
         res.status(200).json(comments);
 });
 
+
+
 // Get a single comment by ID
 router.get('/:id(\\d+)', requireAuth, async (req, res) => {
     const commentId = req.params.id;
@@ -58,19 +60,16 @@ router.put('/:id(\\d+)', requireAuth, async (req, res) => {
 
     try {
         const comment = await Comment.findByPk(commentId);
-
         if (!comment) {
             return res.status(404).json({ message: 'Comment not found' });
         }
-
         await comment.update({
             content,
         });
-
-        res.json(comment);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server Error' });
+        return res.json(comment.toJSON());
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
     }
 });
 

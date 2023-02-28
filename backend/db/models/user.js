@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
 
+    async updateUser(data) {
+      const result = await this.update(data);
+      return result;
+    }
+
     async getNotes() {
       const ImageNote = sequelize.models.ImageNote;
       const TextNote = sequelize.models.TextNote;

@@ -5,6 +5,11 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Reaction extends Model {
 
+    async updateReaction(data) {
+      const result = await this.update(data);
+      return result;
+    }
+
     static async deleteReactionById(id) {
       const rowsDeleted = await this.destroy({
         where: {
