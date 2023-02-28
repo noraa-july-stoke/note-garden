@@ -5,11 +5,6 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Collaboration extends Model {
 
-    async updateCollaboration(data) {
-      const result = await this.update(data);
-      return result;
-    }
-
     static async deleteCollaborationById(id) {
       const rowsDeleted = await this.destroy({
         where: {

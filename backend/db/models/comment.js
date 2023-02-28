@@ -3,11 +3,6 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
 
-    async updateComment(data) {
-      const result = await this.update(data);
-      return result;
-    }
-
     static async deleteCommentById(id) {
       const rowsDeleted = await this.destroy({
         where: {

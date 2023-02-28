@@ -6,11 +6,6 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class ImageNote extends Model {
 
-    async updateImageNote(data) {
-      const result = await this.update(data);
-      return result;
-    }
-
     static async deleteImageNoteById(id) {
       const rowsDeleted = await this.destroy({
         where: {

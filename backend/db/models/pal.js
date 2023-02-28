@@ -6,12 +6,6 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Pal extends Model {
 
-    async updatePal(data) {
-      const result = await this.update(data);
-      return result;
-    }
-
-
     static async deletePalById(id) {
       const rowsDeleted = await this.destroy({
         where: {

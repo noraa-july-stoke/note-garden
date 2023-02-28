@@ -11,7 +11,12 @@ const actionError = (errors) => ({
 const actionLoadPosts = (posts) => ({
     type: LOAD_POSTS,
     posts
-})
+});
+
+const actionLoadPalPosts = (posts) => ({
+    type: LOAD_POSTS,
+    palPosts
+});
 
 export const thunkLoadPosts = () => async (dispatch) => {
     try {
@@ -27,7 +32,22 @@ export const thunkLoadPosts = () => async (dispatch) => {
     }
 }
 
-const initialState = { userPosts: {} };
+export const thunkLoadPalPosts = () => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/posts/pals`, {
+            method: "GET"
+        });
+        const data = await response.json();
+        dispatch(actionLoadPalPosts(data));
+        console.log(data)
+    } catch (error) {
+        console.error("Error loading posts", error);
+        dispatch(actionError(error))
+    }
+}
+
+
+const initialState = { userPosts: {}, palPosts: {} };
 const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_POSTS: {

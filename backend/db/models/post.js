@@ -10,11 +10,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
-    async updatePost(data) {
-      const result = await this.update(data);
-      return result;
+    static async findAllByAuthors(authorIds) {
+      const objectPosts = {};
+      const posts = await this.findAll({
+        where: {
+          authorId: authorIds,
+        },
+      });
+      for (let post of posts) {
+        post = post.toJSON()
+        objectPosts[post.id] = post
+      }
+      return posts;
     }
-
     static async deletePostById(id) {
       const rowsDeleted = await this.destroy({
         where: {
