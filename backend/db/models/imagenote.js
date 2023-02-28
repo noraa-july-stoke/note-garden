@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "authorId"
       });
 
-      ImageNote.belongsTo(models.Notebook, {
+      ImageNote.belongsTo(models.ImageNotebook, {
         foreignKey: "notebookId"
       });
     }

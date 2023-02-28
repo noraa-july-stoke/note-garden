@@ -1,6 +1,13 @@
 import { csrfFetch } from './csrf';
 
 const LOAD_COLLABORATIONS = 'LOAD_COLLABORATIONS';
+const ERROR = "ERROR"
+
+
+const actionError = (errors) => ({
+    type: ERROR,
+    errors
+});
 
 const actionLoadCollaborations = (collaborations) => {
     return {
@@ -18,6 +25,7 @@ export const thunkLoadCollaborations = () => async (dispatch) => {
         dispatch(actionLoadCollaborations(data));
     } catch (error) {
         console.error("Error loading collaboration", error);
+        dispatch(actionError(error))
     }
 }
 
@@ -30,6 +38,12 @@ const collaborationsReducer = (state = initialState, action) => {
         case LOAD_COLLABORATIONS: {
 
             return {userCollaborations: {...action.collaborations}}
+        }
+        case ERROR: {
+            return {
+                ...state,
+                errors: { ...action.errors }
+            }
         }
         default:
             return state;

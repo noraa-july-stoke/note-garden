@@ -1,6 +1,14 @@
 import { csrfFetch } from './csrf';
 
 const LOAD_COMMENTS = 'LOAD_COMMENTS';
+const ERROR = "ERROR"
+
+
+const actionError = (errors) => ({
+    type: ERROR,
+    errors
+});
+
 
 const actionLoadComments = (comments) => {
     return {
@@ -19,17 +27,23 @@ export const thunkLoadComments = () => async (dispatch) => {
         console.log(data)
     } catch (error) {
         console.error("Error loading comments", error);
+        dispatch(actionError(error))
     }
 };
 
 const initialState = { userComments: {} };
-
 const commentsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
         case LOAD_COMMENTS: {
             return { userComments: { ...action.comments } }
+        }
+        case ERROR: {
+            return {
+                ...state,
+                errors: { ...action.errors }
+            }
         }
         default:
             return state;

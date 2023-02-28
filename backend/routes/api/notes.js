@@ -85,7 +85,7 @@ router.post('/image-note', async (req, res, next) => {
 
 router.post('/text-note', async (req, res, next) => {
     let { name, note, notebookId } = req.body.note;
-    notebookId ? null: notebookId = null;
+    notebookId ? null : notebookId = null;
     const userId = req.user.id;
 
     const newTextNote = await TextNote.create({

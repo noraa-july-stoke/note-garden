@@ -5,13 +5,17 @@ import uploadReducer from "./uploads";
 import notesReducer from "./notes";
 import collaborationsReducer from "./collaborations";
 import commentsReducer from "./comments";
+import notebooksReducer from "./notebooks";
+import palsReducer from "./pals";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   uploads: uploadReducer,
   notes: notesReducer,
+  notebooks: notebooksReducer,
   collaborations: collaborationsReducer,
-  comments: commentsReducer
+  comments: commentsReducer,
+  pals: palsReducer
 });
 
 let enhancer;

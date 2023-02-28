@@ -4,21 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { thunkLoadCollaborations } from '../../store/collaborations';
 import { thunkLoadComments } from '../../store/comments';
 import { thunkLoadNotes } from '../../store/notes';
-
+import { thunkLoadNotebooks } from '../../store/notebooks';
 const TestComponent = () => {
 
     const dispatch = useDispatch();
     const collaborations = useSelector(state => state.collaborations?.userCollaborations);
-    const comments = useSelector(state => state.ccomments?.userComments);
-
+    const comments = useSelector(state => state.comments?.userComments);
 
     useEffect(() => {
-
         dispatch(thunkLoadCollaborations());
         dispatch(thunkLoadComments());
         dispatch(thunkLoadNotes());
+        dispatch(thunkLoadNotebooks());
     }, [dispatch]);
-
     return (
         <div>
             {

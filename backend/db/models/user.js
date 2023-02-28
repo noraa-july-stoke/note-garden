@@ -145,7 +145,6 @@ module.exports = (sequelize, DataTypes) => {
         where: { userId: this.id },
         order: [['createdAt']]
       });
-
       return reactions;
     }
 

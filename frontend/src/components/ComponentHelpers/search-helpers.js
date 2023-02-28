@@ -18,6 +18,9 @@ export const actionGenerator = (inputString) => {
     return [...newWords].sort().join("");
 }
 
+
+//!@#$
+// put options for commands in search bar later
 //A mini switch statement I based on a redux pattern.
 export const searchReducer = (word) => {
     switch (word) {
