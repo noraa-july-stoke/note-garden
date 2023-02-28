@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
-    static async findAllByAuthors(authorIds) {
+    static async findAllByAuthors(idObj) {
+      const authorIds = Object.values(idObj);
       const objectPosts = {};
       const posts = await this.findAll({
         where: {

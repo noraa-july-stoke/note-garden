@@ -1,6 +1,8 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_POSTS = "LOAD_POSTS";
+const LOAD_PAL_POSTS = "LOAD_PAL_POSTS";
+
 const ERROR = "ERROR";
 
 const actionError = (errors) => ({
@@ -13,8 +15,8 @@ const actionLoadPosts = (posts) => ({
     posts
 });
 
-const actionLoadPalPosts = (posts) => ({
-    type: LOAD_POSTS,
+const actionLoadPalPosts = (palPosts) => ({
+    type: LOAD_PAL_POSTS,
     palPosts
 });
 
@@ -51,7 +53,10 @@ const initialState = { userPosts: {}, palPosts: {} };
 const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_POSTS: {
-            return { userPosts: { ...action.posts } }
+            return { ...state, userPosts: { ...action.posts } }
+        }
+        case LOAD_PAL_POSTS: {
+            return { ...state, palPosts: { ...action.posts } }
         }
         case ERROR: {
             return {

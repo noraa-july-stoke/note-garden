@@ -36,7 +36,6 @@ router.put('/:id(\\d+)', requireAuth, async (req, res) => {
     }
 });
 
-
 router.put('/image-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     const imageNotebookId = req.params.id;
     const { name, description } = req.body;

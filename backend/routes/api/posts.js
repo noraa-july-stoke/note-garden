@@ -4,12 +4,24 @@ const { User, Post } = require('../../db/models');
 
 const router = express.Router();
 
+
+//Gets all the user's posts
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
-    const posts = User.getPosts;
-    res.json({ posts });
+    const user = await User.findByPk(userId)
+    const posts = await user.getPosts();
+    res.status(200).json(posts);
 });
 
+//Gets all the user's posts, gives me a feed to display.
+//This is where using my model methods came in handy.
+router.get('/pals', requireAuth, async (req, res) => {
+    const userId = req.user.id;
+    const user = await User.findByPk(userId)
+    const pals = await user.getPals();
+    const palPosts = await Post.findAllByAuthors(pals)
+    res.status(200).json(palPosts);
+});
 
 router.post('/', requireAuth, async (req, res) => {
     const { content } = req.body;
@@ -17,7 +29,6 @@ router.post('/', requireAuth, async (req, res) => {
     const post = await Post.create({ content, authorId: userId });
     res.json({ post });
 });
-
 
 router.put('/:id(\\d+)', requireAuth, async (req, res) => {
     const postId = req.params.id;

@@ -49,9 +49,40 @@
 
 .profile-dropdown {
     margin: none;
+    padding:none;
+    border:none;
     position: absolute;
     width: fit-content;
+    height: 100%;
+    overflow:scroll;
     background-color: black;
     top: 50px;
     left: 10px;
+    list-style:none;
+}
+
+.profile-dropdown {
+    background-color: black;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border:none;
+}
+
+.dropdown-item {
+    background-color:black;
+    font-size: 16px;
+    color: white;
+    border: 2px solid black;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    border: 2px solid slategrey;
+}
+
+.logout-button{
+    color:white;
+    font-size: 16px;
 }

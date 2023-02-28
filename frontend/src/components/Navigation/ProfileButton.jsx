@@ -39,8 +39,6 @@ function ProfileButton({ user }) {
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
-        //!@#$ make dropdown look like this
-
     return (
         <>
             <button className="utility-button feedback-button profile-button" onClick={openMenu}>
@@ -49,31 +47,49 @@ function ProfileButton({ user }) {
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <div className="user-dropdown">
-                    <div className="user-info-container utility-button feedback-button">
-                        <span className = "user-dropdown-info">{user.username}</span>
-                        <span className="user-dropdown-info">{user.firstName} {user.lastName}</span>
-                        <span className="user-dropdown-info">{user.email}</span>
-                    </div>
+                        <div className="user-info-container dropdown-item">
+                            <span className="user-dropdown-info">{user.username}</span>
+                            <span className="user-dropdown-info">{user.firstName} {user.lastName}</span>
+                            <span className="user-dropdown-info">{user.email}</span>
+                        </div>
 
-                        <span className="user-dropdown-logout">
-                            <button className="utility-button feedback-button" onClick={logout}>Log Out</button>
-                        </span>
+                        <div className="user-dropdown-logout dropdown-item">
+                            <button className="logout-button" onClick={logout}>Log Out</button>
+                        </div>
+                        <div className="dropdown-item">
+                            My NoteBooks
+                        </div>
+                        <div className="dropdown-item">
+                            My Photo Albums
+                        </div>
+                        <div className="dropdown-item">
+                            Creation Station
+                        </div>
+                        <div className="dropdown-item">
+                            My NoteBooks
+                        </div>
+                        <div className="dropdown-item">
+                            My Pals
+                        </div>
+                        <div className="dropdown-item">
+                            My Posts
+                        </div>
                     </div>
                 ) : (
                     <>
-                        <span className ='modal-button'>
-                        <OpenModalMenuItem
-                            itemText="Log In"
-                            onItemClick={closeMenu}
-                            modalComponent={<LoginFormModal />}
-                        />
+                        <span className='modal-button'>
+                            <OpenModalMenuItem
+                                itemText="Log In"
+                                onItemClick={closeMenu}
+                                modalComponent={<LoginFormModal />}
+                            />
                         </span>
                         <span className='modal-button'>
-                        <OpenModalMenuItem
-                            itemText="Sign Up"
-                            onItemClick={closeMenu}
-                            modalComponent={<SignupFormModal />}
-                        />
+                            <OpenModalMenuItem
+                                itemText="Sign Up"
+                                onItemClick={closeMenu}
+                                modalComponent={<SignupFormModal />}
+                            />
                         </span>
                     </>
                 )}

@@ -28,8 +28,10 @@ a {
     color: white;
 }
 
-button{
+button {
+    background: none;
     border: none;
+    padding: 0;
 }
 
 .feedback-button {

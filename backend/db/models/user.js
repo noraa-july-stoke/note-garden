@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
 
-    async updateUser(data) {
-      const result = await this.update(data);
-      return result;
-    }
 
     async getNotes() {
       const ImageNote = sequelize.models.ImageNote;
@@ -77,7 +73,6 @@ module.exports = (sequelize, DataTypes) => {
 
       return { notebooks: objectNotebooks, imageNotebooks: objectImageNotebooks };
     }
-
 
     // getpals gets any of the pal relationships of the user. the user could be found as palOne or palTwo
     async getPals() {
@@ -169,14 +164,13 @@ module.exports = (sequelize, DataTypes) => {
     // query for and return any reactions the user has left on a post the user exists in under the key userId
     async getReactions() {
       const Reaction = sequelize.models.Reaction;
-
       const reactions = await Reaction.findAll({
         where: { userId: this.id },
         order: [['createdAt']]
       });
       return reactions;
     }
-    // Delete a user by ID
+
 
     async createDefaultNotebook() {
       const Notebook = sequelize.models.Notebook;

@@ -25,8 +25,6 @@ export const thunkLoadPals = () => async(dispatch) => {
         console.error("Error loading pals", error);
         dispatch(actionError(error))
     }
-
-
 }
 
 

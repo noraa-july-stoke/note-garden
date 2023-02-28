@@ -1,19 +1,17 @@
 const express = require('express');
-const { Reaction } = require('../../db/models');
+const { Reaction, User } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
-// Get all reactions
+// Get all reactions the user has left on other posts
 router.get('/', requireAuth, async (req, res) => {
-  try {
-    const reactions = await Reaction.findAll();
-    res.json({ reactions });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
-  }
+  const userId = req.user.id
+  const user = await User.findByPk(userId)
+  const reactions = await user.getReactions();
+  res.status(200).json(reactions);
 });
+
 
 // Get a specific reaction by ID
 router.get('/:id(\\d+)', requireAuth, async (req, res) => {
@@ -28,6 +26,7 @@ router.get('/:id(\\d+)', requireAuth, async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 // Create a new reaction
 router.post('/', requireAuth, async (req, res) => {
