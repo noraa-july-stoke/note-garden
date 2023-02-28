@@ -6,10 +6,7 @@ const router = express.Router();
 
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
-    const posts = await Post.findAll({
-        where: { authorId: userId },
-        include: User,
-    });
+    const posts = User.getPosts;
     res.json({ posts });
 });
 
@@ -20,9 +17,6 @@ router.post('/', requireAuth, async (req, res) => {
     res.json({ post });
 });
 
-
-
-
 router.delete('/:postId(\\d+)', requireAuth, async (req, res) => {
     const { id } = req.params;
     const post = await Post.findByPk(id);
@@ -30,5 +24,6 @@ router.delete('/:postId(\\d+)', requireAuth, async (req, res) => {
     await post.destroy();
     res.sendStatus(204);
 });
+
 
 module.exports = router;

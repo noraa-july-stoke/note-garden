@@ -11,7 +11,7 @@ const actionError = (errors) => ({
 const actionLoadReactions = (reactions) => ({
     type: LOAD_REACTIONS,
     reactions
-})
+});
 
 export const thunkLoadReactions = () => async (dispatch) => {
     try {

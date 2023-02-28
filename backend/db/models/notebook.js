@@ -9,6 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    static async deleteNotebookById(id) {
+      const rowsDeleted = await this.destroy({
+        where: {
+          id: id
+        }
+      });
+      return rowsDeleted;
+    }
     static associate(models) {
 
       Notebook.hasMany(models.TextNote, {

@@ -5,11 +5,15 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ImageNote extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
+    static async deleteImageNoteById(id) {
+      const rowsDeleted = await this.destroy({
+        where: {
+          id: id
+        }
+      });
+      return rowsDeleted;
+    }
     static associate(models) {
       ImageNote.belongsTo(models.User, {
         foreignKey: "authorId"

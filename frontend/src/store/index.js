@@ -7,6 +7,8 @@ import collaborationsReducer from "./collaborations";
 import commentsReducer from "./comments";
 import notebooksReducer from "./notebooks";
 import palsReducer from "./pals";
+import postsReducer from "./posts";
+import reactionsReducer from "./reactions";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -15,7 +17,9 @@ const rootReducer = combineReducers({
   notebooks: notebooksReducer,
   collaborations: collaborationsReducer,
   comments: commentsReducer,
-  pals: palsReducer
+  pals: palsReducer,
+  posts: postsReducer,
+  reactions: reactionsReducer
 });
 
 let enhancer;

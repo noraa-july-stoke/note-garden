@@ -4,6 +4,15 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Reaction extends Model {
+
+    static async deleteReactionById(id) {
+      const rowsDeleted = await this.destroy({
+        where: {
+          id: id
+        }
+      });
+      return rowsDeleted;
+    }
     static associate(models) {
       Reaction.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
       Reaction.belongsTo(models.User, { foreignKey: 'authorId', as: 'author' });

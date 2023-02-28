@@ -4,6 +4,14 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Collaboration extends Model {
+    static async deleteCollaborationById(id) {
+      const rowsDeleted = await this.destroy({
+        where: {
+          id: id
+        }
+      });
+      return rowsDeleted;
+    }
     static associate(models) {
       Collaboration.belongsTo(models.User, {
         foreignKey: "authorId"

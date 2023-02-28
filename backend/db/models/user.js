@@ -41,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       return { imageNotes: objectImageNotes, textNotes: objectTextNotes };
     }
 
+
     // query notebook model for any notebooks and any image notebooks that belong to the user and return them as arrays inside
     // a composite object
     async getNotebooks() {
@@ -76,33 +77,53 @@ module.exports = (sequelize, DataTypes) => {
     // getpals gets any of the pal relationships of the user. the user could be found as palOne or palTwo
     async getPals() {
       const Pal = sequelize.models.Pal;
-
+      const objectPals = {}
       const pals = await Pal.findAll({
         where: {
           [Op.or]: [
             { palOne: this.id },
             { palTwo: this.id }
           ]
+        },
+        include: {model: User}
+      });
+
+      for (let pal of pals) {
+        pal = pal.toJSON();
+        pal.palOne === this.id ? objectPals[pal.palTwo] = pal.palTwo : objectPals[pal.palOne] = pal.palOne
+      }
+      return objectPals;
+    }
+
+    // extract the pals from the object returned by getPals;
+    async getPalsByIds(idObj) {
+      const User = sequelize.models.User;
+      const ids = Object.values(idObj);
+      const palsObject = {}
+      const users = await User.findAll({
+        where: {
+          id: ids
         }
       });
-      return pals;
+      for (let user of users) {
+        user = user.toJSON();
+        palsObject[user.id] = user;
+      }
+      return { pals: palsObject };
     }
 
     // query for and return any collaborations that the user exists in under the key collaboratorId
     async getCollaborations() {
       const Collaboration = sequelize.models.Collaboration;
-
+      const objectCollaborations = {};
       const collaborations = await Collaboration.findAll({
         where: { collaboratorId: this.id },
         order: [['createdAt']]
       });
-
-      const objectCollaborations = {}
-
       for (let collaboration of collaborations) {
         collaboration = collaboration.toJSON()
         objectCollaborations[collaboration.id] = collaboration;
-      }
+      };
 
       return objectCollaborations;
     }
@@ -110,25 +131,28 @@ module.exports = (sequelize, DataTypes) => {
     // query for and return any posts that the user exists in under the key authorIdId
     async getPosts() {
       const Post = sequelize.models.Post;
+      const objectPosts = {};
 
       const posts = await Post.findAll({
         where: { authorId: this.id },
         order: [['createdAt']]
       });
 
+      for (let post of posts) {
+        post = post.toJSON();
+        objectPosts[post.id] = post;
+      }
       return posts;
     }
-
     // query for and return any comments the user has left on a post the user exists in under the key userId
     async getComments() {
       const Comment = sequelize.models.Comment;
+      const objectComments = {}
 
       const comments = await Comment.findAll({
         where: { userId: this.id },
         order: [['createdAt']]
       });
-
-      const objectComments = {}
 
       for (let comment of comments) {
         comment = comment.toJSON()
@@ -147,6 +171,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       return reactions;
     }
+    // Delete a user by ID
 
     async createDefaultNotebook() {
       const Notebook = sequelize.models.Notebook;
@@ -162,6 +187,15 @@ module.exports = (sequelize, DataTypes) => {
 
     static getCurrentUserById(id) {
       return User.scope("currentUser").findByPk(id);
+    }
+
+    static async deleteUserById(id) {
+      const rowsDeleted = await this.destroy({
+        where: {
+          id: id
+        }
+      });
+      return rowsDeleted;
     }
 
     static async login({ credential, password }) {

@@ -22,14 +22,12 @@ export const thunkLoadPals = () => async(dispatch) => {
         dispatch(actionLoadPals(data));
         console.log(data)
     } catch (error) {
-        console.error("Error loading comments", error);
+        console.error("Error loading pals", error);
         dispatch(actionError(error))
     }
 
 
 }
-
-
 
 
 const initialState = { userPals: {} };

@@ -5,6 +5,16 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
   class Pal extends Model {
+
+    static async deletePalById(id) {
+      const rowsDeleted = await this.destroy({
+        where: {
+          id: id
+        }
+      });
+      return rowsDeleted;
+    }
+
     static associate(models) {
       Pal.belongsTo(models.User, {
         foreignKey: "palOne"

@@ -32,10 +32,11 @@ module.exports = {
     const Op = Sequelize.Op;
     const users = await User.findAll();
     const notebookNames = users.flatMap((user) =>
-      //Method that builds and populates an array. This is javascript list comprehension basically. 😱
+
+      // Basically list comprehension in JS. it avoids having to push stuff into an array.
+      // I used this because i didnt have an object to call map on to avoiid making a clunky for-loop.
       Array.from({ length: 3 }, (_, i) => `Notebook${i + 1} of ${user.username}`)
     );
-
     return queryInterface.bulkDelete(options, {
       name: { [Op.in]: notebookNames }
     }, {});

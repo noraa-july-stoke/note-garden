@@ -4,14 +4,14 @@ const { User, Pal } = require('../../db/models');
 
 const router = express.Router();
 
-router.get('/', requireAuth, async (req, res) => {
-    // const userId = req.user.id;
-    // const pals = await Pal.findAll({
-    //     where: { userId },
-    //     include: User,
-    // });
-    // res.json({ pals });
 
+// Querying across tables in my user model using these methods I wrote;
+router.get('/', requireAuth, async (req, res) => {
+    const userId = req.user.id;
+    const user = await User.findByPk(userId)
+    const palIds = await user.getPals();
+    const pals = await user.getPalsByIds(palIds)
+    res.json(pals)
 });
 
 router.post('/', requireAuth, async (req, res) => {
