@@ -68,3 +68,8 @@ button {
 .icon-button:active {
     transform: translateY(0.5px) translateX(0.5px);
 }
+
+
+.blurred{
+    filter:blur('1.5em')
+}

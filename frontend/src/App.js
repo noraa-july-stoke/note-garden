@@ -8,6 +8,11 @@ import TextEditor from "./components/TextEditor";
 import AllNotes from "./components/NotesComponents/AllNotes";
 import SingleNotePage from "./components/NotesComponents/SingleNotePage";
 import TestComponent from "./components/TestComponent/TestComponent";
+import SinglePostPage from "./components/PostComponents/SinglePostPage";
+import Dashboard from "./components/UserDashboard";
+import UserNotebooks from "./components/UserNotebooks";
+
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -31,6 +36,12 @@ function App() {
           <Route path="/test">
             <TestComponent/>
           </Route>
+          <Route path="/post">
+            <SinglePostPage/>
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
           <Route path='/all-notes'>
             <AllNotes />
           </Route>
@@ -38,15 +49,17 @@ function App() {
             <SingleNotePage />
           </Route>
           <Route path='/new-note'>
-            <TextEditor editMode={false} />
+            <TextEditor/>
+          </Route>
+          <Route path='/notebooks'>
+            <UserNotebooks/>
           </Route>
           <Route path='/edit-note/:noteId'>
-            <TextEditor editMode={true} />
+            <TextEditor/>
           </Route>
         </Switch>
       )}
     </>
   );
 }
-
 export default App;

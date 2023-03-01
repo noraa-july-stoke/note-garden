@@ -23,6 +23,7 @@ router.get('/pals', requireAuth, async (req, res) => {
     res.status(200).json(palPosts);
 });
 
+
 router.post('/', requireAuth, async (req, res) => {
     const { content } = req.body;
     const userId = req.user.id;
@@ -30,10 +31,13 @@ router.post('/', requireAuth, async (req, res) => {
     res.json({ post });
 });
 
+
+
+
+
 router.put('/:id(\\d+)', requireAuth, async (req, res) => {
     const postId = req.params.id;
     const { /* keys to update */ } = req.body;
-
     try {
         const post = await Post.findByPk(postId);
         if (!post) {

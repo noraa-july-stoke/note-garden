@@ -8,12 +8,13 @@ import { thunkLoadNotebooks } from '../../store/notebooks';
 import { thunkLoadPals } from '../../store/pals';
 import { thunkLoadPalPosts, thunkLoadPosts } from '../../store/posts';
 import { thunkLoadReactions } from '../../store/reactions';
+import ExampleComponent from "./ExampleComponent";
 
 const TestComponent = () => {
 
     const dispatch = useDispatch();
-    const collaborations = useSelector(state => state.collaborations?.userCollaborations);
-    const comments = useSelector(state => state.comments?.userComments);
+    const collaborations = useSelector(state => state.collaborations);
+    const comments = useSelector(state => state.comments);
     const notes = useSelector(state => state.notes)
     const notebooks = useSelector(state => state.notebooks)
     const pals = useSelector(state => state.pals)
@@ -26,18 +27,9 @@ const TestComponent = () => {
         dispatch(thunkLoadPals());
         dispatch(thunkLoadPosts());
         dispatch(thunkLoadReactions());
-        dispatch(thunkLoadPalPosts())
+        dispatch(thunkLoadPalPosts());
     }, [dispatch]);
-    return (
-        <div>
-            {
-                // comments?.map(comment => <div>{comment.content}</div>)
-            }
-            {
-                // collaborations?.map(collaboration => <div>{collaboration.authorId}, {collaboration.collaboratorId {}</div>)
-            }
-        </div>
-    );
+    return <ExampleComponent/>
 }
 
 export default TestComponent;

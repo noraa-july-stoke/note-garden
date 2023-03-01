@@ -13,17 +13,55 @@ module.exports = (sequelize, DataTypes) => {
     static async findAllByAuthors(idObj) {
       const authorIds = Object.values(idObj);
       const objectPosts = {};
+      const textNoteIds = [];
+      const imageNoteIds = [];
       const posts = await this.findAll({
         where: {
           authorId: authorIds,
         },
       });
+
       for (let post of posts) {
-        post = post.toJSON()
-        objectPosts[post.id] = post
+        if (post.textNote) {
+          textNoteIds.push(post.noteId);
+          let textNote = await sequelize.models.TextNote.findByPk(post.noteId);
+          textNote = textNote.toJSON()
+          console.log(textNote.note)
+
+          post = { ...post.toJSON(), note: textNote.note };
+        } else {
+          imageNoteIds.push(post.noteId);
+          let imageNote = await sequelize.models.ImageNote.findByPk(post.noteId);
+          imageNote = imageNote.toJSON()
+
+          console.log(imageNote)
+          post = { ...post.toJSON(), url: imageNote.url};
+        }
+        objectPosts[post.id] = post;
       }
-      return posts;
+
+      return objectPosts;
     }
+
+    // static async findAllByAuthors(idObj) {
+    //   const authorIds = Object.values(idObj);
+    //   const objectPosts = {};
+    //   const textNoteIds = []
+    //   const imageNoteIds = []
+    //   const posts = await this.findAll({
+    //     where: {
+    //       authorId: authorIds,
+    //     },
+    //   });
+    //   for (let post of posts) {
+    //     if (post.textNote) textNoteIds.push(post.noteid)
+    //     else imageNoteIds.push(post.noteId)
+    //     post = post.toJSON()
+    //     objectPosts[post.id] = post
+    //   }
+    //   return posts;
+    // }
+
     static async deletePostById(id) {
       const rowsDeleted = await this.destroy({
         where: {

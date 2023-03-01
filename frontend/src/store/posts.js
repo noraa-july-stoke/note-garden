@@ -56,7 +56,7 @@ const postsReducer = (state = initialState, action) => {
             return { ...state, userPosts: { ...action.posts } }
         }
         case LOAD_PAL_POSTS: {
-            return { ...state, palPosts: { ...action.posts } }
+            return { ...state, palPosts: { ...action.palPosts } }
         }
         case ERROR: {
             return {

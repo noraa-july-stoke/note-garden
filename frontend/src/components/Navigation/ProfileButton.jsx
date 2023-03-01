@@ -11,8 +11,7 @@ function ProfileButton({ user }) {
     const ulRef = useRef();
 
     const openMenu = () => {
-        if (showMenu) return;
-        setShowMenu(true);
+        setShowMenu(!showMenu);
     };
 
     useEffect(() => {
@@ -63,16 +62,13 @@ function ProfileButton({ user }) {
                             My Photo Albums
                         </div>
                         <div className="dropdown-item">
-                            Creation Station
+                            Create Something!
                         </div>
                         <div className="dropdown-item">
                             My NoteBooks
                         </div>
                         <div className="dropdown-item">
-                            My Pals
-                        </div>
-                        <div className="dropdown-item">
-                            My Posts
+                            My NoteBooks
                         </div>
                     </div>
                 ) : (

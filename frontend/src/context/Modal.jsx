@@ -54,4 +54,7 @@ export const Modal = () => {
         modalRef.current
     );
 }
+
+
+
 export const useModal = () => useContext(ModalContext);

@@ -7,13 +7,33 @@ const router = express.Router();
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const user = await User.findByPk(userId);
-    const notebooks = user.getNotebooks();
+    const notebooks = await user.getNotebooks();
     res.status(200).json(notebooks);
 });
 
-router.post('/', requireAuth, async (req, res) => {
-    return "notebook post route working"
+
+router.post('/text-notebook', requireAuth, async (req, res) => {
+    const userId = req.user.id;
+    const {name} = req.body;
+    const newNotebook = await Notebook.create({
+        authorId: userId,
+        name,
+    });
+    res.status(201).json(newNotebook)
 });
+
+router.post('/image-notebook', requireAuth, async (req, res) => {
+    // const userId = req.user.id;
+    // const { name } = req.body;
+    // const newNotebook = await Notebook.create({
+    //     authorId: userId,
+    //     name,
+    // });
+    // res.status(201).json(newNotebook)
+    return null
+});
+
+
 
 
 router.put('/:id(\\d+)', requireAuth, async (req, res) => {

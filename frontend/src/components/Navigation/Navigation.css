@@ -33,7 +33,6 @@
     z-index: 10;
 }
 
-
 .user-info-container {
     display: flex;
     flex-direction: column;
@@ -56,9 +55,9 @@
     height: 100%;
     overflow:scroll;
     background-color: black;
-    top: 50px;
+    top: 67px;
     left: 10px;
-    list-style:none;
+    z-index:900;
 }
 
 .profile-dropdown {
@@ -67,6 +66,10 @@
     padding: 0;
     margin: 0;
     border:none;
+}
+
+.hidden {
+    display: none;
 }
 
 .dropdown-item {
@@ -86,3 +89,6 @@
     color:white;
     font-size: 16px;
 }
+
+
+/* error modal */

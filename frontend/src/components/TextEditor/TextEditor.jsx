@@ -1,41 +1,46 @@
 // Import React dependencies.
 import React, { useState, useMemo, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createEditor, Editor, Transforms, useSlate, Node } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
 import DOMPurify from 'dompurify';
-import {helpers} from '../ComponentHelpers/index.js'
+import { helpers } from '../ComponentHelpers/index.js'
 import './TextEditor.css'
 import { thunkCreateTextNote } from '../../store/notes.js';
-const {serialize, deserialize} = helpers;
+import { thunkLoadNotebooks } from '../../store/notebooks.js';
+const { serialize, deserialize } = helpers;
+
+
 
 //At it's core, the slate editor is just a node list wrapped in an outer "<p></p>" tag.
-
 // !@#$ ultimately I want to pass in initial value as a prop with the noteid.
 // Maybe i can pass in the individual note and then deserialize the note html???
 // the note prop coming into component is going to be a note object with a key that
 // contains the same value as what is put into locastorage
-const TextEditor = ({note}) => {
 
-    const notebooks = [{name: "meow", id: 1}, {name: "howdy", id: 2}]
+const TextEditor = ({ note }) => {
+    //if note use note, if not start from scratch.
+    const notebooks = useSelector(state => state.notebooks?.userTextNotebooks)
     //Preserves data through a re-render before updating based on previous value
-
     //State Variables. html contend will be rendered inside this starting div.
     const dispatch = useDispatch();
     const storedValue = localStorage.getItem('content')
+
     const [htmlContent, setHtmlContent] = useState(DOMPurify.sanitize(storedValue))
     const [name, setName] = useState("")
     const [selectedNotebook, setSelectedNotebook] = useState("");
 
     let deserializedValue = null;
-    if (storedValue){
+    if (note) {
         const document = new DOMParser().parseFromString(storedValue, 'text/html')
         deserializedValue = deserialize(document.body)
     }
 
     useEffect(() => {
         console.log(name, htmlContent, selectedNotebook);
-    }, [name, htmlContent, selectedNotebook]);
+        dispatch(thunkLoadNotebooks())
+        console.log(notebooks)
+    }, [name, htmlContent, selectedNotebook, dispatch]);
 
 
     //!@#$ we will set propvalue to the html string of note;
@@ -145,23 +150,35 @@ const TextEditor = ({note}) => {
             Editor.addMark(editor, 'color', color)
         }
     }
+
     const isMarkActive = (editor, format) => {
         const marks = Editor.marks(editor)
         return marks ? marks[format] === true : false
     }
 
     const handleSaveClick = async e => {
-        // !@#$ trigger dispatch to database here
+        e.preventDefault()
         const content = serialize(editor)
-        localStorage.setItem('content', content)
-        const note = {
-            name: name,
-            note: content,
-            notebookId: selectedNotebook
+        let saveNote = null;
+        if(!note) {
+            saveNote = {
+                name: name,
+                note: content,
+                notebookId: selectedNotebook
+            }
+            dispatch(thunkCreateTextNote(saveNote))
+            console.log(saveNote)
         }
-        console.log("NOTE",note)
-        await dispatch(thunkCreateTextNote(note))
-
+        else {
+            saveNote = {
+                name: name,
+                note: content,
+                notebookId: selectedNotebook
+            }
+            // dispatch(thunkEditTextnote(saveNote))
+        }
+        // console.log("NOTE", note)
+        // dispatch(thunkCreateTextNote(note))
     }
 
     const handleNameChange = e => {
@@ -174,8 +191,8 @@ const TextEditor = ({note}) => {
         element.setHTML(htmlContent)
     }
 
-    const handleNotebookChange = (event) => {
-        setSelectedNotebook(event.target.value);
+    const handleNotebookChange = e => {
+        setSelectedNotebook(e.target.value);
         console.log(selectedNotebook)
     };
 
@@ -189,27 +206,27 @@ const TextEditor = ({note}) => {
                 <label htmlFor="notebook-select">Select Notebook:</label>
                 <select id="notebook-select" value={selectedNotebook} onChange={handleNotebookChange}>
                     <option value="">Add to a notebook...</option>
-                    {notebooks.map((notebook) => (
+                    {Object.values(notebooks)?.map((notebook) => (
                         <option key={notebook.id} value={notebook.id}>{notebook.name}</option>
                     ))}
                 </select>
             </div>
 
-        <div className='text-editor-container' >
-            <div className="text-editor-toolbar">
-                <button className="toolbar-button" onClick={handleBoldClick}><b>B</b></button>
+            <div className='text-editor-container' >
+                <div className="text-editor-toolbar">
+                    <button className="toolbar-button" onClick={handleBoldClick}><b>B</b></button>
                     <button className="toolbar-button" onClick={handleItalicClick}><em>I</em></button>
                     <button className="format-button" onClick={handleResetFormatting}>Reset Formatting</button>
                     <input className="toolbar-button" type="color" onChange={handleColorChange} />
+                </div>
+                <div className="editor-wrapper">
+                    <Slate editor={editor} value={initialValue} onChange={handleChange}>
+                        <Editable className='text-editor' renderLeaf={renderLeaf} />
+                    </Slate>
+                </div>
+                <button className="utility-button feedback-button save-button" onClick={handleSaveClick}> Save your progress </button>
             </div>
-            <div className="editor-wrapper">
-            <Slate editor={editor} value={initialValue} onChange={handleChange}>
-                <Editable className='text-editor' renderLeaf={renderLeaf} />
-            </Slate>
-            </div>
-            <button className="utility-button feedback-button save-button" onClick={handleSaveClick}> Save your progress </button>
-        </div>
-        <div id="custom-div"></div>
+            <div id="custom-div"></div>
         </div>
     )
 }

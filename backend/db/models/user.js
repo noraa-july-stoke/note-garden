@@ -68,10 +68,10 @@ module.exports = (sequelize, DataTypes) => {
 
       for (let imageNotebook of imageNotebooks) {
         imageNotebook = imageNotebook.toJSON()
-        objectNotebooks[imageNotebook.id] = imageNotebook;
+        objectImageNotebooks[imageNotebook.id] = imageNotebook;
       }
 
-      return { notebooks: objectNotebooks, imageNotebooks: objectImageNotebooks };
+      return { textNotebooks: objectNotebooks, imageNotebooks: objectImageNotebooks };
     }
 
     // getpals gets any of the pal relationships of the user. the user could be found as palOne or palTwo
