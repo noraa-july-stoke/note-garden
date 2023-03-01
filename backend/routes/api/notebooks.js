@@ -42,26 +42,13 @@ router.post('/image-notebook', requireAuth, async (req, res) => {
 });
 
 
-
-
-router.put('/:id(\\d+)', requireAuth, async (req, res) => {
+router.put('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     const notebookId = req.params.id;
-    const { name, description } = req.body;
+    const { name } = req.body;
+    const notebook = await Notebook.findByPk(notebookId);
+    await notebook.update({ name });
+        res.status(200).json(notebook);
 
-    try {
-        const notebook = await Notebook.findByPk(notebookId);
-        if (!notebook) {
-            return res.status(404).json({ message: 'Notebook not found' });
-        }
-        await notebook.update({
-            name,
-            description,
-        });
-        res.json(notebook);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Something went wrong' });
-    }
 });
 
 router.put('/image-notebook/:id(\\d+)', requireAuth, async (req, res) => {
