@@ -11,14 +11,13 @@ import { thunkLoadNotebooks } from '../../store/notebooks.js';
 const { serialize, deserialize } = helpers;
 
 
-
 //At it's core, the slate editor is just a node list wrapped in an outer "<p></p>" tag.
 // !@#$ ultimately I want to pass in initial value as a prop with the noteid.
 // Maybe i can pass in the individual note and then deserialize the note html???
 // the note prop coming into component is going to be a note object with a key that
 // contains the same value as what is put into locastorage
 
-const TextEditor = ({ note }) => {
+const TextEditor = ({ note, newNote }) => {
     //if note use note, if not start from scratch.
     const notebooks = useSelector(state => state.notebooks?.userTextNotebooks)
     //Preserves data through a re-render before updating based on previous value

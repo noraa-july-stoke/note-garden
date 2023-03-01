@@ -10,20 +10,19 @@ const actionError = (errors) => ({
     errors
 })
 
-
 const actionLoadNotebooks = (notebooks) => {
     return {
         type: LOAD_NOTEBOOKS,
         notebooks
-}};
+    }
+};
 
 const actionCreateNotebook = (notebook) => {
     return {
         type: ADD_NOTEBOOK,
         notebook
-}};
-
-
+    }
+};
 
 export const thunkLoadNotebooks = () => async (dispatch) => {
     try {
@@ -38,28 +37,41 @@ export const thunkLoadNotebooks = () => async (dispatch) => {
     }
 };
 
-export const thunkAddTextNotebook = (notebookData) => async (dispatch) => {
-    try {
-        const response = await csrfFetch("/api/notebooks/text-notebook", {
-            method: "POST",
-            body: JSON.stringify(notebookData),
-        });
-        const data = await response.json();
-        dispatch(actionCreateNotebook(data));
-    } catch (error) {
-        console.error("Error creating notebook:", error);
-        dispatch(actionError(error));
+export const thunkAddTextNotebook = (notebookData, notebookId) => async (dispatch) => {
+    if (!notebookId) {
+        try {
+            const response = await csrfFetch("/api/notebooks/text-notebook", {
+                method: "POST",
+                body: JSON.stringify(notebookData),
+            });
+            const data = await response.json();
+            dispatch(actionCreateNotebook(data));
+        } catch (error) {
+            console.error("Error creating notebook:", error);
+            dispatch(actionError(error));
+        }
+    }
+    else {
+        try {
+            const response = await csrfFetch(`/api/notebooks/text-notebook/${notebookId}`, {
+                method: "PUT",
+                body: JSON.stringify(notebookData),
+            });
+            const data = await response.json();
+            dispatch(actionCreateNotebook(data));
+        } catch (error) {
+            console.error("Error creating notebook:", error);
+            dispatch(actionError(error));
+        }
     }
 };
 
-const initialState = { userTextNotebooks: {}, userImageNotebooks: {}, collabsNoteBook: {} };
-
+const initialState = { userTextNotebooks: {}, userImageNotebooks: {}, collabsNoteBook: {}, singleNotebook:{} };
 const notebooksReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case LOAD_NOTEBOOKS: {
             console.log("ACTIONS", action)
-
             return {
                 userTextNotebooks: { ...action.notebooks.textNotebooks },
                 userImageNotebooks: { ...action.notebooks.imageNotebooks },
@@ -67,7 +79,7 @@ const notebooksReducer = (state = initialState, action) => {
             }
         };
         case ADD_NOTEBOOK:
-            return {...state}
+            return { ...state, singleNotebook: {...action.payload} }
         case ERROR: {
             return {
                 ...state,

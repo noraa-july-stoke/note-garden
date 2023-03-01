@@ -1,20 +1,24 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { nanoid } from "nanoid";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { thunkAddTextNotebook, thunkLoadNotebooks } from "../../../store/notebooks";
 
-
 //add errors in here
-const NotebookForm = ({setNotebookAdded}) => {
-    const [name, setName] = useState("");
+const NotebookForm = ({setNotebookAdded, notebook, editState}) => {
+
+    const [name, setName] = useState(notebook?.id ? notebook?.name : "");
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newNote = {
+        const newNotebook = {
             name
         };
-        dispatch(thunkAddTextNotebook(newNote));
+        if (notebook?.id) {
+            let {isEditing, setIsEditing} = editState
+            dispatch(thunkAddTextNotebook(newNotebook, notebook?.id))
+            setIsEditing(false);
+        }
+        else { dispatch(thunkAddTextNotebook(newNotebook, false))};
         dispatch(thunkLoadNotebooks())
         reset();
         setNotebookAdded(true);
@@ -26,7 +30,7 @@ const NotebookForm = ({setNotebookAdded}) => {
 
     return (
         <div className="input-box">
-            <h1>Create Notebook</h1>
+           { !notebook?.name ? <h1>Create Notebook</h1> : null}
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
