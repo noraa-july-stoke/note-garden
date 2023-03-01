@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD_NOTEBOOKS = 'LOAD_NOTEBOOKS';
 const ADD_NOTEBOOK = 'ADD_NOTEBOOK';
+const DELETE_TEXT_NOTEBOOK = "DELETE_TEXT_NOTEBOOK"
 const ERROR = "ERROR"
 
 
@@ -21,6 +22,13 @@ const actionCreateNotebook = (notebook) => {
     return {
         type: ADD_NOTEBOOK,
         notebook
+    }
+};
+
+const actionDeleteTextNotebook = (notebookId) => {
+    return {
+        type: DELETE_TEXT_NOTEBOOK,
+        notebookId
     }
 };
 
@@ -66,12 +74,25 @@ export const thunkAddTextNotebook = (notebookData, notebookId) => async (dispatc
     }
 };
 
-const initialState = { userTextNotebooks: {}, userImageNotebooks: {}, collabsNoteBook: {}, singleNotebook:{} };
+
+export const thunkDeleteTextNotebook = (notebookId) => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/notebooks/text-notebook/${notebookId}`, {
+            method: "DELETE",
+        });
+        if (response.ok) {
+            dispatch(actionDeleteTextNotebook(notebookId));
+        }
+    } catch (error) {
+        console.error("Error deleting notebook:", error);
+        dispatch(actionError(error));
+    }
+};
+
+const initialState = { userTextNotebooks: {}, userImageNotebooks: {}, collabsNoteBook: {}, singleNotebook: {} };
 const notebooksReducer = (state = initialState, action) => {
     switch (action.type) {
-
         case LOAD_NOTEBOOKS: {
-            console.log("ACTIONS", action)
             return {
                 userTextNotebooks: { ...action.notebooks.textNotebooks },
                 userImageNotebooks: { ...action.notebooks.imageNotebooks },
@@ -79,7 +100,12 @@ const notebooksReducer = (state = initialState, action) => {
             }
         };
         case ADD_NOTEBOOK:
-            return { ...state, singleNotebook: {...action.payload} }
+            return { ...state, singleNotebook: { ...action.payload } }
+        case DELETE_TEXT_NOTEBOOK: {
+            const newState = { ...state };
+            delete newState.userTextNotebooks[action.notebookId];
+            return newState;
+        }
         case ERROR: {
             return {
                 ...state,

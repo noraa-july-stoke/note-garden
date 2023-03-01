@@ -1,6 +1,7 @@
 let options = {};
 options.schema = process.env.SCHEMA;
-options.tableName = "ImageNotebooks"
+options.tableName = "ImageNotebooks";
+
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -16,7 +17,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
-          key: 'id'
+          key: 'id',
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
         }
       },
       name: {

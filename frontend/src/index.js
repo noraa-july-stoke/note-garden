@@ -30,7 +30,7 @@ function Root() {
     <ModalProvider>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <App className="app-body" />
           <Modal />
         </BrowserRouter>
       </Provider>

@@ -5,7 +5,6 @@ import TextNoteCard from '../NotesComponents/TextNoteCard/TextNoteCard';
 import NotebookHeader from './NotebookHeader';
 
 const TextNotebook = ({notebook, setNotebookAdded, editState}) => {
-
     const notes = useSelector(state => state.notes?.notebookNotes)
     const [noteList, setNoteList] = useState([])
     const dispatch = useDispatch()

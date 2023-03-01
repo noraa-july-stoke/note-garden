@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       return rowsDeleted;
     }
+
     static associate(models) {
 
       Notebook.hasMany(models.TextNote, {
