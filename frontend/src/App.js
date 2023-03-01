@@ -29,7 +29,8 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-            <ImageUploadForm />
+            {/* landing page */}
+            {/* <ImageUploadForm /> */}
           </Route>
           <Route path="/test">
             <TestComponent/>

@@ -42,6 +42,7 @@ router.post('/image-notebook', requireAuth, async (req, res) => {
     return null
 });
 
+<<<<<<< HEAD
 router.put('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     const notebookId = req.params.id;
     const { name } = req.body;
@@ -56,6 +57,16 @@ router.put('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Something went wrong' });
     }
+=======
+
+router.put('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
+    const notebookId = req.params.id;
+    const { name } = req.body;
+    const notebook = await Notebook.findByPk(notebookId);
+    await notebook.update({ name });
+        res.status(200).json(notebook);
+
+>>>>>>> dev
 });
 
 router.put('/image-notebook/:id(\\d+)', requireAuth, async (req, res) => {
