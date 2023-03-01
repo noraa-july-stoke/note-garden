@@ -12,11 +12,9 @@ import SinglePostPage from "./components/PostComponents/SinglePostPage";
 import Dashboard from "./components/UserDashboard";
 import UserNotebooks from "./components/UserNotebooks";
 
-
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const history = useHistory()
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);

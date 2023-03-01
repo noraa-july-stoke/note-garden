@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkLoadCollaborations } from '../../store/collaborations';
 import { thunkLoadComments } from '../../store/comments';
-import { thunkLoadNotes } from '../../store/notes';
+import { thunkLoadNotes, thunkLoadNotebookNotes } from '../../store/notes';
 import { thunkLoadNotebooks } from '../../store/notebooks';
 import { thunkLoadPals } from '../../store/pals';
 import { thunkLoadPalPosts, thunkLoadPosts } from '../../store/posts';

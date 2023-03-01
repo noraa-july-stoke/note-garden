@@ -46,9 +46,19 @@ export const thunkLoadNotes = () => async (dispatch) => {
 };
 
 //Loads Notes from a single notebook.
-export const thunkLoadNotebookNotes = () => async (dispatch) => {
-    return null
-}
+//Loads Notes from a single notebook.
+export const thunkLoadNotebookNotes = (notebookId) => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/notebooks/text-notebooks/${notebookId}`, {
+            method: "GET"
+        });
+        const data = await response.json();
+        dispatch(actionLoadNotebookNotes(data));
+    } catch (error) {
+        console.error("Error loading notebook notes:", error);
+        dispatch(actionError(error));
+    }
+};
 
 // Loads a single note.
 export const thunkLoadSingleNote = (noteId) => async (dispatch) => {
@@ -79,7 +89,14 @@ export const thunkCreateTextNote = (note) => async (dispatch) => {
     }
 }
 
-const initialState = { textNotes: {}, imageNotes: {}, notebookNotes: {}, singleNote: {}, errors: {} };
+const initialState = {
+    textNotes: {},
+    imageNotes: {},
+    notebookNotes: {},
+    singleNote: {},
+    errors: {},
+};
+
 const notesReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_NOTES: {
@@ -87,33 +104,44 @@ const notesReducer = (state = initialState, action) => {
                 textNotes: { ...action.notes.textNotes },
                 imageNotes: { ...action.notes.imageNotes },
                 notebookNotes: { ...state.notebookNotes },
-                singleNote: { ...state.singleNote }
-            }
-        };
+                singleNote: { ...state.singleNote },
+            };
+        }
+
+        case LOAD_NOTEBOOK_NOTES: {
+            return {
+                textNotes: { ...state.textNotes },
+                imageNotes: { ...state.imageNotes },
+                notebookNotes: { ...action.notes },
+                singleNote: { ...state.singleNote },
+            };
+        }
 
         case LOAD_SINGLE_NOTE: {
             return {
                 textNotes: { ...state.textNotes },
                 imageNotes: { ...state.imageNotes },
                 notebookNotes: { ...state.notebookNotes },
-                singleNote: { ...action.note }
-            }
-        };
+                singleNote: { ...action.note },
+            };
+        }
 
         case CREATE_TEXT_NOTE: {
             return {
                 textNotes: { ...state.textNotes },
                 imageNotes: { ...state.imageNotes },
                 notebookNotes: { ...state.notebookNotes },
-                singleNote: { ...action.singleNote }
-            }
-        };
+                singleNote: { ...action.singleNote },
+            };
+        }
+
         case ERROR: {
             return {
                 ...state,
-                errors: { ...action.errors }
-            }
+                errors: { ...action.errors },
+            };
         }
+
         default:
             return state;
     }

@@ -48,7 +48,6 @@ export const thunkLoadPalPosts = () => async (dispatch) => {
     }
 }
 
-
 const initialState = { userPosts: {}, palPosts: {} };
 const postsReducer = (state = initialState, action) => {
     switch (action.type) {

@@ -55,11 +55,11 @@ router.get('/image-notes/:noteId(\\d+)', async (req, res) => {
     }
 });
 
+
+
 //--------------------------------------------
 // POST ROUTES
 //--------------------------------------------
-
-
 router.post('/image-note', async (req, res, next) => {
     let imageUrl;
     try {

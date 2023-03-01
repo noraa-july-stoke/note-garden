@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Notebook } = require('../../db/models');
+const { User, Notebook, TextNote, ImageNotebook } = require('../../db/models');
 
 const router = express.Router();
 
@@ -10,6 +10,14 @@ router.get('/', requireAuth, async (req, res) => {
     const notebooks = await user.getNotebooks();
     res.status(200).json(notebooks);
 });
+
+//gets all notes related to a notebook by notebookId
+router.get('/text-notebooks/:notebookId(\\d+)', async (req, res) => {
+    const id = req.params.notebookId
+    const notes = await TextNote.getNotesByNotebookId(id)
+    res.status(200).json(notes)
+});
+
 
 
 router.post('/text-notebook', requireAuth, async (req, res) => {
@@ -25,7 +33,7 @@ router.post('/text-notebook', requireAuth, async (req, res) => {
 router.post('/image-notebook', requireAuth, async (req, res) => {
     // const userId = req.user.id;
     // const { name } = req.body;
-    // const newNotebook = await Notebook.create({
+    // const newNotebook = await ImageNotebook.create({
     //     authorId: userId,
     //     name,
     // });

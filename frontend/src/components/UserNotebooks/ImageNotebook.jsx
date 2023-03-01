@@ -1,7 +1,6 @@
 import React from 'react';
-import '../Notebooks.css';
 
-const TextNotebook = ({notebookId}) => {
+const ImageNotebook = ({notebookId}) => {
     return (
         <div>
             Hello From TextNotebook
@@ -9,4 +8,4 @@ const TextNotebook = ({notebookId}) => {
     );
 };
 
-export default TextNotebook;
+export default ImageNotebook;

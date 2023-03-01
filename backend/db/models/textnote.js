@@ -11,6 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
+    static async getNotesByNotebookId(id) {
+      const notes = await this.findAll({
+        where: {notebookId: id}
+      });
+      const notesObject = {};
+      notes.forEach((note) => {
+        const noteJson = note.toJSON();
+        notesObject[noteJson.id] = noteJson;
+      });
+      return notesObject;
+    }
+
     static async deleteTextNoteById(id) {
       const rowsDeleted = await this.destroy({
         where: {
