@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { thunkLoadNotebookNotes } from '../../store/notes';
+import TextNoteCard from '../NotesComponents/TextNoteCard/TextNoteCard';
+import NotebookHeader from './NotebookHeader';
 
-const TextNotebook = ({notebookId}) => {
+const TextNotebook = ({notebook, setNotebookAdded, editState}) => {
+
     const notes = useSelector(state => state.notes?.notebookNotes)
     const [noteList, setNoteList] = useState([])
-
     const dispatch = useDispatch()
+
     useEffect(() => {
-        dispatch(thunkLoadNotebookNotes(notebookId))
-    }, [dispatch, notebookId])
+        dispatch(thunkLoadNotebookNotes(notebook?.id))
+    }, [dispatch, notebook])
 
     useEffect(() => {
         if (notes) {
@@ -17,21 +20,14 @@ const TextNotebook = ({notebookId}) => {
         }
     }, [notes])
 
-    // console.log(notes, "NOTELIST", noteList)
-
-
     return (
-        <div>
-            {noteList?.length ? (
+        <div className ="text-notebook-display">
+            <NotebookHeader setNotebookAdded={setNotebookAdded} notebook={notebook} editState={editState}/>
+            {noteList?.length
+                ?
                 noteList.map((note) => {
-                    const innerHTML = { __html: note.note };
-                    let element = (
-                        <div key={note.id} dangerouslySetInnerHTML={innerHTML}></div>
-                    );
-                    return element;
-                })
-            ) : null}
-
+                    return <TextNoteCard key={note.id} note={note}/>})
+                : null}
         </div>
     )
 };
