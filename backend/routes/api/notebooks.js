@@ -4,6 +4,8 @@ const { User, Notebook, TextNote, ImageNotebook } = require('../../db/models');
 
 const router = express.Router();
 
+
+//Gets all the user's imagenotebooks and notebooks
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const user = await User.findByPk(userId);
@@ -11,14 +13,13 @@ router.get('/', requireAuth, async (req, res) => {
     res.status(200).json(notebooks);
 });
 
+
 //gets all notes related to a notebook by notebookId
 router.get('/text-notebooks/:notebookId(\\d+)', async (req, res) => {
     const id = req.params.notebookId
     const notes = await TextNote.getNotesByNotebookId(id)
     res.status(200).json(notes)
 });
-
-
 
 router.post('/text-notebook', requireAuth, async (req, res) => {
     const userId = req.user.id;
@@ -41,22 +42,15 @@ router.post('/image-notebook', requireAuth, async (req, res) => {
     return null
 });
 
-
-
-
-router.put('/:id(\\d+)', requireAuth, async (req, res) => {
+router.put('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     const notebookId = req.params.id;
-    const { name, description } = req.body;
-
+    const { name } = req.body;
     try {
         const notebook = await Notebook.findByPk(notebookId);
         if (!notebook) {
             return res.status(404).json({ message: 'Notebook not found' });
         }
-        await notebook.update({
-            name,
-            description,
-        });
+        await notebook.update({name});
         res.json(notebook);
     } catch (err) {
         console.error(err);
