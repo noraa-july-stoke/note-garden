@@ -8,7 +8,6 @@ import "./UserNotebooks.css"
 
 const UserNotebooks = () => {
     const dispatch = useDispatch();
-
     const notebooks = useSelector(state => state.notebooks?.userTextNotebooks);
     const [notebookAdded, setNotebookAdded] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -21,6 +20,7 @@ const UserNotebooks = () => {
         setIsDeleted(false)
         setNotebookAdded(false)
     }, [dispatch, notebookAdded, activeTab, isEditing, isDeleted]);
+
     return (
         <div className="notebooks-container">
             <div className="tabs">
@@ -37,10 +37,10 @@ const UserNotebooks = () => {
                     </div>
                 ))}
             </div>
-            <div className="tab-content">
-                <TextNotebook notebook={notebooks[activeTab]} setNotebookAdded={setNotebookAdded} setIsDeleted={setIsDeleted} editState={{isEditing, setIsEditing}}/>
-            </div>
             <NotebookForm setNotebookAdded={setNotebookAdded} notebookId={0} />
+            <div className="tab-content">
+                <TextNotebook notebook={notebooks[activeTab]} tabState={{activeTab, setActiveTab}} setNotebookAdded={setNotebookAdded} deletedState={{isDeleted, setIsDeleted}} editState={{isEditing, setIsEditing}}/>
+            </div>
         </div>
     );
 };

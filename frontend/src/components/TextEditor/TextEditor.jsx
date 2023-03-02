@@ -7,18 +7,12 @@ import {useHistory} from "react-router-dom";
 import DOMPurify from 'dompurify';
 import { helpers } from '../ComponentHelpers/index.js';
 import './TextEditor.css';
-import { thunkCreateTextNote } from '../../store/notes.js';
+import { thunkCreateTextNote, thunkEditTextNote } from '../../store/notes.js';
 import { thunkLoadNotebooks } from '../../store/notebooks.js';
 const { serialize, deserialize } = helpers;
 
-// note to self- At it's core, the slate editor is just a node list wrapped in an outer "<p></p>" tag.
-// dont overthink it. THIS IS JUST A FORM where one of the input types is super complicated!!! YOU GOT THIS!!!!!
-// !@#$ ultimately I want to pass in initial value as a prop with the noteid.
-// Maybe i can pass in the individual note and then deserialize the note html???
-
-
-
-const TextEditor = ({ note }) => {
+//add back in localstorage functionality later in case of refresh or internet outage
+const TextEditor = ({ note, onClose, setEdited }) => {
     const history = useHistory()
     //if note use note, if not start from scratch.
     const notebooks = useSelector(state => state.notebooks?.userTextNotebooks)
@@ -63,7 +57,7 @@ const TextEditor = ({ note }) => {
                     children: [{ text: 'What are you thinking about...?' }],
                 },
             ],
-        []
+            [deserializedValue]
     )
 
     const withFormatting = (editor) => {
@@ -128,7 +122,6 @@ const TextEditor = ({ note }) => {
         return <span {...attributes}>{children}</span>
     }
 
-
     const handleBoldClick = () => {
         if (isMarkActive(editor, 'bold')) {
             Editor.removeMark(editor, 'bold')
@@ -187,8 +180,10 @@ const TextEditor = ({ note }) => {
                 note: content,
                 notebookId: selectedNotebook
             }
-            //dispatch(thunkEditTextNote())
+            dispatch(thunkEditTextNote(saveNote))
             console.log(saveNote)
+            setEdited(true)
+            onClose()
         }
     }
 
@@ -206,13 +201,13 @@ const TextEditor = ({ note }) => {
                     ))}
                 </select>
             </div>
-
             <div className='text-editor-container' >
                 <div className="text-editor-toolbar">
                     <button className="toolbar-button" onClick={handleBoldClick}><b>B</b></button>
                     <button className="toolbar-button" onClick={handleItalicClick}><em>I</em></button>
                     <button className="format-button" onClick={handleResetFormatting}>Reset Formatting</button>
                     <input className="toolbar-button" type="color" onChange={handleColorChange} />
+                    {note && <button className="toolbar-button" onClick={onClose}>Close</button>}
                 </div>
                 <div className="editor-wrapper">
                     <Slate editor={editor} value={initialValue} onChange={handleContentChange}>
@@ -224,4 +219,5 @@ const TextEditor = ({ note }) => {
         </div>
     )
 }
+
 export default TextEditor;

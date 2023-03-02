@@ -4,6 +4,7 @@ const LOAD_NOTES = "LOAD_NOTES";
 const LOAD_NOTEBOOK_NOTES = "LOAD_NOTEBOOK_NOTES";
 const LOAD_SINGLE_NOTE = "LOAD_SINGLE_NOTE";
 const CREATE_TEXT_NOTE = "CREATE_TEXT_NOTE";
+const EDIT_TEXT_NOTE = "EDIT_TEXT_NOTE";
 const ERROR = "ERROR";
 
 const actionLoadNotes = (notes) => ({
@@ -23,6 +24,11 @@ const actionLoadSingleNote = (note) => ({
 
 const actionCreateTextNote = (singleNote) => ({
     type: CREATE_TEXT_NOTE,
+    singleNote
+});
+
+const actionEditTextNote = (singleNote) => ({
+    type: EDIT_TEXT_NOTE,
     singleNote
 });
 
@@ -82,7 +88,7 @@ export const thunkCreateTextNote = (note) => async (dispatch) => {
             body: JSON.stringify({ note })
         });
         const data = await response.json();
-        dispatch(actionCreateTextNote)
+        dispatch(actionCreateTextNote(note))
     } catch (error) {
         // console.error("Error saving note:", error);
         dispatch(actionError(error));
@@ -90,9 +96,18 @@ export const thunkCreateTextNote = (note) => async (dispatch) => {
 }
 
 
-export const thunkEditNote = () => async (dispatch) => {
-    return null
-
+export const thunkEditTextNote = (note) => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/notes/text-note/${note.id}`, {
+            method: "PUT",
+            body: JSON.stringify({ note })
+        });
+        const data = await response.json();
+        dispatch(actionCreateTextNote(data))
+    } catch (error) {
+        // console.error("Error saving note:", error);
+        dispatch(actionError(error));
+    }
 }
 
 const initialState = {
@@ -133,6 +148,15 @@ const notesReducer = (state = initialState, action) => {
         }
 
         case CREATE_TEXT_NOTE: {
+            return {
+                textNotes: { ...state.textNotes },
+                imageNotes: { ...state.imageNotes },
+                notebookNotes: { ...state.notebookNotes },
+                singleNote: { ...action.singleNote },
+            };
+        }
+
+        case EDIT_TEXT_NOTE: {
             return {
                 textNotes: { ...state.textNotes },
                 imageNotes: { ...state.imageNotes },

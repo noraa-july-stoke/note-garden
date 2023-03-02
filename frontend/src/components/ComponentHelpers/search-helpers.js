@@ -3,6 +3,7 @@
 export const actionGenerator = (inputString) => {
 
     if (inputString === "test") return "test";
+    if (inputString === "notebooks") return "notebooks";
     const createKeywords = new Set(["make", "create", "add", "generate", "new", "build", "mate", "creet", "cr8", "addin", "genarate", "neew", "bild"]);
     const noteKeywords = new Set(["note", "memo", "reminder", "jot", "not", "meme", "remender", "jott", "nate", "n8"]);
     const notebookKeywords = new Set(["notebook", "nootbook", "ntebook", "notbook", "journel", "jornal", "diery", "diarry", "logbok", "scrapbok", "scrapbuk", "recrod", "journal", "diary", "logbook", "scrapbook", "natebook"]);
@@ -30,6 +31,8 @@ export const searchReducer = (word) => {
             return "/new-notebook";
         case "test":
             return "/test"
+        case "notebooks":
+            return "/notebooks"
         default:
             break;
     }

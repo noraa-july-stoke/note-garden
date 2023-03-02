@@ -20,6 +20,8 @@ const NotebookHeader = ({ notebook, setNotebookAdded, editState}) => {
                     ? (<NotebookForm notebook={notebook} setNotebookAdded={setNotebookAdded} editState={editState} />)
                     : (<h3 onDoubleClick={handleDoubleClick}>{notebook?.name}</h3>)
             }
+            <div className="component-instructions">Double Click the notebook title to edit. Double click a note to edit</div>
+
         </div>
     );
 }

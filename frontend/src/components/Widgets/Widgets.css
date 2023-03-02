@@ -1,3 +1,22 @@
-.timer{
-    color: white;
+.timer {
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.timer:hover {
+  animation: flashing 0.2s infinite;
+}
+
+@keyframes flashing {
+  0% { color: white; }
+  10% { color: red; }
+  20% { color: orange; }
+  30% { color: yellow; }
+  40% { color: lightgreen; }
+  50% { color: teal; }
+  60% { color: rgb(224, 85, 224); }
+  70% { color: violet; }
+  80% { color: pink; }
+  90% { color: turquoise; }
+  100% { color: white; }
 }

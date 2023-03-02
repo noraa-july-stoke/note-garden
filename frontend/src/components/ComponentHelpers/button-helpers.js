@@ -11,7 +11,9 @@ export const DeleteReducer = (type, setIsDeleted, id) => {
                 dispatch(thunkLoadNotebooks());
                 setIsDeleted(true)
             };
-            return onClick;
+            const className = "delete-notebook-button";
+            const deleteText = "DELETE NOTEBOOK";
+            return {deleteText, className, onClick};
         }
         // case "NOTE": {
         //     const onClick = async (e) => {

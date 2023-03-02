@@ -10,7 +10,6 @@ import Timer from '../Widgets';
 function Navigation({isLoaded}) {
     const sessionUser = useSelector(state => state.session.user);
 
-
     return (
         <nav className = 'nav-header'>
             {isLoaded && (
@@ -18,7 +17,6 @@ function Navigation({isLoaded}) {
                 <ProfileButton user={sessionUser} />
             </div>
             )}
-
             <SearchBar/>
             <Timer/>
             <div className="nav-div">

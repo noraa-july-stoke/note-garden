@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import "./ErrorModal.css"
 
+
+//!@#$ need to finish later- something is off with the selection of a new color.
 const ErrorModal = ({ errors, onClose }) => {
     const modalRef = useRef(null);
 
