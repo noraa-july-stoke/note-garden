@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom'
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({ user }) {
+    const history = useHistory();
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
@@ -55,20 +57,18 @@ function ProfileButton({ user }) {
                         <div className="user-dropdown-logout dropdown-item">
                             <button className="logout-button" onClick={logout}>Log Out</button>
                         </div>
-                        <div className="dropdown-item">
+                        <div className="dropdown-item" onClick={ e => history.push('/notebooks')}>
                             My NoteBooks
                         </div>
                         <div className="dropdown-item">
                             My Photo Albums
                         </div>
                         <div className="dropdown-item">
-                            Create Something!
+                            Make A New Note!
                         </div>
                         <div className="dropdown-item">
-                            My NoteBooks
                         </div>
                         <div className="dropdown-item">
-                            My NoteBooks
                         </div>
                     </div>
                 ) : (
