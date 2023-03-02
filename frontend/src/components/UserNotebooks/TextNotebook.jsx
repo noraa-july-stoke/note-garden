@@ -13,7 +13,7 @@ const TextNotebook = ({ notebook, setNotebookAdded, editState, deletedState, tab
     const [edited, setEdited] = useState(false)
     const dispatch = useDispatch();
     const {activeTab, setActiveTab} = tabState;
-    const { isDeleted , setIsDeleted } = deletedState;
+    const { isDeleted , _ } = deletedState;
 
     useEffect(() => {
         dispatch(thunkLoadNotebookNotes(notebook?.id))
