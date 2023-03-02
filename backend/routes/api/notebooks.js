@@ -20,6 +20,7 @@ router.get('/text-notebooks/:notebookId(\\d+)', async (req, res) => {
 });
 
 
+//creates a text notebook
 router.post('/text-notebook', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const {name} = req.body;

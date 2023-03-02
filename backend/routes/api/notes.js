@@ -101,46 +101,38 @@ router.post('/text-note', async (req, res, next) => {
 })
 
 
-
+//edits a textnote by its id
 router.put('/text-note/:id(\\d+)', requireAuth, async (req, res) => {
     const textNoteId = req.params.id;
-    const { title, content } = req.body;
-
-    try {
-        const textNote = await TextNote.findByPk(textNoteId);
-        if (!textNote) {
-            return res.status(404).json({ message: 'Text note not found' });
-        }
-        await textNote.update({
-            title,
-            content,
-        });
-        res.json(textNote);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
-    }
+    const { note } = req.body;
+    const textNote = await TextNote.findByPk(textNoteId);
+    await textNote.update({
+        name: note.name,
+        note: note.note,
+        notebookId: note.notebookId
+    });
+    res.json(note);
 });
 
 
-router.put('/image-note/:id(\\d+)', requireAuth, async (req, res) => {
-    const noteId = req.params.id;
-    const { title, content } = req.body;
+// router.put('/image-note/:id(\\d+)', requireAuth, async (req, res) => {
+//     const noteId = req.params.id;
+//     const { title, content } = req.body;
 
-    try {
-        const note = await Note.findByPk(noteId);
-        if (!note) {
-            return res.status(404).json({ message: 'Note not found' });
-        }
-        await note.update({
-            title,
-            content,
-        });
-        res.json(note);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Something went wrong' });
-    }
-});
+//     try {
+//         const note = await ImageNote.findByPk(noteId);
+//         if (!note) {
+//             return res.status(404).json({ message: 'Note not found' });
+//         }
+//         await note.update({
+//             title,
+//             content,
+//         });
+//         res.json(note);
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ message: 'Something went wrong' });
+//     }
+// });
 
 module.exports = router;
