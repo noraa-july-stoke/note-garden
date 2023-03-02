@@ -12,36 +12,36 @@ module.exports = {
         email: 'user1@user.io',
         username: 'User One',
         password: 'password1',
-        firstName: "User",
-        lastName: "One"
+        firstName: "GREEDO",
+        lastName: "TETSU"
       },
       {
         email: 'user2@user.io',
         username: 'User Two',
         password: 'password2',
-        firstName: "User",
-        lastName: "Two"
+        firstName: "Han",
+        lastName: "Solo"
       },
       {
         email: 'user3@user.io',
         username: 'User Three',
         password: 'password3',
-        firstName: "User",
-        lastName: "Three"
+        firstName: "R2",
+        lastName: "D2"
       },
       {
         email: 'user4@user.io',
         username: 'User Four',
         password: 'password4',
-        firstName: "User",
-        lastName: "Four"
+        firstName: "Bossk'wassak",
+        lastName: "Cradossk"
       },
       {
         email: 'user5@user.io',
         username: 'User Five',
         password: 'password5',
-        firstName: "User",
-        lastName: "Five"
+        firstName: "NEIN",
+        lastName: "NUNB"
       }
     ];
 

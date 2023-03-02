@@ -4,7 +4,6 @@ const { User, Notebook, TextNote, ImageNotebook } = require('../../db/models');
 
 const router = express.Router();
 
-
 //Gets all the user's imagenotebooks and notebooks
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
@@ -13,13 +12,13 @@ router.get('/', requireAuth, async (req, res) => {
     res.status(200).json(notebooks);
 });
 
-
 //gets all notes related to a notebook by notebookId
 router.get('/text-notebooks/:notebookId(\\d+)', async (req, res) => {
     const id = req.params.notebookId
     const notes = await TextNote.getNotesByNotebookId(id)
     res.status(200).json(notes)
 });
+
 
 router.post('/text-notebook', requireAuth, async (req, res) => {
     const userId = req.user.id;
@@ -49,7 +48,6 @@ router.put('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     const notebook = await Notebook.findByPk(notebookId);
     await notebook.update({ name });
         res.status(200).json(notebook);
-
 });
 
 router.put('/image-notebook/:id(\\d+)', requireAuth, async (req, res) => {
@@ -71,9 +69,14 @@ router.put('/image-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     }
 });
 
-router.delete('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
-    return "notebook delete route working"
 
+//This route moves all notes in a notebook into the user's default notebook and then deletes it.
+router.delete('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
+    const notebookId = req.params.id;
+    const userId = req.user.id;
+    const user = await User.findByPk(userId)
+    const deletedNotebook = await Notebook.safeNotesDelete(notebookId, user.defaultNotebookId)
+    return res.status(200).json(deletedNotebook)
 });
 
 module.exports = router;

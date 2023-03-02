@@ -4,21 +4,20 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Notebook extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
 
-    static async deleteNotebookById(id) {
+    static async safeNotesDelete(notebookId, defaultId) {
+      // Change notebookId property to defaultId for all notes in the notebook
+      await sequelize.models.TextNote.update({ notebookId: defaultId }, {
+        where: {notebookId: notebookId}
+      });
+      // Delete the notebook
       const rowsDeleted = await this.destroy({
         where: {
-          id: id
+          id: notebookId
         }
       });
       return rowsDeleted;
     }
-
     static associate(models) {
 
       Notebook.hasMany(models.TextNote, {

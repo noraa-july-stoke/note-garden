@@ -1,7 +1,8 @@
 import {useDispatch} from 'react-redux';
 import { thunkLoadNotebooks, thunkDeleteTextNotebook } from '../../../store/notebooks';
 
-export const deleteReducer = (type, id, setIsDeleted) => {
+//I had to define this as a function component to make it work;
+export const DeleteReducer = (type, setIsDeleted, id) => {
     const dispatch = useDispatch();
     switch (type) {
         case "TEXT_NOTEBOOK": {
@@ -10,6 +11,7 @@ export const deleteReducer = (type, id, setIsDeleted) => {
                 dispatch(thunkDeleteTextNotebook(id));
                 dispatch(thunkLoadNotebooks());
                 setIsDeleted(false)
+                console.log("FUCKKKKKKKK", id)
             };
             return onClick;
         }

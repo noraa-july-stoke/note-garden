@@ -18,8 +18,7 @@ const UserNotebooks = () => {
     useEffect(() => {
         dispatch(thunkLoadNotebooks());
         dispatch(thunkLoadNotebookNotes(activeTab))
-    }, [dispatch, notebookAdded, activeTab, isEditing]);
-
+    }, [dispatch, notebookAdded, activeTab, isEditing, isDeleted]);
     return (
         <div className="notebooks-container">
             <div className="tabs">
@@ -27,14 +26,17 @@ const UserNotebooks = () => {
                     <div
                         key={notebook.id}
                         className={activeTab === notebook.id ? 'active' : ''}
-                        onClick={() => setActiveTab(notebook.id)}
+                        onClick={() => {
+                            setActiveTab(notebook.id)
+                            setIsEditing(false)
+                        }}
                     >
                         {notebook.name}
                     </div>
                 ))}
             </div>
             <div className="tab-content">
-                <TextNotebook notebook={notebooks[activeTab]} setNotebookAdded={setNotebookAdded} editState={{isEditing, setIsEditing}}/>
+                <TextNotebook notebook={notebooks[activeTab]} setNotebookAdded={setNotebookAdded} setIsDeleted={setIsDeleted} editState={{isEditing, setIsEditing}}/>
             </div>
             <NotebookForm setNotebookAdded={setNotebookAdded} notebookId={0} />
         </div>
