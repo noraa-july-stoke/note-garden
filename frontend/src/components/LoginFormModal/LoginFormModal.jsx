@@ -24,6 +24,12 @@ const LoginFormModal = () => {
             );
     };
 
+    const demoClick = e => {
+        e.preventDefault()
+        setCredential("user1@user.io");
+        setPassword("password1");
+    }
+
     return (
         <>
             <h1>Log In</h1>
@@ -51,6 +57,7 @@ const LoginFormModal = () => {
                         required
                     />
                 </label>
+                <button className="utility-button feedback-button" onClick={demoClick}>DEMO USER</button>
                 <button className="utility-button feedback-button" type="submit">Log In</button>
             </form>
         </>
