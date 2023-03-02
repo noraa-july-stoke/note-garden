@@ -58,7 +58,7 @@ const LoginFormModal = () => {
                     />
                 </label>
                 <button className="utility-button feedback-button" onClick={demoClick}>DEMO USER</button>
-                <button className="utility-button feedback-button" type="submit">Log In</button>
+                <button className="utility-button feedback-button" type="submit">LOG IN</button>
             </form>
         </>
     );
