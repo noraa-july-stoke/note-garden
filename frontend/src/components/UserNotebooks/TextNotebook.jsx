@@ -6,9 +6,9 @@ import NotebookHeader from './NotebookHeader';
 import DeleteButton from "../Buttons/DeleteButton";
 
 const TextNotebook = ({notebook, setNotebookAdded, editState, setIsDeleted}) => {
-    const notes = useSelector(state => state.notes?.notebookNotes)
-    const [noteList, setNoteList] = useState([])
-    const dispatch = useDispatch()
+    const notes = useSelector(state => state.notes?.notebookNotes);
+    const [noteList, setNoteList] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(thunkLoadNotebookNotes(notebook?.id))
@@ -23,7 +23,7 @@ const TextNotebook = ({notebook, setNotebookAdded, editState, setIsDeleted}) => 
     return (
         <div className ="text-notebook-display">
             <NotebookHeader setNotebookAdded={setNotebookAdded} notebook={notebook} editState={editState}/>
-            <DeleteButton type={"TEXT_NOTEBOOK"} setIsDeleted={setIsDeleted} notebookId={notebook?.id}/>
+            <DeleteButton type={"TEXT_NOTEBOOK"} setIsDeleted={setIsDeleted} id={notebook?.id}/>
             {noteList?.length
                 ?
                 noteList.map((note) => {

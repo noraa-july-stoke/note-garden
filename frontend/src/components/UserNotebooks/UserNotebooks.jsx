@@ -18,6 +18,8 @@ const UserNotebooks = () => {
     useEffect(() => {
         dispatch(thunkLoadNotebooks());
         dispatch(thunkLoadNotebookNotes(activeTab))
+        setIsDeleted(false)
+        setNotebookAdded(false)
     }, [dispatch, notebookAdded, activeTab, isEditing, isDeleted]);
     return (
         <div className="notebooks-container">
