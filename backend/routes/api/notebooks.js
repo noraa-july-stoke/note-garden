@@ -88,7 +88,7 @@ router.put('/image-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     }
 });
 
-router.delete('/notebookId(\\d+)', requireAuth, async (req, res) => {
+router.delete('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     return "notebook delete route working"
 
 });
