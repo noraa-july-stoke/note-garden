@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import { DeleteReducer } from "./button-helpers";
+import { DeleteReducer } from '../../ComponentHelpers/button-helpers';
 import "./DeleteButton.css";
 
 

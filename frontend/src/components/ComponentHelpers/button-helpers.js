@@ -1,6 +1,5 @@
 import {useDispatch} from 'react-redux';
-import { thunkLoadNotebooks, thunkDeleteTextNotebook } from '../../../store/notebooks';
-
+import { thunkLoadNotebooks, thunkDeleteTextNotebook } from "../../store/notebooks";
 //I had to define this as a function component to make it work;
 export const DeleteReducer = (type, setIsDeleted, id) => {
     const dispatch = useDispatch();
