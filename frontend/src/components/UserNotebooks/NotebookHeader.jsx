@@ -10,7 +10,7 @@ const NotebookHeader = ({ notebook, setNotebookAdded, editState}) => {
     }
 
     useEffect(() => {
-    }, [isEditing])
+    }, [isEditing, setIsEditing])
 
     return (
         <div>

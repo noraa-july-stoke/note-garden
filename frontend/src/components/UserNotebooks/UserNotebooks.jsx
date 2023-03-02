@@ -13,30 +13,26 @@ const UserNotebooks = () => {
     const [notebookAdded, setNotebookAdded] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [activeTab, setActiveTab] = useState(0);
+    const [isDeleted, setIsDeleted] = useState(false);
 
     useEffect(() => {
         dispatch(thunkLoadNotebooks());
         dispatch(thunkLoadNotebookNotes(activeTab))
     }, [dispatch, notebookAdded, activeTab, isEditing]);
 
-    // might need this later?
-    // const renderTextNotebook = tabState => {
-    //     return (<TextNotebook tabState={tabState}/>)
-    // };
-
     return (
         <div className="notebooks-container">
-            <ul className="tabs">
+            <div className="tabs">
                 {Object.values(notebooks).map(notebook => (
-                    <li
+                    <div
                         key={notebook.id}
                         className={activeTab === notebook.id ? 'active' : ''}
                         onClick={() => setActiveTab(notebook.id)}
                     >
                         {notebook.name}
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
             <div className="tab-content">
                 <TextNotebook notebook={notebooks[activeTab]} setNotebookAdded={setNotebookAdded} editState={{isEditing, setIsEditing}}/>
             </div>
