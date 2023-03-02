@@ -10,8 +10,7 @@ export const DeleteReducer = (type, setIsDeleted, id) => {
                 e.preventDefault();
                 dispatch(thunkDeleteTextNotebook(id));
                 dispatch(thunkLoadNotebooks());
-                setIsDeleted(false)
-                console.log("FUCKKKKKKKK", id)
+                setIsDeleted(true)
             };
             return onClick;
         }

@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       return rowsDeleted;
     }
+
     static associate(models) {
       Collaboration.belongsTo(models.User, {
         foreignKey: "authorId"
