@@ -11,6 +11,7 @@ import TestComponent from "./components/TestComponent/TestComponent";
 import SinglePostPage from "./components/PostComponents/SinglePostPage";
 import Dashboard from "./components/UserDashboard";
 import UserNotebooks from "./components/UserNotebooks";
+import './index.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="app-container">
       <Switch>
         <Route path="/">
           <Navigation isLoaded={isLoaded} />
@@ -33,10 +34,10 @@ function App() {
             {/* <ImageUploadForm /> */}
           </Route>
           <Route path="/test">
-            <TestComponent/>
+            <TestComponent />
           </Route>
           <Route path="/post">
-            <SinglePostPage/>
+            <SinglePostPage />
           </Route>
           <Route path="/dashboard">
             <Dashboard />
@@ -48,17 +49,17 @@ function App() {
             <SingleNotePage />
           </Route>
           <Route path='/new-note'>
-            <TextEditor/>
+            <TextEditor note={false} />
           </Route>
           <Route path='/notebooks'>
-            <UserNotebooks/>
+            <UserNotebooks />
           </Route>
-          <Route path='/edit-note/:noteId'>
-            <TextEditor/>
+          <Route path='/edit-note'>
+            <TextEditor note={{name: "notey note", note: "<p><strong>hello</strong></p>"}} />
           </Route>
         </Switch>
       )}
-    </>
+    </div>
   );
 }
 export default App;

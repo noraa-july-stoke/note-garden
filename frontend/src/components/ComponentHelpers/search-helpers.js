@@ -1,4 +1,5 @@
 //optimized to use a set for faster lookup
+// this function parses a string and searches for keywords to build a command string.
 export const actionGenerator = (inputString) => {
 
     if (inputString === "test") return "test";
@@ -17,7 +18,6 @@ export const actionGenerator = (inputString) => {
     if (newWords.size < 2) return false;
     return [...newWords].sort().join("");
 }
-
 
 //!@#$
 // put options for commands in search bar later

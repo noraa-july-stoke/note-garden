@@ -21,7 +21,6 @@ module.exports = {
     // Loop through all users in the database
     for (const user of users) {
       const authorId = user.id;
-
       // Loop through all comments in the database, checking if the comment belongs to a post created by the current user
       const commentPromises = comments.map(async (comment) => {
         const postId = comment.Post.id;
@@ -42,7 +41,6 @@ module.exports = {
       });
       // Filter out undefined values and create a new array of comments to be created
       const newReplies = await Promise.all(commentPromises).then(replies => replies.filter(reply => reply !== undefined));
-
       // Push a bulk create operation promise to the promises array for each new comment
       promises.push(Comment.bulkCreate(newReplies, { validate: true }));
     }

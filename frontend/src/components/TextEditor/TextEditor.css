@@ -77,3 +77,17 @@
     background-color: rgba(205, 205, 205, 0.5);
     transform: translateY(0.5px) translateX(0.5px);
 }
+
+
+.text-editor {
+    width: 100%;
+}
+
+
+.text-editor {
+    background-color: white;
+    width: 100%;
+    height: 300px;
+    resize: both;
+    overflow: scroll;
+}

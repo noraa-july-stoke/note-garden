@@ -89,11 +89,17 @@ export const thunkCreateTextNote = (note) => async (dispatch) => {
     }
 }
 
+
+export const thunkEditNote = () => async (dispatch) => {
+    return null
+
+}
+
 const initialState = {
     textNotes: {},
     imageNotes: {},
     notebookNotes: {},
-    singleNote: {},
+    singleNote: null,
     errors: {},
 };
 

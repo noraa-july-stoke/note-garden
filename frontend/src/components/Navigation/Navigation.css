@@ -29,7 +29,7 @@
 }
 
 .search-bar:focus {
-    width: 80%;
+    width: 70%;
     z-index: 10;
 }
 

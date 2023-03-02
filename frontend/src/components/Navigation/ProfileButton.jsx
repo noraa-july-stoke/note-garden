@@ -53,18 +53,16 @@ function ProfileButton({ user }) {
                             <span className="user-dropdown-info">{user.firstName} {user.lastName}</span>
                             <span className="user-dropdown-info">{user.email}</span>
                         </div>
-
                         <div className="user-dropdown-logout dropdown-item">
                             <button className="logout-button" onClick={logout}>Log Out</button>
                         </div>
                         <div className="dropdown-item" onClick={ e => history.push('/notebooks')}>
                             My NoteBooks
                         </div>
-                        <div className="dropdown-item">
-                            My Photo Albums
-                        </div>
-                        <div className="dropdown-item">
+                        <div className="dropdown-item" onClick={e => history.push('/new-note')}>
                             Make A New Note!
+                        </div>
+                        <div className="dropdown-item" >
                         </div>
                         <div className="dropdown-item">
                         </div>
