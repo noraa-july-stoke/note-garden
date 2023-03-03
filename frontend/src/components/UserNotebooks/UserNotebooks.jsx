@@ -25,21 +25,27 @@ const UserNotebooks = () => {
         <div className="notebooks-component-container">
             <div className="side-panel-container">
                 <div className="tabs-container">
-                    {Object.values(notebooks).map(notebook => (
-                        <div
-                            key={notebook.id}
-                            className={activeTab === notebook.id ? 'notebook-tab active-tab' : 'notebook-tab'}
-                            onClick={() => {
-                                setActiveTab(notebook.id)
-                                setIsEditing(false)
-                            }}
-                        >
-                            {notebook.name}
-                        </div>
-                    ))}
+                    {Object.values(notebooks).map(notebook => {
+                        const colors = ['#FFC300', '#F7931E', '#FF5733', '#C70039', '#900C3F', '#581845', '#006266', '#009432', '#1B1464', '#833471', '#BB2B1F', '#ED4C67', '#0066CC', '#27AE60', '#E67E22', '#D35400', '#8E44AD', '#2C3E50', '#34495E', '#7F8C8D'];
+                        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                        return (
+                            <div
+                                key={notebook.id}
+                                className={activeTab === notebook.id ? 'notebook-tab active-tab' : 'notebook-tab'}
+                                onClick={() => {
+                                    setActiveTab(notebook.id)
+                                    setIsEditing(false)
+                                }}
+                                style={{ backgroundColor: randomColor }}
+                            >
+                                {notebook.name}
+                            </div>
+
+                        )
+                    })}
                 </div>
                 <div className="add-notebook-container">
-                <NotebookForm setNotebookAdded={setNotebookAdded} notebookId={0} />
+                    <NotebookForm setNotebookAdded={setNotebookAdded} notebookId={0} />
                 </div>
             </div>
             <div className="tab-content">
