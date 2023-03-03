@@ -1,5 +1,36 @@
-.notebooks-container {
-    background-color: rgba(255,255,255, .5)
+.notebooks-component-container {
+    background-color: rgba(255,255,255, .5);
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.side-panel-container {
+    height: 700px;
+    overflow: scroll;
+    margin: none;
+    padding: none;
+    border:none;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+.tabs-container {
+    box-sizing: border-box;;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    height: 100%;
+    overflow:scroll;
+
+}
+
+.notebook-tab {
+    height:50px;
+    cursor: pointer;
+    flex: none;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 .text-notebook-display {

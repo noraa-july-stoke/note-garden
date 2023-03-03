@@ -30,7 +30,7 @@ const NotebookForm = ({setNotebookAdded, notebook, editState}) => {
 
     return (
         <div className="input-box">
-           { !notebook?.name ? <h1>Create Notebook</h1> : null}
+           {/* { !notebook?.name ? <h1>Create Notebook</h1> : null} */}
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -39,7 +39,7 @@ const NotebookForm = ({setNotebookAdded, notebook, editState}) => {
                     placeholder="Title"
                     name="title"
                 />
-                <button type="submit">Submit</button>
+                {/* <button type="submit">Submit</button> */}
             </form>
         </div>
     );

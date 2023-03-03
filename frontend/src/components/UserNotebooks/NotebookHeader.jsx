@@ -12,7 +12,6 @@ const NotebookHeader = ({ notebook, setNotebookAdded, editState}) => {
     const handleDoubleClick = () => {
         setIsEditing(true);
     };
-
     return (
         <div>
             {

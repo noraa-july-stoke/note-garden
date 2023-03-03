@@ -1,7 +1,6 @@
 /* TODO Add site wide styles */
 
 * {
-    box-sizing: border-box;
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;
     -ms-transition: all 200ms ease;
@@ -89,4 +88,71 @@ button {
 
 img:hover {
     border-color: rgba(0, 0, 0, 0.5);
+} */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+div > textarea,
+select {
+    font: inherit;
+    margin: none;
+    padding: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/*
+.container {
+        margin: 0px;
+        padding: 0px;
+} */
+
+/* .container>div {
+
+    font-size: 15px;
+    letter-spacing: 1em;
+    word-spacing: 2em;
 } */

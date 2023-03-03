@@ -22,24 +22,27 @@ const UserNotebooks = () => {
     }, [dispatch, notebookAdded, activeTab, isEditing, isDeleted]);
 
     return (
-        <div className="notebooks-container">
-            <div className="tabs">
-                {Object.values(notebooks).map(notebook => (
-                    <div
-                        key={notebook.id}
-                        className={activeTab === notebook.id ? 'active' : ''}
-                        onClick={() => {
-                            setActiveTab(notebook.id)
-                            setIsEditing(false)
-                        }}
-                    >
-                        {notebook.name}
-                    </div>
-                ))}
+        <div className="notebooks-component-container">
+            <div className="side-panel-container">
+                <div className="tabs-container">
+                    {Object.values(notebooks).map(notebook => (
+                        <div
+                            key={notebook.id}
+                            className={activeTab === notebook.id ? 'notebook-tab active-tab' : 'notebook-tab'}
+                            onClick={() => {
+                                setActiveTab(notebook.id)
+                                setIsEditing(false)
+                            }}
+                        >
+                            {notebook.name}
+                        </div>
+                    ))}
+                </div>
+                Add a notebook
+                <NotebookForm setNotebookAdded={setNotebookAdded} notebookId={0} />
             </div>
-            <NotebookForm setNotebookAdded={setNotebookAdded} notebookId={0} />
             <div className="tab-content">
-                <TextNotebook notebook={notebooks[activeTab]} tabState={{activeTab, setActiveTab}} setNotebookAdded={setNotebookAdded} deletedState={{isDeleted, setIsDeleted}} editState={{isEditing, setIsEditing}}/>
+                <TextNotebook notebook={notebooks[activeTab]} tabState={{ activeTab, setActiveTab }} setNotebookAdded={setNotebookAdded} deletedState={{ isDeleted, setIsDeleted }} editState={{ isEditing, setIsEditing }} />
             </div>
         </div>
     );
