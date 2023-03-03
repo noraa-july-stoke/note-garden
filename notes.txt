@@ -10,46 +10,11 @@ https://github.com/Paxa/postbird/releases
 
 https://github.com/jdrichardsappacad/aws-s3-pern-demo/blob/master/frontend/src/store/session.js
 
-need to dispatch note to server somehow
-
-need to add default notebook Id to user upon creation;
-
-finish save note thunk
-
 
 need to work on command functionality
 
 
-need to make it so that the localstorage makes separate keys for the notes
-
-
-to do tomorrow:
-
-
-get a query all route for every model and have a page for each, where it maps them all out
-
-
-create, save, edit, delete text note;
-create, save, edit, delete notebook;
-
-
-
 make an all notes page please
-
-
-
-ROUTES NEEDED:
-
-route that gives all notes froma specific notebook,
-get single note by id;
-
-
-
-
-RENDER: get google api working with render by no later than tomorrow!!(sunday)
-
-
-
 
 REDUX:
 

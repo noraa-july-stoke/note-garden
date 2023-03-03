@@ -28,6 +28,7 @@ function App() {
         </Route>
       </Switch>
       {isLoaded && (
+        <div className="app-body-container">
         <Switch>
           <Route exact path='/'>
             {/* landing page */}
@@ -55,6 +56,7 @@ function App() {
             <UserNotebooks />
           </Route>
         </Switch>
+        </div>
       )}
     </div>
   );

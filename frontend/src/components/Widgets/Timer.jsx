@@ -52,8 +52,12 @@ const Timer = () => {
         'flashing': isMouseOver
     });
 
+    const textStyle = {
+        color: timerColor
+    };
+
     return (
-        <div className={timerClasses} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
+        <div className={timerClasses} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} style={textStyle}>
             {formattedTime}
         </div>
     );
