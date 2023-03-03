@@ -34,16 +34,29 @@ const Timer = () => {
 
     const getRandomColor = () => {
         const colors = [
-            'red',
+            'white',
+            'rgb(199, 16, 110)',
             'orange',
             'yellow',
             'lightgreen',
             'teal',
-            'rgb(224, 85, 224)',
+            'rgb(230, 45, 230)',
             'violet',
             'pink',
-            'turquoise'
+            'turquoise',
+            'rgb(68, 125, 216)',
+            '#ff6347',
+            '#ffa500',
+            'goldenrod',
+            '#00ff7f',
+            '#008080',
+            '#9932cc',
+            '#ff69b4',
+            'magenta',
+            'crimson',
+            'blueviolet'
         ];
+
         const randomIndex = Math.floor(Math.random() * colors.length);
         return colors[randomIndex];
     };

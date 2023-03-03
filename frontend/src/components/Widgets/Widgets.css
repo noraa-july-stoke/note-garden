@@ -3,19 +3,29 @@
 }
 
 .timer:hover {
-  animation: flashing 0.2s infinite;
+  animation: flashing 0.4s infinite;
 }
 
 @keyframes flashing {
   0% { color: white; }
-  10% { color: red; }
-  20% { color: orange; }
-  30% { color: yellow; }
-  40% { color: lightgreen; }
-  50% { color: teal; }
-  60% { color: rgb(224, 85, 224); }
-  70% { color: violet; }
-  80% { color: pink; }
-  90% { color: turquoise; }
-  100% { color: white; }
+  5% { color: rgb(199, 16, 110); }
+  10% { color: orange; }
+  15% { color: yellow; }
+  20% { color: lightgreen; }
+  25% { color: teal; }
+  30% { color: rgb(230, 45, 230); }
+  35% { color: violet; }
+  40% { color: pink; }
+  45% { color: turquoise; }
+  50% { color: rgb(68, 125, 216); }
+  55% { color: #ff6347; }
+  60% { color: #ffa500; }
+  65% { color: goldenrod; }
+  70% { color: #00ff7f; }
+  75% { color: #008080; }
+  80% { color: #9932cc; }
+  85% { color: #ff69b4; }
+  90% { color: magenta; }
+  95% { color: crimson; }
+  100% { color: blueviolet; }
 }
