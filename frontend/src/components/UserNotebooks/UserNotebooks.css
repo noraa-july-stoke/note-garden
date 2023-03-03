@@ -1,5 +1,5 @@
 .notebooks-component-container {
-    background-color: rgba(255,255,255, .5);
+    background-color: rgba(255, 255, 255, .5);
     display: flex;
     flex-flow: row nowrap;
 }
@@ -14,28 +14,46 @@
 }
 
 .tabs-container {
-    box-sizing: border-box;;
+    box-sizing: border-box;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: flex-start;
-    overflow-y:scroll;
+    overflow-y: scroll;
     width: 100%;
     border: 1px solid black;
     height: 100%;
+}
 
+.tabs-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.tabs-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10rem;
+    border: 1px solid #fff;
+}
+
+
+.tabs-container::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+}
+
+.tabs-container::-webkit-scrollbar-track-piece:end {
+    background: transparent;
 }
 
 .notebook-tab {
-    height:50px;
+    height: 50px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    flex:none;
+    flex: none;
     padding-left: 1.5em;
     color: white;
-    border-bottom:1px solid white;
+    border-bottom: 1px solid white;
 }
 
 .notebook-tab:hover {
@@ -44,15 +62,35 @@
 }
 
 .text-notebook-display {
-    overflow-y:scroll;
+    overflow-y: scroll;
+}
+
+.text-notebook-display::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.text-notebook-display::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10rem;
+    border: 1px solid #fff;
+}
+
+
+.text-notebook-display::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+}
+
+.text-notebook-display::-webkit-scrollbar-track-piece:end {
+    background: transparent;
 }
 
 .add-notebook-form {
-    border-radius: 10px;
+    border-radius: 2em;
     margin-left: 1em;
     margin-right: 1em;
     height: 2em;
 }
+
 .add-notebook-container {
     width: 100%;
 }
