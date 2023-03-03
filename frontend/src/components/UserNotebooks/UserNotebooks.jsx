@@ -38,7 +38,7 @@ const UserNotebooks = () => {
                                 }}
                                 style={{ backgroundColor: randomColor }}
                             >
-                                {notebook.name}
+                                <h4>{notebook.name}</h4>
                             </div>
 
                         )
