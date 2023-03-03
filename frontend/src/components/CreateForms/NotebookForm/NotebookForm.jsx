@@ -36,8 +36,9 @@ const NotebookForm = ({setNotebookAdded, notebook, editState}) => {
                     type="text"
                     onChange={(e) => setName(e.target.value)}
                     value={name}
-                    placeholder="Title"
+                    placeholder={notebook?.name ? "Name your notebook..." : "Add a notebook..."}
                     name="title"
+                    className ={notebook?.name ? "edit-notebook-form" : "add-notebook-form"}
                 />
                 {/* <button type="submit">Submit</button> */}
             </form>

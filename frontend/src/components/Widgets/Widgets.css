@@ -1,5 +1,6 @@
 .timer {
   font-family: "Courier New", Courier, monospace;
+  cursor: crosshair;
 }
 
 .timer:hover {

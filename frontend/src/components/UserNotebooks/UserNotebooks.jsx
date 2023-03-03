@@ -39,7 +39,6 @@ const UserNotebooks = () => {
                     ))}
                 </div>
                 <div className="add-notebook-container">
-                Add a notebook
                 <NotebookForm setNotebookAdded={setNotebookAdded} notebookId={0} />
                 </div>
             </div>
