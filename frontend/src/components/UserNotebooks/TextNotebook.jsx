@@ -38,12 +38,12 @@ const TextNotebook = ({ notebook, setNotebookAdded, editState, deletedState, tab
     return (
         <div className="text-notebook-display">
             <NotebookHeader setNotebookAdded={setNotebookAdded} notebook={notebook} editState={editState} />
-            { activeTab !==0 && <DeleteButton type={"TEXT_NOTEBOOK"} deletedState={deletedState} id={notebook?.id} setActiveTab={setActiveTab} />}
+            { activeTab !==0 && <DeleteButton type={"TEXT_NOTEBOOK"} deletedState={deletedState} id={notebook?.id}/>}
             {selectedNote ?
                 <TextEditor note={selectedNote} onClose={handleEditorClose} setEdited={setEdited} /> :
                 noteList?.length ?
                     noteList.map((note) => {
-                        return <TextNoteCard key={note.id} note={note} onDoubleClick={() => handleNoteDoubleClick(note)} />
+                        return <TextNoteCard key={note.id} deleteState={deletedState} note={note} onDoubleClick={() => handleNoteDoubleClick(note)} />
                     }) : null}
         </div>
     )

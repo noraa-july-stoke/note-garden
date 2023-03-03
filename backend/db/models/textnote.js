@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       return notesObject;
     }
 
-    static async deleteTextNoteById(id) {
+    static async deleteById(id) {
       const rowsDeleted = await this.destroy({
         where: {
           id: id

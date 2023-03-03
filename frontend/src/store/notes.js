@@ -5,6 +5,7 @@ const LOAD_NOTEBOOK_NOTES = "LOAD_NOTEBOOK_NOTES";
 const LOAD_SINGLE_NOTE = "LOAD_SINGLE_NOTE";
 const CREATE_TEXT_NOTE = "CREATE_TEXT_NOTE";
 const EDIT_TEXT_NOTE = "EDIT_TEXT_NOTE";
+const DELETE_TEXT_NOTE = "DELETE_TEXT_NOTE";
 const ERROR = "ERROR";
 
 const actionLoadNotes = (notes) => ({
@@ -30,6 +31,12 @@ const actionCreateTextNote = (singleNote) => ({
 const actionEditTextNote = (singleNote) => ({
     type: EDIT_TEXT_NOTE,
     singleNote
+});
+
+const actionDeleteTextNote = (noteId) => ({
+    type: DELETE_TEXT_NOTE,
+    noteId
+
 });
 
 const actionError = (errors) => ({
@@ -75,7 +82,7 @@ export const thunkLoadSingleNote = (noteId) => async (dispatch) => {
         const data = await response.json();
         dispatch(actionLoadSingleNote(data));
     } catch (error) {
-        console.error("Error loading note:", error);
+        console.error("Error loading single note:", error);
         dispatch(actionError(error));
     }
 }
@@ -90,7 +97,7 @@ export const thunkCreateTextNote = (note) => async (dispatch) => {
         const data = await response.json();
         dispatch(actionCreateTextNote(note))
     } catch (error) {
-        // console.error("Error saving note:", error);
+        console.error("Error saving new note:", error);
         dispatch(actionError(error));
     }
 }
@@ -103,12 +110,25 @@ export const thunkEditTextNote = (note) => async (dispatch) => {
             body: JSON.stringify({ note })
         });
         const data = await response.json();
-        dispatch(actionCreateTextNote(data))
+        dispatch(actionEditTextNote(data))
     } catch (error) {
-        // console.error("Error saving note:", error);
+        console.error("Error editing note:", error);
         dispatch(actionError(error));
     }
 }
+
+export const thunkDeleteTextNote = (noteId) => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/notes/text-note/${noteId}`, {
+            method: "DELETE"
+        });
+        dispatch(actionDeleteTextNote(noteId))
+    } catch (error) {
+        console.error("Error deleting note:", error);
+        dispatch(actionError(error));
+    }
+
+};
 
 const initialState = {
     textNotes: {},
@@ -162,6 +182,21 @@ const notesReducer = (state = initialState, action) => {
                 imageNotes: { ...state.imageNotes },
                 notebookNotes: { ...state.notebookNotes },
                 singleNote: { ...action.singleNote },
+            };
+        }
+
+        case DELETE_TEXT_NOTE: {
+            const textNotes = { ...state.textNotes };
+            const notebookNotes = {...state.notebookNotes}
+            delete textNotes[action.noteId];
+            delete notebookNotes[action.noteId];
+
+            console.log(action.noteId, notebookNotes)
+            return {
+                textNotes: {...textNotes},
+                imageNotes: { ...state.imageNotes },
+                notebookNotes: { ...notebookNotes },
+                singleNote: { ...action.noteId },
             };
         }
 

@@ -14,9 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       const rowsDeleted = await this.destroy({
         where: {
           id: notebookId
-        }
+        },
+        //returns entire deleted entry instead of number of rows deleted.
       });
-      return rowsDeleted;
+      return rowsDeleted
     }
     static associate(models) {
 

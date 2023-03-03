@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 });
 
 //GETS A TEXTNOTE BY IT'S ID
-router.get('/text-notes/:noteId(\\d+)', async (req, res) => {
+router.get('/text-note/:noteId(\\d+)', async (req, res) => {
     try {
         const noteId = req.params.noteId;
         const textNote = await TextNote.findByPk(noteId);
@@ -34,7 +34,7 @@ router.get('/text-notes/:noteId(\\d+)', async (req, res) => {
 });
 
 //GETS AN IMAGENOTE BY IT'S ID
-router.get('/image-notes/:noteId(\\d+)', async (req, res) => {
+router.get('/image-note/:noteId(\\d+)', async (req, res) => {
     const noteId = req.params.noteId;
     try {
         const imageNote = await ImageNote.findOne({
@@ -134,5 +134,13 @@ router.put('/text-note/:id(\\d+)', requireAuth, async (req, res) => {
 //         res.status(500).json({ message: 'Something went wrong' });
 //     }
 // });
+
+router.delete('/text-note/:id(\\d+)', requireAuth, async (req, res) => {
+    const noteId = req.params.id;
+    console.log()
+    const rowsDeleted = await TextNote.deleteById(noteId);
+    if (!rowsDeleted) res.status(404).json({message: "note not found"})
+    res.status(200).json(rowsDeleted);
+});
 
 module.exports = router;

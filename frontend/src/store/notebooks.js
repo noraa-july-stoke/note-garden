@@ -81,7 +81,9 @@ export const thunkDeleteTextNotebook = (notebookId) => async (dispatch) => {
             method: "DELETE",
         });
         if (response.ok) {
+            const data = await response.json()
             dispatch(actionDeleteTextNotebook(notebookId));
+            console.log("RESPONSE", data)
         }
     } catch (error) {
         console.error("Error deleting notebook:", error);

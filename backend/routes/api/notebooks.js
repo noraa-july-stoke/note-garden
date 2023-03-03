@@ -70,14 +70,13 @@ router.put('/image-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     }
 });
 
-
 //This route moves all notes in a notebook into the user's default notebook and then deletes it.
 router.delete('/text-notebook/:id(\\d+)', requireAuth, async (req, res) => {
     const notebookId = req.params.id;
     const userId = req.user.id;
     const user = await User.findByPk(userId)
-    const deletedNotebook = await Notebook.safeNotesDelete(notebookId, user.defaultNotebookId)
-    return res.status(200).json(deletedNotebook)
+    const rowsDeleted = await Notebook.safeNotesDelete(notebookId, user.defaultNotebookId)
+    if (!rowsDeleted) res.status(404).json({message: "notebook not found"})
+    return res.status(200).json(rowsDeleted)
 });
-
 module.exports = router;
