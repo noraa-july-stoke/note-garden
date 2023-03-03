@@ -7,9 +7,6 @@
 .side-panel-container {
     height: 700px;
     overflow: scroll;
-    margin: none;
-    padding: none;
-    border:none;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
@@ -20,13 +17,12 @@
     display: flex;
     flex-direction:column;
     justify-content: center;
-    height: 100%;
     overflow:scroll;
+    gap: 2em;
 
 }
-
 .notebook-tab {
-    height:50px;
+    height:25px;
     cursor: pointer;
     flex: none;
     margin-left: 1em;
@@ -36,3 +32,14 @@
 .text-notebook-display {
     overflow:scroll;
 }
+
+/* .component-instructions {
+    padding:0px;
+    margin:0px;
+}
+
+.notebook-header{
+        padding: 0px;
+            margin: 0px;
+
+} */

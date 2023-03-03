@@ -13,13 +13,13 @@ const NotebookHeader = ({ notebook, setNotebookAdded, editState}) => {
         setIsEditing(true);
     };
     return (
-        <div>
+        <div className="notebook-header">
             {
                 isEditing
                     ? (<NotebookForm notebook={notebook} setNotebookAdded={setNotebookAdded} editState={editState} />)
                     : (<h3 onDoubleClick={handleDoubleClick}>{notebook?.name}</h3>)
             }
-            <div className="component-instructions">Double Click the notebook title to edit. Double click a note to edit</div>
+            { notebook && <div className="component-instructions">Double Click the notebook title above to edit. Double click a note to edit</div>}
 
         </div>
     );

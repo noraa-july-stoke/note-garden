@@ -38,8 +38,10 @@ const UserNotebooks = () => {
                         </div>
                     ))}
                 </div>
+                <div className="add-notebook-container">
                 Add a notebook
                 <NotebookForm setNotebookAdded={setNotebookAdded} notebookId={0} />
+                </div>
             </div>
             <div className="tab-content">
                 <TextNotebook notebook={notebooks[activeTab]} tabState={{ activeTab, setActiveTab }} setNotebookAdded={setNotebookAdded} deletedState={{ isDeleted, setIsDeleted }} editState={{ isEditing, setIsEditing }} />
