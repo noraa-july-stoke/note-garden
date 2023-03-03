@@ -54,9 +54,6 @@ function App() {
           <Route path='/notebooks'>
             <UserNotebooks />
           </Route>
-          <Route path='/edit-note'>
-            <TextEditor note={{name: "notey note", note: "<p><strong>hello</strong></p>"}} />
-          </Route>
         </Switch>
       )}
     </div>
