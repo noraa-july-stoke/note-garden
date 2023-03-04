@@ -6,7 +6,7 @@ import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 
-function ProfileButton({ user }) {
+function ProfileButton({ user, bgColor }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
@@ -37,17 +37,16 @@ function ProfileButton({ user }) {
         dispatch(sessionActions.logout());
         closeMenu();
     };
-
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
         <>
-            <button className="utility-button feedback-button profile-button" onClick={openMenu}>
-                <i className="fas fa-user-circle" />
+            <button className="profile-button" onClick={openMenu}>
+                <i className="fas fa-user-circle fa-2x" />
             </button>
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
-                    <div className="user-dropdown">
+                    <div className="user-dropdown" style={{backgroundColor: bgColor}}>
                         <div className="user-info-container dropdown-item">
                             <span className="user-dropdown-info">{user.username}</span>
                             <span className="user-dropdown-info">{user.firstName} {user.lastName}</span>

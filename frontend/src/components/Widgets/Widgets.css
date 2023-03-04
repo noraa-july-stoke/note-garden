@@ -1,10 +1,13 @@
 .timer {
   font-family: "Courier New", Courier, monospace;
   cursor: crosshair;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: column;
 }
 
 .timer:hover {
-  animation: flashing 0.4s infinite;
+  animation: flashing 0.7s infinite;
 }
 
 @keyframes flashing {

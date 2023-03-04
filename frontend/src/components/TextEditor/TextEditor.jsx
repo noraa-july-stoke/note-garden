@@ -16,12 +16,13 @@ const TextEditor = ({ note, onClose, setEdited }) => {
     const history = useHistory()
     //if note use note, if not start from scratch.
     const notebooks = useSelector(state => state.notebooks?.userTextNotebooks)
+    const notebookList = Object.values(notebooks);
     //Preserves data through a re-render before updating based on previous value
     //State Variables. html contend will be rendered inside this starting div.
     const dispatch = useDispatch();
     const [htmlContent, setHtmlContent] = useState(note?.note ? note.note : "");
     const [name, setName] = useState(note?.name ? note.name : "");
-    const [selectedNotebook, setSelectedNotebook] = useState(note?.notebookId ? note.notebookId : "");
+    const [selectedNotebook, setSelectedNotebook] = useState(notebookList[0].id);
 
     let deserializedValue = null;
     if (note) {
@@ -32,7 +33,7 @@ const TextEditor = ({ note, onClose, setEdited }) => {
     useEffect(() => {
         console.log(name, htmlContent, selectedNotebook);
         dispatch(thunkLoadNotebooks())
-    }, [name, htmlContent, selectedNotebook, dispatch]);
+    }, [name, htmlContent, selectedNotebook, dispatch, notebookList]);
 
     //!@#$ we will set propvalue to the html string of note;
     // const propValue = null;
@@ -54,7 +55,7 @@ const TextEditor = ({ note, onClose, setEdited }) => {
             deserializedValue || [
                 {
                     type: 'paragraph',
-                    children: [{ text: 'What are you thinking about...?' }],
+                    children: [{ text: '' }],
                 },
             ],
             [deserializedValue]
@@ -196,7 +197,7 @@ const TextEditor = ({ note, onClose, setEdited }) => {
             <div className="editor-form-content">
                 <label htmlFor="notebook-select">Add to a notebook...</label>
                 <select id="notebook-select" value={selectedNotebook} onChange={handleNotebookChange}>
-                    {Object.values(notebooks)?.map((notebook) => (
+                    {notebookList?.map((notebook) => (
                         <option key={notebook.id} value={notebook.id}>{notebook.name}</option>
                     ))}
                 </select>
@@ -211,7 +212,7 @@ const TextEditor = ({ note, onClose, setEdited }) => {
                 </div>
                 <div className="editor-wrapper">
                     <Slate editor={editor} value={initialValue} onChange={handleContentChange}>
-                        <Editable className='text-editor' renderLeaf={renderLeaf} />
+                        <Editable className='text-editor' renderLeaf={renderLeaf} placeholder="What are you thinking about...?" />
                     </Slate>
                 </div>
                 <button className="utility-button feedback-button save-button" onClick={handleSaveClick}> Save your progress & go to notebooks </button>

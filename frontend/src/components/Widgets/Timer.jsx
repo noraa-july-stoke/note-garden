@@ -17,11 +17,19 @@ const Timer = () => {
         };
     }, []);
 
-    const formattedTime = time.toLocaleTimeString([], {
+    const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit'
-    });
+        second: '2-digit',
+    };
+    const formattedTime = time.toLocaleString(undefined, options);
+    let timeParts = formattedTime.split(" at");
+
+
 
     const handleMouseOver = () => {
         setIsMouseOver(true);
@@ -54,7 +62,7 @@ const Timer = () => {
             '#ff69b4',
             'magenta',
             'crimson',
-            'blueviolet'
+            'blueviolet',
         ];
 
         const randomIndex = Math.floor(Math.random() * colors.length);
@@ -62,16 +70,16 @@ const Timer = () => {
     };
 
     const timerClasses = classNames('timer', {
-        'flashing': isMouseOver
+        flashing: isMouseOver,
     });
 
     const textStyle = {
-        color: timerColor
+        color: timerColor,
     };
 
     return (
         <div className={timerClasses} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} style={textStyle}>
-            {formattedTime}
+            {timeParts[0]}<br/>{timeParts[1]}
         </div>
     );
 };

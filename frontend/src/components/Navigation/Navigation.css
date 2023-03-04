@@ -15,7 +15,7 @@
     justify-content: center;
     justify-self: center;
     align-items: center;
-    background-color: black;
+    background-color: inherit;
     color: white;
     border: 2px solid white;
     transition: width 0.2s ease;
@@ -42,28 +42,22 @@
 }
 
 
-.user-dropdown-container {
-    position: relative;
+.user-dropdown {
+    background-color: inherit;
 }
 
 .profile-dropdown {
-    margin: none;
-    padding:none;
-    border:none;
     position: absolute;
     width: fit-content;
     height: 100%;
-    overflow:scroll;
     background-color: black;
     top: 67px;
     left: 10px;
 }
 
 .profile-dropdown {
-    background-color: black;
+    background-color: inherit;
     list-style-type: none;
-    padding: 0;
-    margin: 0;
     border:none;
 }
 
@@ -72,7 +66,7 @@
 }
 
 .dropdown-item {
-    background-color:black;
+    background-color:inherit;
     font-size: 16px;
     color: white;
     border: 2px solid black;
@@ -88,6 +82,16 @@
     color:white;
     font-size: 16px;
 }
+
+.profile-button {
+    background-color: inherit;
+    color: white;
+}
+
+.profile-button:hover {
+    color:antiquewhite;
+}
+
 
 
 /* error modal */

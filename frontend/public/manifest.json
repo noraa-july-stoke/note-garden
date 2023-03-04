@@ -1,8 +1,15 @@
+
 {
-  "short_name": "React Template",
-  "name": "Create React App Template",
-  "start_url": ".",
-  "display": "standalone",
+  "name": "Note Garden",
+  "short_name": "NoteGarden",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    }
+  ],
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "display": "standalone"
 }

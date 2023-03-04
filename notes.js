@@ -1,7 +1,6 @@
 // SearchBar.js
 
 
-// Sure! Here's a general overview of how you could implement this feature using React.js, Sequelize, Express, and Redux:
 
 // Set up your database: Create a table with the data you want to search, and make sure you have a
 // Sequelize model that corresponds to that table.
@@ -112,3 +111,7 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+
+
+
+// filter: grayscale(100 %);

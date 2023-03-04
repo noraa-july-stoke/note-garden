@@ -1,4 +1,4 @@
-#modal {
+/* #modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -21,4 +21,54 @@
 #modal-content {
     position: absolute;
     background-color: white;
+} */
+
+
+#modal-content {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    padding: 24px;
+    margin: 0 auto;
+    max-width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+
+#modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.2s ease-in-out;
+}
+
+#modal.open #modal-background {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#modal-close:hover svg {
+    fill: #ccc;
+}
+
+#modal-close svg {
+    width: 100%;
+    height: 100%;
+    fill: #aaa;
+    transition: fill 0.2s ease-in-out;
 }

@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Courier Prime
+- Font Author: Copyright 2015 The Courier Prime Project Authors (https://github.com/quoteunquoteapps/CourierPrime).
+- Font Source: http://fonts.gstatic.com/s/courierprime/v7/u-4k0q2lgwslOqpF_6gQ8kELY7pMf-fVqvHoJXw.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
