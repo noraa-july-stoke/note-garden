@@ -7,7 +7,7 @@
 }
 
 .timer:hover {
-  animation: flashing 0.7s infinite;
+  animation: flashing 0.5s infinite;
 }
 
 @keyframes flashing {

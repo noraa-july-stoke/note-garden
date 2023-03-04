@@ -29,7 +29,7 @@
 }
 
 .search-bar:focus {
-    width: 70%;
+    width: 50%;
     z-index: 10;
 }
 
@@ -42,6 +42,7 @@
 }
 
 
+/* !@#$ this is inside the "profile dropdown for some reason, this is a bad name, fix later */
 .user-dropdown {
     background-color: inherit;
 }
@@ -50,7 +51,7 @@
     position: absolute;
     width: fit-content;
     height: 100%;
-    background-color: black;
+    background-color: inherit;
     top: 67px;
     left: 10px;
 }
@@ -72,10 +73,11 @@
     border: 2px solid black;
     padding: 8px 12px;
     cursor: pointer;
+    padding: .5em;
 }
 
 .dropdown-item:hover {
-    border: 2px solid slategrey;
+    border: 2px solid white !important;
 }
 
 .logout-button{
@@ -95,3 +97,9 @@
 
 
 /* error modal */
+
+
+.tarot-frog {
+    height: 60px;
+    width: 45px;
+}

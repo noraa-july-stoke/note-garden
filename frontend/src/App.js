@@ -24,38 +24,38 @@ function App() {
     <div className="app-container">
       <Switch>
         <Route path="/">
-          <Navigation isLoaded={isLoaded} />
+            <Navigation isLoaded={isLoaded} />
         </Route>
       </Switch>
       {isLoaded && (
         <div className="app-body-container">
-        <Switch>
-          <Route exact path='/'>
-            {/* landing page */}
-            {/* <ImageUploadForm /> */}
-          </Route>
-          <Route path="/test">
-            <TestComponent />
-          </Route>
-          <Route path="/post">
-            <SinglePostPage />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path='/all-notes'>
-            <AllNotes />
-          </Route>
-          <Route path='/text-notes/:noteId'>
-            <SingleNotePage />
-          </Route>
-          <Route path='/new-note'>
-            <TextEditor note={false} />
-          </Route>
-          <Route path='/notebooks'>
-            <UserNotebooks />
-          </Route>
-        </Switch>
+          <Switch>
+            <Route exact path='/'>
+              {/* landing page */}
+              {/* <ImageUploadForm /> */}
+            </Route>
+            <Route path="/test">
+              <TestComponent />
+            </Route>
+            <Route path="/post">
+              <SinglePostPage />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route path='/all-notes'>
+              <AllNotes />
+            </Route>
+            <Route path='/text-notes/:noteId'>
+              <SingleNotePage />
+            </Route>
+            <Route path='/new-note'>
+              <TextEditor note={false} />
+            </Route>
+            <Route path='/notebooks'>
+                <UserNotebooks />
+            </Route>
+          </Switch>
         </div>
       )}
     </div>

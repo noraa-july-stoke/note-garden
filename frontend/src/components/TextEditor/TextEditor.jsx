@@ -1,5 +1,5 @@
 // Import React dependencies.
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEditor, Editor, Transforms } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 import DOMPurify from 'dompurify';
 import { helpers } from '../ComponentHelpers/index.js';
 import './TextEditor.css';
-import { thunkCreateTextNote, thunkEditTextNote } from '../../store/notes.js';
+import { thunkCreateTextNote, thunkEditTextNote, thunkLoadNotebookNotes } from '../../store/notes.js';
 import { thunkLoadNotebooks } from '../../store/notebooks.js';
 const { serialize, deserialize } = helpers;
 
@@ -22,7 +22,7 @@ const TextEditor = ({ note, onClose, setEdited }) => {
     const dispatch = useDispatch();
     const [htmlContent, setHtmlContent] = useState(note?.note ? note.note : "");
     const [name, setName] = useState(note?.name ? note.name : "");
-    const [selectedNotebook, setSelectedNotebook] = useState(notebookList[0].id);
+    const [selectedNotebook, setSelectedNotebook] = useState(note?.notebookId ? note.notebookId : notebookList[0]?.id);
 
     let deserializedValue = null;
     if (note) {
@@ -32,8 +32,7 @@ const TextEditor = ({ note, onClose, setEdited }) => {
 
     useEffect(() => {
         console.log(name, htmlContent, selectedNotebook);
-        dispatch(thunkLoadNotebooks())
-    }, [name, htmlContent, selectedNotebook, dispatch, notebookList]);
+    }, [name, selectedNotebook, dispatch, htmlContent]);
 
     //!@#$ we will set propvalue to the html string of note;
     // const propValue = null;
@@ -171,6 +170,7 @@ const TextEditor = ({ note, onClose, setEdited }) => {
                 notebookId: selectedNotebook
             }
             dispatch(thunkCreateTextNote(saveNote))
+            dispatch(thunkLoadNotebookNotes(selectedNotebook))
             history.push('/notebooks')
             console.log(saveNote)
         }
@@ -182,6 +182,7 @@ const TextEditor = ({ note, onClose, setEdited }) => {
                 notebookId: selectedNotebook
             }
             dispatch(thunkEditTextNote(saveNote))
+            dispatch(thunkLoadNotebookNotes(selectedNotebook))
             console.log(saveNote)
             setEdited(true)
             onClose()
@@ -191,11 +192,11 @@ const TextEditor = ({ note, onClose, setEdited }) => {
     return (
         <div className="editor-page-wrapper">
             <div className = "editor-form-content">
-                <label htmlFor="name">Name your note:</label>
+                <label htmlFor="name">Name: </label>
                 <input type="text" value={name} onChange={handleNameChange} placeholder='Enter a name for your note'></input>
             </div>
             <div className="editor-form-content">
-                <label htmlFor="notebook-select">Add to a notebook...</label>
+                <label htmlFor="notebook-select">Notebook: </label>
                 <select id="notebook-select" value={selectedNotebook} onChange={handleNotebookChange}>
                     {notebookList?.map((notebook) => (
                         <option key={notebook.id} value={notebook.id}>{notebook.name}</option>

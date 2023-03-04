@@ -47,25 +47,25 @@ function ProfileButton({ user, bgColor }) {
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <div className="user-dropdown" style={{backgroundColor: bgColor}}>
-                        <div className="user-info-container dropdown-item">
+                        <div className="user-info-container dropdown-item" style={{ border: `2px solid ${bgColor}`}}>
                             <span className="user-dropdown-info">{user.username}</span>
                             <span className="user-dropdown-info">{user.firstName} {user.lastName}</span>
                             <span className="user-dropdown-info">{user.email}</span>
                         </div>
-                        <div className="user-dropdown-logout dropdown-item">
+                        <div className="user-dropdown-logout dropdown-item" style={{ border: `2px solid ${bgColor}` }} >
                             <button className="logout-button" onClick={logout}>Log Out</button>
                         </div>
-                        <div className="dropdown-item" onClick={ e => history.push('/notebooks')}>
+                        <div className="dropdown-item" onClick={e => history.push('/notebooks')} style={{ border: `2px solid ${bgColor}` }}>
                             My NoteBooks
                         </div>
-                        <div className="dropdown-item" onClick={e => history.push('/new-note')}>
+                        <div className="dropdown-item" onClick={e => history.push('/new-note')} style={{ border: `2px solid ${bgColor}` }}>
                             Make A New Note!
                         </div>
-                        <div className="dropdown-item" >
+                        <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
                         </div>
-                        <div className="dropdown-item">
+                        <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
                         </div>
-                        <div className="dropdown-item">
+                        <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
                         </div>
                     </div>
                 ) : (

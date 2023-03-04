@@ -14,9 +14,8 @@ const TextNotebook = ({ notebook, setNotebookAdded, editState, deletedState, tab
     const dispatch = useDispatch();
     const {activeTab, setActiveTab} = tabState;
     const { isDeleted , _ } = deletedState;
-
     useEffect(() => {
-        dispatch(thunkLoadNotebookNotes(notebook?.id))
+        if (activeTab !== 0 )dispatch(thunkLoadNotebookNotes(notebook?.id))
         setEdited(false)
         if (isDeleted) setActiveTab(0)
     }, [dispatch, notebook, edited, isDeleted]);

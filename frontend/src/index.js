@@ -7,6 +7,7 @@ import { ModalProvider, Modal } from './context/Modal';
 import App from './App';
 import "./index.css";
 
+import { ColorProvider } from "./context/ColorContext";
 import configureStore from './store';
 import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from './store/session';
@@ -25,12 +26,14 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
   return (
     <ModalProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App className="app-body" />
-          <Modal />
-        </BrowserRouter>
-      </Provider>
+      <ColorProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App className="app-body" />
+            <Modal />
+          </BrowserRouter>
+        </Provider>
+      </ColorProvider>
     </ModalProvider>
   );
 }
