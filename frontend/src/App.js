@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
 import * as sessionActions from "./store/session";
@@ -13,8 +13,10 @@ import Dashboard from "./components/UserDashboard";
 import UserNotebooks from "./components/UserNotebooks";
 import ASCIIText from "./components/ASCII/ASCIIText";
 import './index.css';
+import { ColorContext } from "./context/ColorContext";
 
 function App() {
+  const {bgColor} = useContext(ColorContext)
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ function App() {
 
 
   return (
-    <div className="app-container">
+    <div className="app-container" style={{backgroundColor:bgColor}}>
       <Switch>
         <Route path="/">
             <Navigation isLoaded={isLoaded} />

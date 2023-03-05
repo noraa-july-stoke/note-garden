@@ -11,7 +11,7 @@ import { ColorContext } from '../../context/ColorContext';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
-    const { bgColor, changeBgColor } = useContext(ColorContext);
+    const { bgColor, changeBgColor, textColor, changeTextColor } = useContext(ColorContext);
     const [isSpinning, setIsSpinning] = useState(false);
 
 
@@ -22,7 +22,7 @@ function Navigation({ isLoaded }) {
                     <ProfileButton bgColor={bgColor} user={sessionUser} />
                 </div>
             )}
-            <div className={`triangle${isSpinning ? ' spin' : ''}`} onDoubleClick={changeBgColor}/>
+            <div className={`triangle${isSpinning ? ' spin' : ''}`} onDoubleClick={ e => {changeBgColor(); changeTextColor();}}/>
             <SearchBar />
             <Timer />
             {/* <img className="tarot-frog" src={image} alt="My Image" /> */}
