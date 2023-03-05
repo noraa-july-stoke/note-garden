@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     note: {
-      type: DataTypes.STRING(2000),
+      type: DataTypes.TEXT,
       allowNull: false
     }
   },

@@ -12,7 +12,7 @@ import { thunkLoadNotebooks } from '../../store/notebooks.js';
 const { serialize, deserialize } = helpers;
 
 //add back in localstorage functionality later in case of refresh or internet outage
-const TextEditor = ({ note, onClose, setIsEditing }) => {
+const TextEditor = ({ note, onClose, onUpdate, setIsEditing }) => {
     const history = useHistory()
     //if note use note, if not start from scratch.
     const notebooks = useSelector(state => state.notebooks?.userTextNotebooks)
@@ -31,7 +31,7 @@ const TextEditor = ({ note, onClose, setIsEditing }) => {
     }
 
     useEffect(() => {
-        console.log(name, selectedNotebook);
+        console.log(name, htmlContent, selectedNotebook);
     }, [name, selectedNotebook, dispatch, htmlContent]);
 
     //!@#$ we will set propvalue to the html string of note;
@@ -61,7 +61,7 @@ const TextEditor = ({ note, onClose, setIsEditing }) => {
             }
             dispatch(thunkCreateTextNote(saveNote))
             dispatch(thunkLoadNotebookNotes(selectedNotebook))
-            // history.push('/notebooks')
+            history.push('/notebooks')
             console.log(saveNote)
         }
         else {
@@ -71,8 +71,10 @@ const TextEditor = ({ note, onClose, setIsEditing }) => {
                 note: content,
                 notebookId: selectedNotebook
             }
-            await dispatch(thunkEditTextNote(saveNote))
-            await dispatch(thunkLoadNotebookNotes(selectedNotebook))
+            dispatch(thunkEditTextNote(saveNote))
+            dispatch(thunkLoadNotebookNotes(selectedNotebook))
+            onClose();
+            onUpdate();
             setIsEditing(false);
             console.log(saveNote)
 

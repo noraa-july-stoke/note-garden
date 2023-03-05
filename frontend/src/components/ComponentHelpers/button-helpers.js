@@ -2,17 +2,15 @@ import {useDispatch} from 'react-redux';
 import { thunkLoadNotebooks, thunkDeleteTextNotebook } from "../../store/notebooks";
 import { thunkDeleteTextNote } from '../../store/notes';
 //I had to define this as a function component to make it work;
-export const DeleteReducer = (type, setIsDeleted, id) => {
+export const DeleteReducer = (type, onDelete, id) => {
     const dispatch = useDispatch();
-
     switch (type) {
         //returns the items necessary to build a delete text notebook button
         case "TEXT_NOTEBOOK": {
             const onClick = async (e) => {
                 e.preventDefault();
-                dispatch(thunkDeleteTextNotebook(id));
-                dispatch(thunkLoadNotebooks());
-                setIsDeleted(true)
+                await dispatch(thunkDeleteTextNotebook(id));
+                onDelete()
             };
             const className = "delete-notebook-button";
             const deleteText = "DELETE NOTEBOOK";
@@ -23,8 +21,8 @@ export const DeleteReducer = (type, setIsDeleted, id) => {
         case "TEXT_NOTE": {
             const onClick = async (e) => {
                 e.preventDefault();
-                dispatch(thunkDeleteTextNote(id));
-                setIsDeleted(true);
+                await dispatch(thunkDeleteTextNote(id));
+                // setIsDeleted(true);
             };
             const className = "delete-text-note-button";
             const deleteText = "DELETE NOTE";

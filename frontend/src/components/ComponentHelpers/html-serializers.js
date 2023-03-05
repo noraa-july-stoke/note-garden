@@ -59,6 +59,9 @@ export const deserialize = (el, markAttributes = {}) => {
                 nodeAttributes.style = `text-decoration:${el.style.textDecoration}`
             }
             break
+        case 'EM':
+            nodeAttributes.italic = true
+            break
     }
 
     // flatens each node into something that can be turned into a string.

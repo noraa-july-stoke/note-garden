@@ -3,25 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { thunkAddTextNotebook, thunkLoadNotebooks } from "../../../store/notebooks";
 
 //add errors in here
-const NotebookForm = ({setNotebookAdded, notebook, editState}) => {
-
+const NotebookForm = ({notebook, notebooksController}) => {
+    const { notebookFunctions, notebookDispatch, notebookState } = notebooksController;
     const [name, setName] = useState(notebook?.id ? notebook?.name : "");
     const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newNotebook = {
             name
         };
         if (notebook?.id) {
-            let {isEditing, setIsEditing} = editState
-            dispatch(thunkAddTextNotebook(newNotebook, notebook?.id))
-            setIsEditing(false);
+            await dispatch(thunkAddTextNotebook(newNotebook, notebook?.id))
+            notebookDispatch(notebookFunctions.editing(false))
+            console.log(notebookState.editing)
         }
-        else { dispatch(thunkAddTextNotebook(newNotebook, false))};
+        else {
+            await dispatch(thunkAddTextNotebook(newNotebook, false))
+            notebookDispatch(notebookFunctions.addNotebook())
+        };
         dispatch(thunkLoadNotebooks())
         reset();
-        setNotebookAdded(true);
     };
 
     const reset = () => {
@@ -30,7 +32,6 @@ const NotebookForm = ({setNotebookAdded, notebook, editState}) => {
 
     return (
         <div className="input-box">
-           {/* { !notebook?.name ? <h1>Create Notebook</h1> : null} */}
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -40,7 +41,6 @@ const NotebookForm = ({setNotebookAdded, notebook, editState}) => {
                     name="title"
                     className ={notebook?.name ? "edit-notebook-form" : "add-notebook-form"}
                 />
-                {/* <button type="submit">Submit</button> */}
             </form>
         </div>
     );

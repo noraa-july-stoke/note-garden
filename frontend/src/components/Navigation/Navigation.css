@@ -3,11 +3,14 @@
     flex-direction: row;
     border: 2px solid white;
     background: black;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     height: 60px;
     width: 100%;
-    padding: 0 1em 0 1em;
+    padding-right: 3em;
+    padding-left: 3em;
+    padding-top: .5em;
+    padding-bottom: .5em;
 }
 
 .search-bar {
@@ -47,19 +50,16 @@
     background-color: inherit;
 }
 
-.profile-dropdown {
+ul.profile-dropdown {
     position: absolute;
     width: fit-content;
+    height: fit-content;
+    background-color: inherit;
+    list-style-type: none;
     height: 100%;
     background-color: inherit;
     top: 67px;
     left: 10px;
-}
-
-.profile-dropdown {
-    background-color: inherit;
-    list-style-type: none;
-    border:none;
 }
 
 .hidden {
@@ -88,6 +88,7 @@
 .profile-button {
     background-color: inherit;
     color: white;
+    justify-self: flex-start;
 }
 
 .profile-button:hover {

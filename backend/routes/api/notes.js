@@ -106,6 +106,7 @@ router.put('/text-note/:id(\\d+)', requireAuth, async (req, res) => {
     const textNoteId = req.params.id;
     const { note } = req.body;
     const textNote = await TextNote.findByPk(textNoteId);
+    console.log("NOTE IN ROUTE", note.note)
     await textNote.update({
         name: note.name,
         note: note.note,

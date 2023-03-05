@@ -4,6 +4,7 @@
   font-weight: bolder;
   display: flex;
   flex-direction: column;
+  width: fit-content;
 }
 
 .timer:hover {

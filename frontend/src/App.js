@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
@@ -11,14 +11,24 @@ import TestComponent from "./components/TestComponent/TestComponent";
 import SinglePostPage from "./components/PostComponents/SinglePostPage";
 import Dashboard from "./components/UserDashboard";
 import UserNotebooks from "./components/UserNotebooks";
+import ASCIIText from "./components/ASCII/ASCIIText";
 import './index.css';
 
 function App() {
+  const history = useHistory();
+  const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!sessionUser && isLoaded) {
+      history.push('/');
+    }
+  }, [sessionUser]);
+
 
   return (
     <div className="app-container">
@@ -28,9 +38,9 @@ function App() {
         </Route>
       </Switch>
       {isLoaded && (
-        <div className="app-body-container">
           <Switch>
             <Route exact path='/'>
+              <ASCIIText/>
               {/* landing page */}
               {/* <ImageUploadForm /> */}
             </Route>
@@ -50,15 +60,14 @@ function App() {
               <SingleNotePage />
             </Route>
             <Route path='/new-note'>
-              <TextEditor note={false} />
             </Route>
             <Route path='/notebooks'>
                 <UserNotebooks />
             </Route>
           </Switch>
-        </div>
       )}
     </div>
+
   );
 }
 export default App;

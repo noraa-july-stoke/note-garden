@@ -5,13 +5,23 @@
     border: 2px solid black;
 }
 
+.notebooks-component-wrapper  {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+
 .side-panel-container {
-    height: 90vh;
+    height: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
     width: fit-content;
     align-items: center;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
 }
 
 .tabs-container {
@@ -20,8 +30,9 @@
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: scroll;
-    width: 100%;
-    height: 100%;
+    width: fit-content;
+    height: 90%;
+    padding: 1em;
 }
 
 .tabs-container::-webkit-scrollbar {
@@ -51,6 +62,7 @@
     justify-content: center;
     flex: none;
     padding-left: 1.5em;
+    padding-right: 1.5em;
     color: white;
     border: 3px solid white;
 }
@@ -62,6 +74,13 @@
 
 .text-notebook-display {
     overflow-y: scroll;
+    height: 100%;
+    width: 60%;
+    align-self:flex-start;
+    border-left: 4px solid white;
+    border-right: 4px solid white;
+    border-bottom: 2px solid white;
+    margin-left: 150px;
 }
 
 .text-notebook-display::-webkit-scrollbar {
@@ -99,7 +118,9 @@
     border: 2px solid white;
 }
 
-
+.notebook-header-title {
+    cursor: pointer;
+}
 /* .component-instructions {
     padding:0px;
     margin:0px;

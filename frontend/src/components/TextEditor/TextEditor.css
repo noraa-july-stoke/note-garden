@@ -9,8 +9,9 @@
 .text-editor-container {
     border: 2px solid black;
     overflow: hidden;
-    width: 700px;
+    width: 100%;
     border-radius: 5px;
+    height:fit-content;
 }
 
 .save-button{
@@ -85,7 +86,7 @@
 
 
 .text-editor {
-    background-color: white;
+    background-color: antiquewhite;
     width: 100%;
     height: 300px;
     resize: both;

@@ -6,19 +6,19 @@ import NotebookHeader from './NotebookHeader';
 import DeleteButton from "../Buttons/DeleteButton";
 import TextEditor from '../TextEditor';
 
-const TextNotebook = ({ notebook, setNotebookAdded, editState, deletedState, tabState }) => {
+const TextNotebook = ({ notebook, notebooksController}) => {
     const notes = useSelector(state => state.notes?.notebookNotes);
     const [noteList, setNoteList] = useState([]);
     const [selectedNote, setSelectedNote] = useState(null);
-    const [edited, setEdited] = useState(false)
     const dispatch = useDispatch();
-    const {activeTab, setActiveTab} = tabState;
-    const { isDeleted , _ } = deletedState;
+    const {notebookState, notebookDispatch, notebookFunctions} = notebooksController;
+
     useEffect(() => {
-        if (activeTab !== 0 )dispatch(thunkLoadNotebookNotes(notebook?.id))
-        setEdited(false)
-        if (isDeleted) setActiveTab(0)
-    }, [dispatch, notebook, edited, isDeleted]);
+        if (notebookState.activeTab !== 0) {
+            dispatch(thunkLoadNotebookNotes(notebook?.id))
+            // notebookDispatch(notebookFunctions.delete(false))
+        }
+    }, [dispatch, notebook?.id, notebookState.editing, notebookState.deleted]);
 
     useEffect(() => {
         if (notes) {
@@ -30,22 +30,27 @@ const TextNotebook = ({ notebook, setNotebookAdded, editState, deletedState, tab
         setSelectedNote(note);
     }
 
-    const handleEditorClose = () => {
-        setSelectedNote(null);
+    const onDelete = e => {
+        notebookDispatch(notebookFunctions.deleteNotebook())
     }
 
     return (
         <div className="text-notebook-display">
-            <NotebookHeader setNotebookAdded={setNotebookAdded} notebook={notebook} editState={editState} />
-            { activeTab !==0 && <DeleteButton type={"TEXT_NOTEBOOK"} deletedState={deletedState} id={notebook?.id}/>}
-            {selectedNote ?
-                <TextEditor note={selectedNote} onClose={handleEditorClose} setEdited={setEdited} /> :
+            <NotebookHeader notebook={notebook} notebooksController={notebooksController} />
+            {notebook?.id && <DeleteButton type={"TEXT_NOTEBOOK"} id={notebook?.id} onDelete={onDelete} />}
+            {
                 noteList?.length ?
-                    noteList.map((note) => {
-                        return <TextNoteCard key={note.id} deleteState={deletedState} note={note} onDoubleClick={() => handleNoteDoubleClick(note)} />
-                    }) : null}
+                    noteList.map((note) => (
+                        <TextNoteCard
+                            key={note.id}
+                            note={note}
+                            onDoubleClick={() => handleNoteDoubleClick(note)}
+                        />
+                ))
+                :null
+
+            }
         </div>
     )
 };
-
 export default TextNotebook;

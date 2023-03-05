@@ -34,7 +34,7 @@ module.exports = {
         allowNull: false,
       },
       note: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       createdAt: {

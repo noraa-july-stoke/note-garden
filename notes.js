@@ -115,3 +115,90 @@ export default reducer;
 
 
 // filter: grayscale(100 %);
+
+
+// To set up a series of tooltips that appear when a user logs into your app, you can use a tooltip library like React - Bootstrap, Material - UI, or React - Tooltip.
+
+//     Here's an example of how you can use React-Bootstrap to create a series of tooltips:
+
+// Install React - Bootstrap: npm install react - bootstrap
+
+// Import the necessary components in your file:
+
+// python
+// Copy code
+// import { useState } from "react";
+// import { Tooltip, OverlayTrigger, Button } from "react-bootstrap";
+// Define an array of objects that contains the tooltip content:
+// python
+// Copy code
+// const tooltips = [
+//     { id: 1, message: "Tooltip 1" },
+//     { id: 2, message: "Tooltip 2" },
+//     { id: 3, message: "Tooltip 3" }
+// ];
+// Define a state variable to keep track of the current tooltip index:
+// scss
+// Copy code
+// const [currentTooltip, setCurrentTooltip] = useState(0);
+// Create a function that returns the tooltip content for a given index:
+//     javascript
+// Copy code
+// const renderTooltip = (index) => (
+//     <Tooltip id={`tooltip-${index}`}>{tooltips[index].message}</Tooltip>
+// );
+// Create a function that handles the next tooltip button click:
+// scss
+// Copy code
+// const handleNextTooltip = () => {
+//     setCurrentTooltip(currentTooltip + 1);
+// };
+// Render the tooltips using the OverlayTrigger and Button components:
+// javascript
+// Copy code
+// return (
+//     <div>
+//         <OverlayTrigger
+//             placement="bottom"
+//             overlay={renderTooltip(currentTooltip)}
+//         >
+//             <Button>Next Tooltip</Button>
+//         </OverlayTrigger>
+//         {currentTooltip < tooltips.length - 1 && (
+//             <Button onClick={handleNextTooltip}>Next</Button>
+//         )}
+//     </div>
+// );
+// This will render a button that displays the current tooltip content.Clicking the button will show the next tooltip content.If there are no more tooltips, the button will not be displayed.You can customize the placement and style of the tooltip using the properties of the Tooltip and OverlayTrigger components.
+
+
+
+
+// Noraa Stoke
+// how to i make the tooltip pop up next to the component that is it referring to
+// To make the tooltip pop up next to the component that it is referring to, you can use the placement property of the OverlayTrigger component.
+
+// The placement property determines where the tooltip should be positioned relative to the component that triggered it.You can set the placement property to one of the following values:
+
+// top
+// right
+// bottom
+// left
+// For example, if you want the tooltip to appear to the right of the component, you can set the placement property to "right".Here's an example:
+
+// php
+// Copy code
+//     < OverlayTrigger
+// placement = "right"
+// overlay = {< Tooltip > This is a tooltip</Tooltip >}
+// >
+//     <Button>Hover over me</Button>
+// </OverlayTrigger >
+//     This will display the tooltip to the right of the button when the user hovers over it.
+
+// You can also use the arrowProps property of the Tooltip component to customize the appearance of the arrow that points to the component.For example:
+
+// css
+// Copy code
+//     < Tooltip arrowProps = {{ className: 'my-tooltip-arrow' }}> This is a tooltip</Tooltip >
+//         This will add the my - tooltip - arrow class to the arrow element, which you can use to customize its appearance with CSS.

@@ -64,20 +64,42 @@ button {
 .blurred {
     filter: blur('1.5em')
 }
+.app-container {
+    height: 100vh;
+    overflow: hidden;
+}
 
-.app-body-container {
+.bg-image-container {
     background-image: url('https://storage.googleapis.com/note_garden_bucket/DALL%C3%82%C2%B7E_2022-09-18_21.35.41_-_graffiti_artwork_in_a_brick_wall_depicting_lighting__hitting_a_tree_black_and_white.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     margin: 0;
     padding: 0;
-    height: 100vh;
-    position: fixed;
-    width: 100%;
     height: 100%;
-    overflow: auto;
-    z-index: -10;
+    background-attachment: fixed;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bg-image-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.bg-image-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10rem;
+    border: 1px solid #fff;
+}
+
+.bg-image-container::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+}
+
+.bg-image-container::-webkit-scrollbar-track-piece:end {
+    background: transparent;
 }
 
 /* img {
@@ -172,7 +194,7 @@ input::placeholder {
 
 
 .triangle:hover {
-    animation: spin .5s linear forwards;
+    animation: spin .2s linear forwards;
 }
 
 @keyframes spin {
@@ -180,6 +202,6 @@ input::placeholder {
         transform: rotate(0deg);
     }
     100% {
-        transform: rotate(540deg)
+        transform: rotate(180deg)
     }
 }
