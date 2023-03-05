@@ -8,8 +8,8 @@ import TextEditor from '../TextEditor';
 
 const TextNotebook = ({ notebook, notebooksController}) => {
     const notes = useSelector(state => state.notes?.notebookNotes);
+    const user = useSelector(state => state.session?.user)
     const [noteList, setNoteList] = useState([]);
-    const [selectedNote, setSelectedNote] = useState(null);
     const dispatch = useDispatch();
     const {notebookState, notebookDispatch, notebookFunctions} = notebooksController;
 
@@ -26,12 +26,10 @@ const TextNotebook = ({ notebook, notebooksController}) => {
         }
     }, [notes]);
 
-    const handleNoteDoubleClick = (note) => {
-        setSelectedNote(note);
-    }
 
     const onDelete = e => {
         notebookDispatch(notebookFunctions.deleteNotebook())
+        notebookDispatch(notebookFunctions.setActiveTab(user?.defaultNotebookId))
     }
 
     return (
@@ -44,7 +42,6 @@ const TextNotebook = ({ notebook, notebooksController}) => {
                         <TextNoteCard
                             key={note.id}
                             note={note}
-                            onDoubleClick={() => handleNoteDoubleClick(note)}
                         />
                 ))
                 :null

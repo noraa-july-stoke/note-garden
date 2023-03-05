@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEditor, Editor, Transforms } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import DOMPurify from 'dompurify';
 import { helpers } from '../ComponentHelpers/index.js';
 import './TextEditor.css';
@@ -12,7 +12,7 @@ import { thunkLoadNotebooks } from '../../store/notebooks.js';
 const { serialize, deserialize } = helpers;
 
 //add back in localstorage functionality later in case of refresh or internet outage
-const TextEditor = ({ note, onClose, setIsEditing }) => {
+const TextEditor = ({ note, onClose, setIsEditing, bgColor }) => {
     const history = useHistory()
     //if note use note, if not start from scratch.
     const notebooks = useSelector(state => state.notebooks?.userTextNotebooks)
@@ -87,7 +87,7 @@ const TextEditor = ({ note, onClose, setIsEditing }) => {
                     children: [{ text: '' }],
                 },
             ],
-            [deserializedValue]
+        [deserializedValue]
     )
 
     const withFormatting = (editor) => {
@@ -193,32 +193,40 @@ const TextEditor = ({ note, onClose, setIsEditing }) => {
 
     return (
         <div className="editor-page-wrapper">
-            <div className = "editor-form-content">
-                <label htmlFor="name">Name: </label>
-                <input type="text" value={name} onChange={handleNameChange} placeholder='Enter a name for your note'></input>
-            </div>
-            <div className="editor-form-content">
-                <label htmlFor="notebook-select">Notebook: </label>
-                <select id="notebook-select" value={selectedNotebook} onChange={handleNotebookChange}>
-                    {notebookList?.map((notebook) => (
-                        <option key={notebook.id} value={notebook.id}>{notebook.name}</option>
-                    ))}
-                </select>
-            </div>
             <div className='text-editor-container' >
-                <div className="text-editor-toolbar">
-                    <button className="toolbar-button" onClick={handleBoldClick}><b>B</b></button>
-                    <button className="toolbar-button" onClick={handleItalicClick}><em>I</em></button>
-                    <button className="format-button" onClick={handleResetFormatting}>Reset Formatting</button>
-                    <input className="toolbar-button" type="color" onChange={handleColorChange} />
-                    {<button className="toolbar-button" onClick={onClose}>X</button>}
+                <div className="text-editor-controls" style={{ backgroundColor: bgColor }}>
+                    <div className="editor-form-content">
+                        <div className="note-name-label">
+                            <label htmlFor="name" style={{ color: "white", fontWeight: "bold" }}>Name: </label>
+                            <input id="editor-note-name" type="text" value={name} onChange={handleNameChange} style={{ backgroundColor: bgColor }} placeholder='Enter a name for your note'></input>
+                        </div>
+                        <div className="note-notebook-label">
+                            <label htmlFor="notebook-select" style={{ color: "white", fontWeight: "bold" }}>Notebook: </label>
+                            <select id="notebook-select" value={selectedNotebook} style={{ backgroundColor: bgColor }} onChange={handleNotebookChange}>
+                                {notebookList?.map((notebook) => (
+                                    <option key={notebook.id} value={notebook.id}>{notebook.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <button className="editor-button" onClick={onClose}>X</button>
+                    </div>
+                    <div className="text-editor-toolbar">
+                        <button className="editor-button" onClick={handleBoldClick}><b>B</b></button>
+                        <button className="editor-button" onClick={handleItalicClick}><em>I</em></button>
+                        <button className="editor-button" onClick={handleResetFormatting}>Reset Formatting</button>
+                        <div className="editor-color-container" style={{ backgroundColor: bgColor }}>
+                            <input className="editor-color-button" type="color" onChange={handleColorChange} style={{ backgroundColor: bgColor }} />
+                        </div>
+                    </div>
                 </div>
                 <div className="editor-wrapper">
                     <Slate editor={editor} value={initialValue} onChange={handleContentChange}>
                         <Editable className='text-editor' renderLeaf={renderLeaf} placeholder="What are you thinking about...?" />
                     </Slate>
                 </div>
-                <button className="utility-button feedback-button save-button" onClick={handleSaveClick}> Save your progress & go to notebooks </button>
+                <div className="editor-footer">
+                    <button className="save-note-button" onClick={handleSaveClick} style={{ backgroundColor: bgColor }}> SAVE NOTE </button>
+                </div>
             </div>
         </div>
     )

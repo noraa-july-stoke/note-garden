@@ -2,28 +2,21 @@ import { useEffect, useContext } from 'react';
 import artFrames from './art';
 import { ColorContext } from '../../context/ColorContext';
 
+
+//getting the color change worked out for ascii text was kinda tricky
+
 const ASCIIText = () => {
     const {bgColor, textColor} = useContext(ColorContext);
     const styles = {
         container: {
-            width: "500px",
-            height: "500px",
+            width: "450px",
+            height: "450px",
             borderRadius: "50%",
             border: "5px solid transparent",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: `0px 0px 20px 10px rgba(255,255,255,0.2)`
-        },
-        bottom: {
-            width: "500px",
-            height: "500px",
-            borderRadius: "50%",
-            border: "5px solid transparent",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: `0px 0px 20px 10px ${bgColor}`
+            boxShadow: `0px 0px 20px 10px rgba(255,255,255,0.3)`
         },
         text: {
             fontSize: "6px",
@@ -33,8 +26,6 @@ const ASCIIText = () => {
         }
     };
     // boxShadow: `0px 0px 20px 10px rgba(255,255,255,0.5)`
-
-
 
     useEffect(() => {
         let frameIndex = 0;
@@ -48,6 +39,7 @@ const ASCIIText = () => {
 
         play();
 
+        //cleanup makes sure it doesnt hog memory after user leaves the splash page.
         return () => {
             clearTimeout(timeoutId);
         };
@@ -55,9 +47,7 @@ const ASCIIText = () => {
 
     return (
         <div className="jellyfish-container" style={styles.container}>
-            <div style={styles.bottom}>
             <pre id="output" style={styles.text}></pre>
-            </div>
         </div>
     );
 };

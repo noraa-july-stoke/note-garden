@@ -1,5 +1,23 @@
 .delete-notebook-button {
-    border: 1px solid black;
-    background-color: black;
+    border: 2px solid white;
+    background-color: transparent;
     color: white;
+    font-weight: bold;
+    border-radius: 2em;
+    width: fit-content;
+    padding-left: .5em;
+    padding-right: .5em;
+    margin: 5px;
+}
+
+.delete-text-note-button {
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    border-radius: 2em;
+    width: fit-content;
+    padding-left: .5em;
+    padding-right: .5em;
+    margin: 5px;
 }

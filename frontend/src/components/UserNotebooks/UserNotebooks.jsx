@@ -46,7 +46,7 @@ const UserNotebooks = () => {
                                 className={activeTab === notebook.id ? 'notebook-tab active-tab' : 'notebook-tab'}
                                 onClick={() => {
                                     notebookDispatch(setActiveTab(notebook.id));
-                                    // notebookDispatch(edit());
+                                    notebookDispatch(editing(false));
                                 }}
                                 style={{ backgroundColor: color }}
                             >

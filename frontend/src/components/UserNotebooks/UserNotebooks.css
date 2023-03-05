@@ -74,13 +74,16 @@
 
 .text-notebook-display {
     overflow-y: scroll;
-    height: 100%;
+    height: 90%;
     width: 60%;
     align-self:flex-start;
-    border-left: 4px solid white;
-    border-right: 4px solid white;
-    border-bottom: 2px solid white;
+    border-left: 6px solid white;
+    border-right: 6px solid white;
+    border-bottom: 6px solid white;
     margin-left: 150px;
+    padding-bottom : 1em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 .text-notebook-display::-webkit-scrollbar {

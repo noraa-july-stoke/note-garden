@@ -1,28 +1,53 @@
-.text-editor-toolbar{
+.text-editor-container {
+    border: 2px solid white;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 5px;
+    height: fit-content;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.text-editor-controls {
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+.text-editor-toolbar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    background-color: black;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
-.text-editor-container {
-    border: 2px solid black;
-    overflow: hidden;
-    width: 100%;
-    border-radius: 5px;
-    height:fit-content;
+.editor-footer {
+    display: flex;
+    justify-content: center;
+    background-color:rgba(255,255,255,.2);
 }
 
-.save-button{
-    width: 100%
+
+.save-note-button {
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    border-radius: 2em;
+    width: fit-content;
+    padding-left: .5em;
+    padding-right: .5em;
+    margin: 5px;
 }
 
-.editor-wrapper{
-    border: 2px solid black;
-}
 
-#custom-div{
+#custom-div {
     height: fit-content;
     width: fit-content;
 }
@@ -80,15 +105,83 @@
 }
 
 
-.text-editor {
-    width: 100%;
-}
 
 
 .text-editor {
     background-color: antiquewhite;
     width: 100%;
-    height: 300px;
+    height: 250px;
     resize: both;
-    overflow: scroll;
+    overflow-y: scroll;
+}
+
+.text-editor::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.text-editor::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10rem;
+    border: 1px solid #fff;
+}
+
+.text-editor::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+}
+
+.text-editor::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+}
+
+#notebook-select {
+    max-width: 150px;
+    border: 2px solid white;
+    border-radius: 2em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+#editor-note-name {
+    border: 2px solid white;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    width: fit-content;
+}
+
+
+.editor-button {
+    color: white;
+}
+
+.editor-color-container {
+    border: 2px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.editor-color-button {
+    flex: none;
+    border: none;
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+}
+
+
+.editor-form-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 1em;
+    padding-right: 1em;
 }

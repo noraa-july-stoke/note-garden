@@ -372,6 +372,15 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: [60, 60]
         }
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
       }
     },
 

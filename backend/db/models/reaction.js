@@ -44,6 +44,15 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true,
         isIn: [['like', 'dislike']],
       }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     }
   }, {
     sequelize,

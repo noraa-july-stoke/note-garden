@@ -1,3 +1,41 @@
 .text-note-card-container {
-    border: 1px solid black;
+    border: 2px solid white;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.text-note-body {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+.text-note-body::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.text-note-body::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10rem;
+    border: 1px solid #fff;
+}
+
+.text-note-body::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+}
+
+.text-note-body::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+}
+
+.note-title-container {
+    height: 5em;
+}
+
+
+.text-note-footer {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, .2);
 }

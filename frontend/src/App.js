@@ -62,6 +62,7 @@ function App() {
               <SingleNotePage />
             </Route>
             <Route path='/new-note'>
+              <TextEditor note={false}/>
             </Route>
             <Route path='/notebooks'>
                 <UserNotebooks />

@@ -49,6 +49,15 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING(255),
       allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     }
   },
     {

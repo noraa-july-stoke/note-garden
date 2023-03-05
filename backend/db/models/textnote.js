@@ -1,4 +1,3 @@
-
 'use strict';
 const {
   Model
@@ -13,13 +12,15 @@ module.exports = (sequelize, DataTypes) => {
 
     static async getNotesByNotebookId(id) {
       const notes = await this.findAll({
-        where: {notebookId: id}
+        where: { notebookId: id },
+        order: [['updatedAt', 'ASC']]
       });
       const notesObject = {};
       notes.forEach((note) => {
         const noteJson = note.toJSON();
         notesObject[noteJson.id] = noteJson;
       });
+      console.log(notesObject)
       return notesObject;
     }
 
@@ -72,6 +73,15 @@ module.exports = (sequelize, DataTypes) => {
     note: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     }
   },
     {
