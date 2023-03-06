@@ -69,7 +69,13 @@ const LoginForm = ({ bgColor }) => {
                         required
                     />
                 </label>
+                <div className="auth-buttons-container">
                 <button className="auth-button" type="submit">Log In</button>
+                <button className="auth-button" onClick={e => { setCredential("user1@user.io"); setPassword("password1") }}>
+                    Demo User
+                </button>
+                </div>
+
             </div>
         </form>
     );

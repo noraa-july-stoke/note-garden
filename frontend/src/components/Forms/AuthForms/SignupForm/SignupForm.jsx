@@ -127,9 +127,12 @@ const SignupForm = ({bgColor}) => {
                         style={{ backgroundColor: bgColor }}
                     />
                 </label>
-                <button className="auth-button" type="submit">
-                    Sign Up
-                </button>
+                <div className="buttons-container">
+                    <button className="auth-button" type="submit">
+                        Sign Up
+                    </button>
+                </div>
+
             </div>
         </form>
     );

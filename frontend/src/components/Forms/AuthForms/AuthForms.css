@@ -41,7 +41,12 @@
     width: fit-content;
 }
 
-
+.auth-buttons-container {
+    width:100%;
+    display: flex;
+    justify-content:center;
+    gap: 2em;
+}
 
 
 
