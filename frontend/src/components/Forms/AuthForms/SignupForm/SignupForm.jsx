@@ -22,11 +22,22 @@ const SignupForm = ({bgColor}) => {
             setModalContent(<ErrorModal errors={['Confirm Password field must be the same as the Password field']} />);
         } else {
             setErrors([]);
-            const data = await dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
-            if (data.errors) {
-                setErrors(Object.values(data.errors));
-                setModalContent(<ErrorModal errors={Object.values(data.errors)} />);
+            try {
+                const response = await dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
             }
+
+            catch(error){
+                const data = await error.json()
+                console.log(data.errors[0])
+                setErrors(Object.values(data.errors));
+                if (!Array.isArray(data.errors)) {
+                    setModalContent(<ErrorModal errors={Object.values(data?.errors)} />);
+                }
+                else {
+                    setModalContent(<ErrorModal errors={[data.errors[0].message]} />);
+                }
+            }
+
         }
     };
 
