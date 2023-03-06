@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import NotebookForm from "../CreateForms/NotebookForm";
+import {ColorContext} from '../../context/ColorContext';
+
 const NotebookHeader = ({ notebook, notebooksController }) => {
+    const {bgColor} = useContext(ColorContext);
     const {notebookDispatch, notebookState, notebookFunctions} = notebooksController;
     // this allows me to have the component pass through a render without breaking before state variables have been set.
     // if editState doesn't exist, it allows setisediting to still be a function that doesnt do anything. more or less
@@ -14,13 +17,12 @@ const NotebookHeader = ({ notebook, notebooksController }) => {
     };
 
     return (
-        <div className="notebook-header">
+        <div className="notebook-header" style={{backgroundColor: bgColor}}>
             {
                 notebookState.editing
                     ? (<NotebookForm notebook={notebook} notebooksController={notebooksController}  />)
                     : (<h3 className='notebook-header-title' onDoubleClick={handleDoubleClick}>{notebook?.name}</h3>)
             }
-            { notebook && <div className="component-instructions">Double Click the notebook title above to edit. Double click a note to edit</div>}
 
         </div>
     );
