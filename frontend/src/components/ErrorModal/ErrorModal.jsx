@@ -6,6 +6,7 @@ import image from "./silly-goose.png";
 
 
 const ErrorModal = ({ errors }) => {
+    console.log(errors)
     const { bgColor } = useContext(ColorContext);
     const { closeModal } = useModal();
     console.log(errors)

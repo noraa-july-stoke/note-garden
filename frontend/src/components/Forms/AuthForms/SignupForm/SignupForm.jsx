@@ -15,20 +15,18 @@ const SignupForm = ({bgColor}) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
-     const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let data;
-        if (password == confirmPassword) {
+        if (password !== confirmPassword) {
+            setErrors(['Confirm Password field must be the same as the Password field']);
+            setModalContent(<ErrorModal errors={['Confirm Password field must be the same as the Password field']} />);
+        } else {
             setErrors([]);
-            data = await dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
-            console.log(data)
-            if (data.errors){
+            const data = await dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+            if (data.errors) {
                 setErrors(Object.values(data.errors));
                 setModalContent(<ErrorModal errors={Object.values(data.errors)} />);
             }
-        } else {
-            setErrors(['Confirm Password field must be the same as the Password field']);
-            setModalContent(<ErrorModal errors={errors} />)
         }
     };
 
@@ -46,8 +44,6 @@ const SignupForm = ({bgColor}) => {
             document.removeEventListener('click', handleClick);
         };
     }, []);
-
-
 
 
     return (
