@@ -33,7 +33,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-            <HomePage sessionUser={sessionUser} />
+            <HomePage sessionUser={sessionUser} bgColor={bgColor} />
               {/* <ImageUploadForm /> */}
           </Route>
           <Route path='/new-note'>
