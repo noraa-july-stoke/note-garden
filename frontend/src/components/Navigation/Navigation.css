@@ -56,10 +56,14 @@ ul.profile-dropdown {
     background-color: inherit;
     list-style-type: none;
     max-height: 50%;
+    height: fit-content;
     background-color: inherit;
     top: 67px;
-    left: 10px;
+    left: 42px;
     z-index: 20;
+    border: 2px solid white;
+    border-radius: 1em;
+    overflow: hidden;
 }
 
 .hidden {

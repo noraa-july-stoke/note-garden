@@ -15,7 +15,7 @@ const { serialize, deserialize } = helpers;
 const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
     const history = useHistory()
     //if note use note, if not start from scratch.
-    const notebooks = useSelector(state => state.notebooks?.userTextNotebooks)
+    const notebooks = useSelector(state => state.notebooks?.userTextNotebooks);
     const notebookList = Object.values(notebooks);
     //Preserves data through a re-render before updating based on previous value
     //State Variables. html contend will be rendered inside this starting div.
@@ -43,7 +43,7 @@ const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
     }
 
     useEffect(() => {
-        console.log(name, selectedNotebook);
+        console.log(selectedNotebook, name, htmlContent)
     }, [name, selectedNotebook, dispatch, htmlContent]);
 
     //!@#$ we will set propvalue to the html string of note;
@@ -211,7 +211,7 @@ const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
                     <div className="editor-form-content">
                         <div className="note-name-label">
                             <label htmlFor="name" style={{ color: "white", fontWeight: "bold" }}>Name: </label>
-                            <input id="editor-note-name" type="text" value={name} onChange={handleNameChange} style={{ backgroundColor: bgColor }} placeholder='Name your note'></input>
+                                <input id="editor-note-name" type="text" value={name} onChange={handleNameChange} style={{ backgroundColor: bgColor }} placeholder='Name your note' required></input>
                         </div>
                         <div className="note-notebook-label">
                             <label htmlFor="notebook-select" style={{ color: "white", fontWeight: "bold" }}>Notebook: </label>

@@ -22,8 +22,8 @@ const HomePage = ({ sessionUser, bgColor }) => {
             {!sessionUser && <AuthForms />}
             {sessionUser &&
                 <div className="buttons-container">
-                    <button style={{backgroundColor: bgColor}} className="home-nav-button">Go To Notebooks</button>
-                    <button style={{ backgroundColor: bgColor }} className="home-nav-button">Create New Note</button>
+                    <button style={{backgroundColor: bgColor}} className="home-nav-button" onClick={notebookClick}>Go To Notebooks</button>
+                    <button style={{ backgroundColor: bgColor }} className="home-nav-button" onClick={newNoteClick}>Create New Note</button>
                 </div>
 
             }

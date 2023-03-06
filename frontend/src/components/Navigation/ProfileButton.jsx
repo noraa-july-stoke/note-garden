@@ -58,33 +58,36 @@ function ProfileButton({ user, bgColor }) {
                         <div className="dropdown-item" onClick={e =>  {closeMenu(); history.push('/notebooks');}} style={{ border: `2px solid ${bgColor}` }}>
                             My NoteBooks
                         </div>
-                        <div className="dropdown-item" onClick={e => { closeMenu(); history.push('/notebooks');}} style={{ border: `2px solid ${bgColor}` }}>
+                        <div className="dropdown-item" onClick={e => { closeMenu(); history.push('/new-note');}} style={{ border: `2px solid ${bgColor}` }}>
                             Make A New Note!
                         </div>
-                        <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
+                        {/* <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
                         </div>
                         <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
                         </div>
                         <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
-                        </div>
+                        </div> */}
                     </div>
                 ) : (
-                    <>
-                        <span className='modal-button'>
-                            <OpenModalMenuItem
-                                itemText="Log In"
-                                onItemClick={closeMenu}
-                                modalComponent={<LoginFormModal />}
-                            />
-                        </span>
-                        <span className='modal-button'>
-                            <OpenModalMenuItem
-                                itemText="Sign Up"
-                                onItemClick={closeMenu}
-                                modalComponent={<SignupFormModal />}
-                            />
-                        </span>
-                    </>
+                        <div className="dropdown-item" onClick={e => { closeMenu(); history.push('/'); }} style={{ border: `2px solid ${bgColor}` }}>
+                            Login Below To Use App
+                        </div>
+                    // <>
+                    //     <span className='modal-button'>
+                    //         <OpenModalMenuItem
+                    //             itemText="Log In"
+                    //             onItemClick={closeMenu}
+                    //             modalComponent={<LoginFormModal />}
+                    //         />
+                    //     </span>
+                    //     <span className='modal-button'>
+                    //         <OpenModalMenuItem
+                    //             itemText="Sign Up"
+                    //             onItemClick={closeMenu}
+                    //             modalComponent={<SignupFormModal />}
+                    //         />
+                    //     </span>
+                    // </>
                 )}
             </ul>
         </>

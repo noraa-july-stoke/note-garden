@@ -15,14 +15,13 @@ function Navigation({ isLoaded }) {
     const { bgColor, changeBgColor, textColor, changeTextColor } = useContext(ColorContext);
     const [isSpinning, setIsSpinning] = useState(false);
 
-    useEffect(() => {
-        if (!sessionUser?.id) {
-            history.push('/')
-        }
+    //causing weird behavior.
+    // useEffect(() => {
+    //     if (!sessionUser) {
+    //         history.push('/')
+    //     }
 
-    }, [sessionUser?.id])
-
-
+    // }, [sessionUser])
 
     return (
         <nav className='nav-header' style={{ backgroundColor: bgColor }}>
@@ -36,7 +35,7 @@ function Navigation({ isLoaded }) {
             <Timer />
             {/* <img className="tarot-frog" src={image} alt="My Image" /> */}
             <div className="nav-div">
-                <NavLink exact to="/">Home</NavLink>
+                <NavLink exact to="/" style={{ fontFamily: 'Courier New', fontWeight: 'bold', fontSize: '1.2em' }}>NoteGarden</NavLink>
             </div>
         </nav>
     );
