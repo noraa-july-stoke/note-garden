@@ -35,7 +35,7 @@ function Navigation({ isLoaded }) {
             <Timer />
             {/* <img className="tarot-frog" src={image} alt="My Image" /> */}
             <div className="nav-div">
-                <NavLink exact to="/" style={{ fontFamily: 'Courier New', fontWeight: 'bold', fontSize: '1.2em' }}>NoteGarden</NavLink>
+                <NavLink exact to="/" style={{ fontFamily: 'Courier New', fontWeight: 'bold', fontSize: '1.5em' }}>NoteGarden</NavLink>
             </div>
         </nav>
     );

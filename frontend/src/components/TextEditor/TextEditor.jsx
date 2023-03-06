@@ -23,6 +23,7 @@ const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
     const [htmlContent, setHtmlContent] = useState(note?.note ? note.note : "");
     const [name, setName] = useState(note?.name ? note.name : "");
     const [selectedNotebook, setSelectedNotebook] = useState(note?.notebookId ? note.notebookId : notebookList[0]?.id);
+    const [errorMessage, setErrorMessage] = useState(null)
 
     let editorStyles;
     if (standalone) {
@@ -31,7 +32,7 @@ const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
                 height: "400px"
             },
             editorContainer: {
-                padding: "3em"
+                padding: "5em"
             }
         }
     }
@@ -63,6 +64,11 @@ const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
 
     const handleSaveClick = async e => {
         e.preventDefault()
+        if(!name) {
+            setErrorMessage("You forgot to name your note!")
+            return
+        }
+        else setErrorMessage(null)
         const content = serialize(editor)
         let saveNote = null;
         if (!note) {
@@ -206,6 +212,7 @@ const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
 
     return (
         <div className="editor-page-wrapper" style={editorStyles?.editorContainer}>
+            {!name && <h3 style={{color:"red", textAlign:"center"}}>{errorMessage}</h3>}
             <div className='text-editor-container' >
                 <div className="text-editor-controls" style={{ backgroundColor: bgColor }}>
                     <div className="editor-form-content">
