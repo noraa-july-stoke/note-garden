@@ -4,7 +4,73 @@
     font-weight: bold;
 }
 
+.auth-credentials {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
-.auth-credentials{
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+    border: 5px solid white;
+    border-radius: 2em;
+    width: 400px;
+}
+
+.form-container h2 {
+    color: white;
+    align-self: center;
+}
+
+.auth-credentials input {
+
+    text-align: center;
+}
+
+.auth-button {
+    align-self: center;
+    color: white;
+    font-weight: bolder;
+    border: 2px solid white;
+    padding: .5em;
+    border-radius: 2em;
+    width: fit-content;
+}
+
+
+
+
+
+
+
+
+
+/* .auth-form-input {
+    color: white;
+    border: 2px solid white;
+    font-weight: bold;
+}
+
+
+.auth-credentials {
     color: white;
 }
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+}
+
+.form-container h2 {
+    color: white;
+}
+
+.auth-credentials input {
+    text-align: center;
+} */

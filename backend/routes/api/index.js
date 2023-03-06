@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { validationResult } = require('express-validator');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const notebooksRouter = require('./notebooks.js');
@@ -29,5 +30,7 @@ router.use('/comments', commentsRouter);
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });
 });
+
+
 
 module.exports = router;

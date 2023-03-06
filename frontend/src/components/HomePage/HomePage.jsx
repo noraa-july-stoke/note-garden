@@ -5,6 +5,10 @@ import './HomePage.css';
 //Import authforms
 const HomePage = ({sessionUser}) => {
 
+    useEffect(() => {
+
+    },[sessionUser?.id])
+
     return (
         <div className="home-body-container">
             {!sessionUser &&  <AuthForms/>}

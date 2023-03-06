@@ -4,21 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useModal } from '../../../../context/Modal';
 import ErrorModal from '../../../ErrorModal';
-import OpenModalMenuItem from '../../../Navigation/OpenModalMenuItem';
 
 const LoginForm = ({ bgColor }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
-    const { closeModal, setModalContent } = useModal();
+    const { closeModal, setModalContent  } = useModal();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(sessionActions.login({ credential, password }))
+        await dispatch(sessionActions.login({ credential, password }))
             .then(() => {
                 // reset the modal content to null if login succeeds
                 setModalContent(null);
+                closeModal();
             })
             .catch(async (res) => {
                 const data = await res.json();
@@ -45,30 +45,31 @@ const LoginForm = ({ bgColor }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label className="auth-credentials">
-                Username or Email
-                <input
-                    className="auth-form-input"
-                    type="text"
-                    value={credential}
-                    onChange={(e) => setCredential(e.target.value)}
-                    required
-                    style={{ backgroundColor: bgColor }}
-                />
-            </label>
-            <label className="auth-credentials">
-                Password
-                <input
-                    className="auth-form-input"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    style={{ backgroundColor: bgColor }}
-                    required
-                />
-            </label>
-            <div className="auth-form-links">
-                <button type="submit">Log In</button>
+            <div className="form-container">
+                <h2>Log In</h2>
+                <label className="auth-credentials">
+                    <span>Username or Email: </span>
+                    <input
+                        className="auth-form-input"
+                        type="text"
+                        value={credential}
+                        onChange={(e) => setCredential(e.target.value)}
+                        required
+                        style={{ backgroundColor: bgColor }}
+                    />
+                </label>
+                <label className="auth-credentials">
+                    <span>Password: </span>
+                    <input
+                        className="auth-form-input"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        style={{ backgroundColor: bgColor }}
+                        required
+                    />
+                </label>
+                <button className="auth-button" type="submit">Log In</button>
             </div>
         </form>
     );

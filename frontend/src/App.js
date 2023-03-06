@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
+import {Redirect} from "react-router";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import ImageUploadForm from "./components/Forms";
@@ -16,15 +17,11 @@ function App() {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (!sessionUser && isLoaded) {
-      history.push('/');
-    }
-  }, [sessionUser]);
 
   return (
     <div className="app-container" style={{ backgroundColor: bgColor }}>

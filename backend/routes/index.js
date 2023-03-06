@@ -36,4 +36,19 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
+// // error handling middleware
+// router.use((err, req, res, next) => {
+//     // check if the error is a validation error
+//     if (err.errors) {
+//         return res.status(err.status).json({ errors: err.errors, title: err.title });
+//     }
+
+//     // handle other types of errors here
+//     console.error(err);
+
+//     // send a generic error response
+//     res.status(500).json({ errors: { server: 'An unexpected error occurred.' }, title: 'Server Error' });
+// });
+
+
 module.exports = router;

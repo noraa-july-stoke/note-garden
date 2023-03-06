@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
@@ -10,9 +10,18 @@ import { ColorContext } from '../../context/ColorContext';
 
 
 function Navigation({ isLoaded }) {
+    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const { bgColor, changeBgColor, textColor, changeTextColor } = useContext(ColorContext);
     const [isSpinning, setIsSpinning] = useState(false);
+
+    useEffect(() => {
+        if (!sessionUser?.id) {
+            history.push('/')
+        }
+
+    }, [sessionUser?.id])
+
 
 
     return (
