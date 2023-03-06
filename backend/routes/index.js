@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
 
+
+
 router.use('/api', apiRouter);
 
 // Static routes
@@ -36,7 +38,7 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
-// // error handling middleware
+// error handling middleware
 // router.use((err, req, res, next) => {
 //     // check if the error is a validation error
 //     if (err.errors) {

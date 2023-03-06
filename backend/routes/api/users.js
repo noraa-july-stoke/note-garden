@@ -33,8 +33,8 @@ router.post(
     async (req, res) => {
         const { email, password, username, firstName, lastName } = req.body;
         const user = await User.signup({ email, firstName, lastName, username, password });
-        user.createDefaultNotebook();
-        user.createDefaultImageNotebook();
+        await user.createDefaultNotebook();
+        await user.createDefaultImageNotebook();
         setTokenCookie(res, user);
         return res.json({
             user: user

@@ -30,9 +30,9 @@ const multerMid = multer({
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
-app.use(multerMid.single('file'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(multerMid.single('file'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Security Middleware
 if (!isProduction) {
