@@ -15,14 +15,6 @@ function Navigation({ isLoaded }) {
     const { bgColor, changeBgColor, textColor, changeTextColor } = useContext(ColorContext);
     const [isSpinning, setIsSpinning] = useState(false);
 
-    //causing weird behavior.
-    // useEffect(() => {
-    //     if (!sessionUser) {
-    //         history.push('/')
-    //     }
-
-    // }, [sessionUser])
-
     return (
         <nav className='nav-header' style={{ backgroundColor: bgColor }}>
             {isLoaded && (
