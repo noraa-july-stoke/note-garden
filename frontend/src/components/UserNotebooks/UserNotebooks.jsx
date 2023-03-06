@@ -13,7 +13,7 @@ const UserNotebooks = () => {
     const { bgColor, changeBgColor } = useContext(ColorContext);
     const dispatch = useDispatch();
     const notebooks = useSelector(state => state.notebooks?.userTextNotebooks);
-
+    const user = useSelector(state => state.session?.user)
     const [state, notebookDispatch] = useReducer(notebookReducer, initialState);
     const notebookState = state;
     const { activeTab, notebookAdded, edited } = state;
@@ -21,7 +21,11 @@ const UserNotebooks = () => {
 
     useEffect(() => {
         dispatch(thunkLoadNotebooks());
-        if (activeTab !== 0) dispatch(thunkLoadNotebookNotes(activeTab))
+        console.log("activeTab", user?.defaultNotebookId)
+        if (activeTab === 0) {
+            notebookDispatch(setActiveTab(user?.defaultNotebookId));
+        }
+        dispatch(thunkLoadNotebookNotes(activeTab))
     }, [dispatch, notebookDispatch]);
 
 

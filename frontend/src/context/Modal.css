@@ -1,4 +1,4 @@
-/* #modal {
+ /* #modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -21,7 +21,9 @@
 #modal-content {
     position: absolute;
     background-color: white;
-} */
+    height: fit-content;
+    width: fit-content;
+}
 
 
 #modal-content {
@@ -33,6 +35,8 @@
     margin: 0 auto;
     max-width: 600px;
     max-height: 80%;
+    min-width: fit-content;
+    min-height: fit-content;
     overflow-y: auto;
 }
 
@@ -71,4 +75,24 @@
     height: 100%;
     fill: #aaa;
     transition: fill 0.2s ease-in-out;
+} */
+
+
+
+
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#modal-content {
+    max-width: 90%;
+    max-height: 90%;
 }

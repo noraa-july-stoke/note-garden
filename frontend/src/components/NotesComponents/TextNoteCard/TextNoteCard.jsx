@@ -16,19 +16,27 @@ const TextNoteCard = ({ note, onUpdate }) => {
         setIsEditing(true);
     }
 
+    const onClick = () => {
+        setIsEditing(true);
+    }
+
     const onClose = () => {
         setIsEditing(false)
     }
 
+
     return (
         <>
-            {isEditing ?
-                <TextEditor note={note} onClose={onClose} setIsEditing={setIsEditing} onUpdate={onUpdate} bgColor={bgColor} /> :
-                <div onDoubleClick={handleDoubleClick} className="text-note-card-container" >
-                    <div className="note-title-container" style={{ backgroundColor: bgColor}}>
-                    <h4 className="note-name" style={{color: "white" }}>{note.name}</h4>
+            {isEditing
+
+            ?
+                <TextEditor note={note} onClose={onClose} setIsEditing={setIsEditing} onUpdate={onUpdate} bgColor={bgColor} />
+            :
+                <div  className="text-note-card-container" >
+                    <div className="note-header-container" style={{ backgroundColor: bgColor}}>
+                    <h4 className="note-name"  onClick={onClick}>{note.name}</h4>
                     </div>
-                    <div dangerouslySetInnerHTML={{ __html: note?.note }} className='text-note-body' style={{ backgroundColor: "antiquewhite" }} />
+                    <div dangerouslySetInnerHTML={{ __html: note?.note }} className='text-note-body' style={{ backgroundColor: "antiquewhite" }} onDoubleClick={handleDoubleClick} />
                     <div className="text-note-footer">
                     <DeleteButton type={"TEXT_NOTE"} setIsDeleted={{setIsDeleted}} id={note?.id} />
                     </div>

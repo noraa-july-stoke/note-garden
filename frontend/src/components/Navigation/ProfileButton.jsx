@@ -53,12 +53,12 @@ function ProfileButton({ user, bgColor }) {
                             <span className="user-dropdown-info">{user.email}</span>
                         </div>
                         <div className="user-dropdown-logout dropdown-item" style={{ border: `2px solid ${bgColor}` }} >
-                            <button className="logout-button" onClick={logout}>Log Out</button>
+                            <button className="logout-button" onClick={e => { closeMenu(); logout(e); history.push('/')}}>Log Out</button>
                         </div>
-                        <div className="dropdown-item" onClick={e => history.push('/notebooks')} style={{ border: `2px solid ${bgColor}` }}>
+                        <div className="dropdown-item" onClick={e =>  {closeMenu(); history.push('/notebooks');}} style={{ border: `2px solid ${bgColor}` }}>
                             My NoteBooks
                         </div>
-                        <div className="dropdown-item" onClick={e => history.push('/new-note')} style={{ border: `2px solid ${bgColor}` }}>
+                        <div className="dropdown-item" onClick={e => { closeMenu(); history.push('/notebooks');}} style={{ border: `2px solid ${bgColor}` }}>
                             Make A New Note!
                         </div>
                         <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>

@@ -1,0 +1,28 @@
+/* div.tooltip {
+    position: relative;
+    border-bottom: 1px dotted black;
+    width: fit-content !important;}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    width: fit-content !important;
+    /* set min-width to the width of the children element */
+    /* white-space: nowrap; */
+    /* prevent line break */
+
+    /* Position the tooltip */
+    /* position: absolute; */
+    /* z-index: 1; */
+    /* bottom: -100px; */
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+/* } */
+
+/* .tooltip:hover .tooltiptext { */
+    /* visibility: visible; */
+/* } */

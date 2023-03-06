@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import {useHistory} from 'react-router-dom';
 import { helpers } from '../ComponentHelpers/index.js';
-
 const { actionGenerator, searchReducer} = helpers;
 
 const SearchBar = () => {

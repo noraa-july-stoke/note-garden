@@ -190,6 +190,7 @@ input::placeholder {
     border-bottom: 25px solid white;
     transform: rotate(0deg);
     transition: transform 2s ease-out;
+    cursor: pointer;
 }
 
 

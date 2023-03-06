@@ -1,50 +1,58 @@
-.modal-overlay {
+.error-container {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 2em;
+    overflow: hidden;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    border: 4px solid white;
 }
 
-.error-modal {
-    border: 1px solid black;
-    width: 400px;
-    padding: 24px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.silly-goose{
+    filter: brightness(0) invert(1);
+    height: 50px;
+    width: 50px;
 }
 
-.error-modal h2 {
-    margin-top: 0;
+.error-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
 }
 
-.error-modal ul {
-    margin: 0;
-    padding: 0;
+.error-container li {
     list-style: none;
+    color: red;
+    text-align: center;
+    font-family: "Courier New", Courier, monospace;
+    font-weight:bolder;
 }
 
-.error-modal li {
-    margin-bottom: 8px;
+.error-container p {
+    text-align: center;
 }
 
-.modal-close {
-    display: block;
-    margin-top: 24px;
-    padding: 8px 16px;
-    background-color: #0070f3;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+.errors-body {
+    background-color: antiquewhite;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    gap:1em;
 }
 
-.modal-close:hover {
-    background-color: #005ae0;
+.error-modal-button{
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+    padding: .5em;
+    border-radius: 20px;
 }

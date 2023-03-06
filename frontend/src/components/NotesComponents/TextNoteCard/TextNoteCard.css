@@ -2,13 +2,14 @@
     border: 2px solid white;
     margin-top: 2em;
     margin-bottom: 2em;
-    border-radius: 5px;
+    border-radius: 1em;
     overflow: hidden;
 }
 
 .text-note-body {
     height: 250px;
     overflow-y: scroll;
+    cursor: pointer;
 }
 
 .text-note-body::-webkit-scrollbar {
@@ -29,10 +30,31 @@
     background: transparent;
 }
 
-.note-title-container {
+.note-header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 5em;
+    width: 100%;
 }
 
+.note-name {
+    border: 2px solid white;
+    height: fit-content;
+    width: fit-content;
+    min-width: 200px;
+    max-width: 80%;
+    padding: .25em;
+    border-radius: 2em;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+}
+
+.note-name:hover {
+    border: 2px solid lightgray;
+    color: lightgray;
+}
 
 .text-note-footer {
     display: flex;

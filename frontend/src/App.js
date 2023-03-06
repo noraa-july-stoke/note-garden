@@ -5,18 +5,13 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import ImageUploadForm from "./components/Forms";
 import TextEditor from "./components/TextEditor";
-import AllNotes from "./components/NotesComponents/AllNotes";
-import SingleNotePage from "./components/NotesComponents/SingleNotePage";
-import TestComponent from "./components/TestComponent/TestComponent";
-import SinglePostPage from "./components/PostComponents/SinglePostPage";
-import Dashboard from "./components/UserDashboard";
 import UserNotebooks from "./components/UserNotebooks";
-import ASCIIText from "./components/ASCII/ASCIIText";
+import HomePage from "./components/HomePage";
 import './index.css';
 import { ColorContext } from "./context/ColorContext";
 
 function App() {
-  const {bgColor} = useContext(ColorContext)
+  const { bgColor } = useContext(ColorContext)
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
@@ -31,43 +26,26 @@ function App() {
     }
   }, [sessionUser]);
 
-
   return (
-    <div className="app-container" style={{backgroundColor:bgColor}}>
+    <div className="app-container" style={{ backgroundColor: bgColor }}>
       <Switch>
         <Route path="/">
-            <Navigation isLoaded={isLoaded} />
+          <Navigation isLoaded={isLoaded} />
         </Route>
       </Switch>
       {isLoaded && (
-          <Switch>
-            <Route exact path='/'>
-              <ASCIIText/>
-              {/* landing page */}
+        <Switch>
+          <Route exact path='/'>
+            <HomePage sessionUser={sessionUser} />
               {/* <ImageUploadForm /> */}
-            </Route>
-            <Route path="/test">
-              <TestComponent />
-            </Route>
-            <Route path="/post">
-              <SinglePostPage />
-            </Route>
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-            <Route path='/all-notes'>
-              <AllNotes />
-            </Route>
-            <Route path='/text-notes/:noteId'>
-              <SingleNotePage />
-            </Route>
-            <Route path='/new-note'>
-              <TextEditor note={false}/>
-            </Route>
-            <Route path='/notebooks'>
-                <UserNotebooks />
-            </Route>
-          </Switch>
+          </Route>
+          <Route path='/new-note'>
+            <TextEditor note={false} standalone={true} bgColor={bgColor} />
+          </Route>
+          <Route path='/notebooks'>
+            <UserNotebooks />
+          </Route>
+        </Switch>
       )}
     </div>
 

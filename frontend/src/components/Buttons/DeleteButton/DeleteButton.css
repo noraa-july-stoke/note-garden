@@ -21,3 +21,14 @@
     padding-right: .5em;
     margin: 5px;
 }
+
+.delete-text-note-button:hover {
+    border: 2px solid lightgray;
+    color: lightgray;
+}
+
+
+.delete-notebook-button:hover {
+    border: 2px solid lightgray;
+    color: lightgray;
+}
