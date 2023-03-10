@@ -1,0 +1,62 @@
+version: '3.8'
+services:
+  # Create frontend container
+  frontend: # Name of our service
+    build: ./frontend # path to dockerfile
+    ports: # Port binding to host from docker container
+      - "5001:5001" # Bind port 3000 of host to 3000 of container
+    container_name: frontend-docker
+    restart: always # What to do if container crashes
+    links:
+      - backend
+  # Create backend container
+  backend:
+    # Create backend container
+    build: ./backend
+    ports:
+      - "5000:5000"
+    container_name: backend-docker
+    restart: always
+    links:
+      - db
+    environment:
+      - DATABASE_URL=postgres://root:root@localhost:5432/note_garden_db?schema=note_garden_sequelize
+      - GCLOUD_CLIENT_EMAIL=note-garden@southern-surge-378705.iam.gserviceaccount.com
+      - GCLOUD_PRIVATE_KEY=AIzaSyByjk5Lm_5kTpiPSfaLl_ry-lubUvqrQ84
+      - GCLOUD_PROJECT_ID=southern-surge-378705
+      - GCLOUD_BUCKET_NAME=note_garden_bucket
+      - JWT_SECRET=6qifLTtG2xKUiA==
+      - JWT_EXPIRES_IN=604800
+      - SECRET_KEY=6qifLTtG2xKUiA==
+      - ENVIRONMENT=production
+      - SCHEMA=note_garden_sequelize
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=note_garden_db
+      - DB_HOST=db
+  # Define the db service as a top-level service
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: note_garden_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - mypgdata:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+      - CSRF_SESSION_KEY=6qifLTtG2xKUiA==
+      - SECRET_KEY=6qifLTtG2xKUiA==
+    ports:
+      - "5050:80"
+volumes:
+  mypgdata:

@@ -23,6 +23,8 @@ if (process.env.NODE_ENV === 'production') {
 
     // Serve the frontend's index.html file at all other routes NOT starting with /api
     router.get(/^(?!\/?api).*/, (req, res) => {
+        console.log('CSRF Token:', req.csrfToken());
+        console.log('XSRF-TOKEN Cookie:', req.cookies['XSRF-TOKEN']);
         res.cookie('XSRF-TOKEN', req.csrfToken());
         res.sendFile(
             path.resolve(__dirname, '../../frontend', 'build', 'index.html')
