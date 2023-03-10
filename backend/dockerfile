@@ -1,0 +1,8 @@
+FROM node
+WORKDIR /usr/src/app/backend
+COPY package*.json /app/backend
+COPY . .
+RUN npm install
+RUN npm install -g nodemon
+EXPOSE 5000
+CMD ["npm", "start"]

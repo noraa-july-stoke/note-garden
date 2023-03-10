@@ -1,0 +1,29 @@
+version: '3'
+services:
+  # Create frontend container
+  frontend: # Name of our service
+    build: ./frontend # path to dockerfile
+    ports: # Port binding to host from docker container
+      - "5001:5001" # Bind port 3000 of host to 3000 of container
+    container_name: frontend-docker
+    restart: always # What to do if container crashes
+    links:
+      - backend
+  # Create backend container
+  backend:
+    # Create backend container
+    build: ./backend
+    ports:
+      - "5000:5000"
+    container_name: backend-docker
+    restart: always
+    links:
+      - db
+
+  # Define the db service as a top-level service
+  db:
+    image: postgres:11.6-alpine
+    ports:
+      - "5432:5432"
+    container_name: database-docker
+    restart: always
