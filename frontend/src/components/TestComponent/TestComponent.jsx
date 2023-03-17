@@ -95,7 +95,7 @@ const TestComponent = () => {
                 <p>Active Tab: {state.activeTab}</p>
             </div>
 
-            <ExampleComponent />
+            {/* <ExampleComponent /> */}
 
         </>
 

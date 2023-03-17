@@ -14,9 +14,9 @@ router.get('/', requireAuth, async (req, res) => {
 
 //gets all notes related to a notebook by notebookId
 router.get('/text-notebooks/:notebookId(\\d+)', async (req, res) => {
-    const id = req.params.notebookId
-    const notes = await TextNote.getNotesByNotebookId(id)
-    res.status(200).json(notes)
+    const id = req.params.notebookId;
+    const notes = await TextNote.getNotesByNotebookId(id);
+    res.status(200).json(notes);
 });
 
 

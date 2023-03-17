@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
     async getNotes() {
+
       const ImageNote = sequelize.models.ImageNote;
       const TextNote = sequelize.models.TextNote;
       let objectTextNotes = {};
