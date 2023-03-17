@@ -32,20 +32,22 @@ function App() {
       </Switch>
       {isLoaded && (
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <HomePage sessionUser={sessionUser} bgColor={bgColor} />
-              {/* <ImageUploadForm /> */}
+            {/* <ImageUploadForm /> */}
           </Route>
-          <Route path='/new-note'>
+          <Route path="/new-note">
             <TextEditor note={false} standalone={true} bgColor={bgColor} />
           </Route>
-          <Route path='/notebooks'>
+          <Route path="/notebooks">
             <UserNotebooks />
+          </Route>
+          <Route path="/test">
+            <ImageUploadForm />
           </Route>
         </Switch>
       )}
     </div>
-
   );
 }
 export default App;

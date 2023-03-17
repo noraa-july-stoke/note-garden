@@ -9,6 +9,7 @@ import { thunkLoadPals } from '../../store/pals';
 import { thunkLoadPalPosts, thunkLoadPosts } from '../../store/posts';
 import { thunkLoadReactions } from '../../store/reactions';
 import ExampleComponent from "./ExampleComponent";
+import ImageUploadForm from '../Forms/ImageUploadForm';
 
 const initialState = {
     notebookAdded: false,
@@ -80,7 +81,7 @@ const TestComponent = () => {
 
         <>
 
-            <div>
+            {/* <div>
                 <button onClick={handleAddNotebook}>Add Notebook</button>
                 <button onClick={handleEdit}>Edit Notebook</button>
                 <button onClick={handleDelete}>Delete Notebook</button>
@@ -95,8 +96,8 @@ const TestComponent = () => {
                 <p>Active Tab: {state.activeTab}</p>
             </div>
 
-            <ExampleComponent />
-
+            <ExampleComponent /> */}
+            <ImageUploadForm />
         </>
 
 
