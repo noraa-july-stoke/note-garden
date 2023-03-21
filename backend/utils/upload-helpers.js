@@ -3,7 +3,6 @@ const gc = config.storage
 const bucket = gc.bucket('note_garden_bucket') // should be your bucket name
 
 const uploadImage = (file) => new Promise((resolve, reject) => {
-    console.log(file)
     const { originalname, buffer } = file
 
     const blob = bucket.file(originalname.replace(/ /g, "_"))

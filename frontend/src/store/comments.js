@@ -24,7 +24,6 @@ export const thunkLoadComments = () => async (dispatch) => {
         });
         const data = await response.json();
         dispatch(actionLoadComments(data));
-        console.log(data)
     } catch (error) {
         console.error("Error loading comments", error);
         dispatch(actionError(error))

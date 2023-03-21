@@ -14,15 +14,15 @@ module.exports = {
 
         await Post.create({
           authorId: user.id,
-          noteId: Object.values(notes.textNotes)[0].id,
-          textNote: true,
+          contentId: Object.values(notes.textNotes)[0].id,
+          noteType: "TEXT",
           caption: 'My text note'
         });
 
         await Post.create({
           authorId: user.id,
-          noteId: Object.values(notes.imageNotes)[0].id,
-          textNote: false,
+          contentId: Object.values(notes.imageNotes)[0].id,
+          noteType: "IMAGE",
           caption: 'My image note'
         });
     }

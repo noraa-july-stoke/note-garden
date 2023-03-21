@@ -27,7 +27,6 @@ export const thunkLoadPosts = () => async (dispatch) => {
         });
         const data = await response.json();
         dispatch(actionLoadPosts(data));
-        console.log(data)
     } catch (error) {
         console.error("Error loading posts", error);
         dispatch(actionError(error))
@@ -41,7 +40,6 @@ export const thunkLoadPalPosts = () => async (dispatch) => {
         });
         const data = await response.json();
         dispatch(actionLoadPalPosts(data));
-        console.log(data)
     } catch (error) {
         console.error("Error loading posts", error);
         dispatch(actionError(error))

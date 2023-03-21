@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         const noteJson = note.toJSON();
         notesObject[noteJson.id] = noteJson;
       });
-      console.log(notesObject)
       return notesObject;
     }
 
@@ -36,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
 
       TextNote.hasMany(models.Post, {
-        foreignKey: "noteId",
+        foreignKey: "contentId",
         onDelete: "CASCADE"
       });
 

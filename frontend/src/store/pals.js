@@ -20,7 +20,6 @@ export const thunkLoadPals = () => async(dispatch) => {
         });
         const data = await response.json();
         dispatch(actionLoadPals(data));
-        console.log(data)
     } catch (error) {
         console.error("Error loading pals", error);
         dispatch(actionError(error))

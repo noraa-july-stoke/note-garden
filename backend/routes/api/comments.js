@@ -73,6 +73,7 @@ router.put('/:id(\\d+)', requireAuth, async (req, res) => {
     }
 });
 
+
 // Delete a comment
 router.delete('/:id(\\d+)', requireAuth, async (req, res) => {
     const commentId = req.params.id;

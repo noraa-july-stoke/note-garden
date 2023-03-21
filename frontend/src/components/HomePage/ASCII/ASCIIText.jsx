@@ -1,12 +1,13 @@
 import { useEffect, useContext } from 'react';
 import artFrames from './art';
-import { ColorContext } from '../../context/ColorContext';
+import { ColorContext } from '../../../context/ColorContext';
+
 
 
 //getting the color change worked out for ascii text was kinda tricky
 
 const ASCIIText = () => {
-    const {bgColor, textColor} = useContext(ColorContext);
+    const {textColor} = useContext(ColorContext);
     const styles = {
         container: {
             width: "450px",
@@ -19,7 +20,7 @@ const ASCIIText = () => {
             boxShadow: `0px 0px 20px 10px rgba(255,255,255,0.3)`
         },
         text: {
-            fontSize: "6px",
+            fontSize: "8px",
             textAlign: "center",
             whiteSpace: "pre-wrap",
             wordWrap: "break-word",
@@ -43,7 +44,7 @@ const ASCIIText = () => {
         return () => {
             clearTimeout(timeoutId);
         };
-    }, [bgColor]);
+    });
 
     return (
         <div className="jellyfish-container" style={styles.container}>

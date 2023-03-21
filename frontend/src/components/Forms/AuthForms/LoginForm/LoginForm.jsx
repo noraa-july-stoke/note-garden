@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { useModal } from '../../../../context/Modal';
 import ErrorModal from '../../../ErrorModal';
 
-const LoginForm = ({ bgColor }) => {
+const LoginForm = ({ bgColor, toggleForm }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
@@ -44,40 +44,49 @@ const LoginForm = ({ bgColor }) => {
     }, [closeModal]);
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <h2>Log In</h2>
-                <label className="auth-credentials">
-                    <span>Username or Email: </span>
-                    <input
-                        className="auth-form-input"
-                        type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                        style={{ backgroundColor: bgColor }}
-                    />
-                </label>
-                <label className="auth-credentials">
-                    <span>Password: </span>
-                    <input
-                        className="auth-form-input"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={{ backgroundColor: bgColor }}
-                        required
-                    />
-                </label>
-                <div className="auth-buttons-container">
-                <button className="auth-button" type="submit">Log In</button>
-                <button className="auth-button" onClick={e => { setCredential("user1@user.io"); setPassword("password1") }}>
-                    Demo User
-                </button>
-                </div>
-
-            </div>
-        </form>
+      <form onSubmit={handleSubmit}>
+        <div className="form-container">
+          <h2>Log In</h2>
+          <label className="auth-credentials">
+            <span>Username or Email: </span>
+            <input
+              className="auth-form-input"
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+              style={{ backgroundColor: bgColor }}
+            />
+          </label>
+          <label className="auth-credentials">
+            <span>Password: </span>
+            <input
+              className="auth-form-input"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ backgroundColor: bgColor }}
+              required
+            />
+          </label>
+          <div className="auth-buttons-container">
+            <button className="auth-button" type="submit">
+              Log In
+            </button>
+            <button
+              className="auth-button"
+              onClick={(e) => {
+                setCredential("user1@user.io");
+                setPassword("password1");
+              }}>
+              Demo User
+            </button>
+          </div>
+          <button onClick={toggleForm} className="auth-button">
+            Signup instead.
+          </button>
+        </div>
+      </form>
     );
 }
 

@@ -22,19 +22,15 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       for (let post of posts) {
-        if (post.textNote) {
-          textNoteIds.push(post.noteId);
-          let textNote = await sequelize.models.TextNote.findByPk(post.noteId);
+        if (post.noteType === "TEXT") {
+          textNoteIds.push(post.contentId);
+          let textNote = await sequelize.models.TextNote.findByPk(post.contentId);
           textNote = textNote.toJSON()
-          console.log(textNote.note)
-
           post = { ...post.toJSON(), note: textNote.note };
         } else {
-          imageNoteIds.push(post.noteId);
-          let imageNote = await sequelize.models.ImageNote.findByPk(post.noteId);
+          imageNoteIds.push(post.contentId);
+          let imageNote = await sequelize.models.ImageNote.findByPk(post.contentId);
           imageNote = imageNote.toJSON()
-
-          console.log(imageNote)
           post = { ...post.toJSON(), url: imageNote.url};
         }
         objectPosts[post.id] = post;
@@ -76,65 +72,82 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'authorId'
       });
 
-      if (this.textNote) {
+      if (this.noteType === "TEXT") {
         Post.belongsTo(models.TextNote, {
-          foreignKey: 'noteId',
+          foreignKey: 'contentId',
           otherKey: 'id'
         });
       } else {
         Post.belongsTo(models.ImageNote, {
-          foreignKey: 'noteId',
+          foreignKey: 'contentId',
           otherKey: 'id'
         });
       }
     }
   }
-  Post.init({
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    authorId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Users',
-        key: 'id'
+  Post.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
       },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
-    },
-    noteId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Notes',
-        key: 'id'
+      authorId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
+      contentId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Notes",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      noteType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          isIn: [
+            [
+              "LINK",
+              "IMAGE",
+              "COLLECTION",
+              "TEXT",
+              "AUDIO",
+              "VIDEO",
+            ],
+          ],
+        },
+      },
+
+      caption: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
-    textNote: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
-    caption: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
+    {
+      sequelize,
+      modelName: "Post",
     }
-  }, {
-    sequelize,
-    modelName: 'Post',
-  });
+  );
   return Post;
 };

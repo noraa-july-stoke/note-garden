@@ -10,13 +10,11 @@ const SearchBar = () => {
     const handleSearch = (event, searchInputRef) => {
         event.preventDefault();
         const query = searchInputRef.current.value;
-        console.log('Searching for:', query);
         // maybe make a fetch request to the server to get the search results
         // const
         let route = '/'
         const command = actionGenerator(query)
         if (command) route = searchReducer(command)
-        console.log(route, command)
         history.push(route)
         setSearchQuery("")
     };

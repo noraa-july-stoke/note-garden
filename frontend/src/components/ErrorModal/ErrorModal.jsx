@@ -1,15 +1,12 @@
 import React, { useContext } from 'react';
-import { Modal, useModal } from '../../context/Modal';
+import { useModal } from '../../context/Modal';
 import { ColorContext } from '../../context/ColorContext';
 import './ErrorModal.css';
 import image from "./silly-goose.png";
 
-
 const ErrorModal = ({ errors }) => {
-    console.log(errors)
     const { bgColor } = useContext(ColorContext);
     const { closeModal } = useModal();
-    console.log(errors)
 
     return (
         <div className="error-container">

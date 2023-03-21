@@ -9,10 +9,7 @@ const SingleNotePage = () => {
 
     useEffect(() => {
         dispatch(thunkLoadSingleNote(noteId));
-        console.log(singleNote);
     }, [dispatch, noteId]);
-
-    console.log(singleNote);
 
     return null;
 }

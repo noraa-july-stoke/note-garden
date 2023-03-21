@@ -23,14 +23,13 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      noteId: {
+      contentId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      textNote: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
+      noteType: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       caption: {
         type: Sequelize.STRING,

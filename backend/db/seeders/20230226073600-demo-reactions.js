@@ -1,9 +1,9 @@
-'use strict';
-const { User, Post } = require('../models');
+"use strict";
+const { User, Post } = require("../models");
 
 let options = {};
 options.schema = process.env.SCHEMA; // define your schema in options object
-options.tableName = 'Reactions';
+options.tableName = "Reactions";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -12,7 +12,7 @@ module.exports = {
     const posts = await Post.findAll();
 
     // Create an array of authors from the users
-    const authors = users.map(user => user);
+    const authors = users.map((user) => user);
 
     // Create a set to keep track of unique post-user combinations
     const reactionSet = new Set();
@@ -33,14 +33,31 @@ module.exports = {
         reactionSet.add(reactionKey);
 
         // Generate a random reaction type
-        const reactionType = Math.random() < 0.5 ? 'like' : 'dislike';
+        const reactions = [
+          "👍",
+          "👎",
+          "❤️",
+          "💔",
+          "🤣",
+          "😢",
+          "🍋",
+          "🐔",
+          "🦆",
+          "🍗",
+          "👶🏻",
+          "🦅",
+          "🫁"
+        ];
+
+        const reactionType =
+          reactions[Math.floor(Math.random() * reactions.length)];
 
         // Create a new reaction with the generated data
         const reaction = {
           userId: user.id,
           authorId: author.id,
           postId: post.id,
-          reactionType: reactionType
+          reactionType: reactionType,
         };
 
         // Insert the new reaction into the database
@@ -52,5 +69,5 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     // Delete all reactions
     await queryInterface.bulkDelete(options, null, {});
-  }
+  },
 };

@@ -20,7 +20,6 @@ export const thunkLoadReactions = () => async (dispatch) => {
         });
         const data = await response.json();
         dispatch(actionLoadReactions(data));
-        console.log(data)
     } catch (error) {
         console.error("Error loading reactions", error);
         dispatch(actionError(error))

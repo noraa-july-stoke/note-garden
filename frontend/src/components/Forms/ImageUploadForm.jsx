@@ -17,14 +17,13 @@ const ImageUploadForm = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('file', image);
-        formData.append('name', name);
-        // console.log(image, name, formData);
-
-        const imgUrl = dispatch(uploadImage(formData));
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("name", name);
+      // eslint-disable-next-line
+      const imgUrl = dispatch(uploadImage(formData));
     };
 
     return (

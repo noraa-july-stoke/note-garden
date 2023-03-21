@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       Comment.belongsTo(models.Post, { foreignKey: 'postId' });
       Comment.belongsTo(models.Comment, { foreignKey: 'parentCommentId' });
       Comment.hasMany(models.Comment, { foreignKey: 'parentCommentId' });
+      Comment.hasMany(models.Reaction, { foreignKey: "commentId" });
     }
   }
 

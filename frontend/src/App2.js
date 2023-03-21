@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+// import {Redirect} from "react-router";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+// import ImageUploadForm from "./components/Forms";
+import TextEditor from "./components/TextEditor";
+import UserNotebooks from "./components/UserNotebooks";
 import HomePage from "./components/HomePage";
-import PostFeed from "./components/PostComponents/PostsFeed/PostFeed";
 import "./index.css";
 import { ColorContext } from "./context/ColorContext";
 
+import CommentThread from "./components/TestComponent/CommentThread";
+
 function App() {
   const { bgColor } = useContext(ColorContext);
+  // const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,9 +35,16 @@ function App() {
         <Switch>
           <Route exact path="/">
             <HomePage sessionUser={sessionUser} bgColor={bgColor} />
+            {/* <ImageUploadForm /> */}
+          </Route>
+          <Route path="/new-note">
+            <TextEditor note={false} standalone={true} bgColor={bgColor} />
+          </Route>
+          <Route path="/notebooks">
+            <UserNotebooks />
           </Route>
           <Route path="/test">
-            <PostFeed />
+            <CommentThread />
           </Route>
         </Switch>
       )}
