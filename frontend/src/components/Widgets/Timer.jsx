@@ -79,7 +79,7 @@ const Timer = () => {
 
     return (
         <div className={timerClasses} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} style={textStyle}>
-            {timeParts[0]}<br/>{timeParts[1]}
+            {timeParts[0].split(',').slice(1)}<br/>{timeParts[1]}
         </div>
     );
 };

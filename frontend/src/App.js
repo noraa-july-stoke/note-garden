@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import HomePage from "./components/HomePage";
-import PostFeed from "./components/PostComponents/PostsFeed/PostFeed";
+import HomePage from "./components/Routes/HomePage";
 import "./index.css";
 import { ColorContext } from "./context/ColorContext";
+
 
 function App() {
   const { bgColor } = useContext(ColorContext);
@@ -30,8 +30,8 @@ function App() {
           <Route exact path="/">
             <HomePage sessionUser={sessionUser} bgColor={bgColor} />
           </Route>
-          <Route path="/test">
-            <PostFeed />
+          <Route path="/feed">
+            {/* <PostFeed /> */}
           </Route>
         </Switch>
       )}

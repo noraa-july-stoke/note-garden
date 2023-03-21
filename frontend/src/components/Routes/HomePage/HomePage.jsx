@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import ASCIIText from "./ASCII/ASCIIText";
-import AuthForms from "../Forms/AuthForms/AuthForms";
+import AuthForms from '../../Forms/AuthForms/AuthForms';
 import "./HomePage.css";
 //Import authforms
 

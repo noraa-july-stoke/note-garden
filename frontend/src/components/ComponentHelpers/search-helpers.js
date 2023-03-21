@@ -3,6 +3,7 @@
 export const actionGenerator = (inputString) => {
 
     if (inputString === "test") return "test";
+    if (inputString === "feed") return "feed";
     if (inputString === "notebooks") return "notebooks";
     const createKeywords = new Set(["make", "create", "add", "generate", "new", "build", "mate", "creet", "cr8", "addin", "genarate", "neew", "bild", "crate"]);
     const noteKeywords = new Set(["note", "memo", "reminder", "jot", "not", "meme", "remender", "jott", "nate", "n8"]);
@@ -25,15 +26,17 @@ export const actionGenerator = (inputString) => {
 //A mini switch statement I based on a redux pattern.
 export const searchReducer = (word) => {
     switch (word) {
-        case "newnote":
-            return "/new-note";
-        case "newnotebook":
-            return "/new-notebook";
-        case "test":
-            return "/test"
-        case "notebooks":
-            return "/notebooks"
-        default:
-            break;
+      case "newnote":
+        return "/new-note";
+      case "newnotebook":
+        return "/new-notebook";
+      case "test":
+        return "/test";
+      case "notebooks":
+        return "/notebooks";
+      case "feed":
+        return "/feed";
+      default:
+        break;
     }
 };

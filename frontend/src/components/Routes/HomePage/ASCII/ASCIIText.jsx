@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 import artFrames from './art';
-import { ColorContext } from '../../../context/ColorContext';
+import { ColorContext } from '../../../../context/ColorContext';
 
 
 
