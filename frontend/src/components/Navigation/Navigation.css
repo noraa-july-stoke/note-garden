@@ -5,10 +5,10 @@
     background: black;
     justify-content: space-around;
     align-items: center;
-    height: 60px;
+    height: 50px;
     width: 100%;
-    padding-right: 3em;
-    padding-left: 3em;
+    padding-right: 2em;
+    padding-left: 2em;
     padding-top: .5em;
     padding-bottom: .5em;
 }
@@ -59,7 +59,7 @@ ul.profile-dropdown {
     height: fit-content;
     background-color: inherit;
     top: 67px;
-    left: 42px;
+    right: 35px;
     z-index: 20;
     border: 2px solid white;
     border-radius: 1em;

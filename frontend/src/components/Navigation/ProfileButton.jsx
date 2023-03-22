@@ -1,46 +1,52 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from './OpenModalMenuItem';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+ // eslint-disable-next-line
+// import OpenModalMenuItem from './OpenModalMenuItem';
+// import LoginFormModal from '../LoginFormModal';
+// import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({ user, bgColor }) {
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
 
     const openMenu = () => {
-        setShowMenu(!showMenu);
+        setShowMenu(true);
     };
 
     useEffect(() => {
-        if (!showMenu) return;
+            if (showMenu) return;
 
-        const closeMenu = (e) => {
-            if (!ulRef.current.contains(e.target)) {
-                setShowMenu(false);
-            }
-        };
-        document.addEventListener('click', closeMenu);
+            const closeMenu = (e) => {
+                if (!ulRef.current.contains(e.target)) {
+                    setShowMenu(false);
+                }
+            };
+            document.addEventListener('click', closeMenu);
 
-        return () => document.removeEventListener("click", closeMenu);
+            return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
     const closeMenu = () => setShowMenu(false);
+
+    const toggleShowMenu = e => {
+        setShowMenu(!showMenu)
+    }
 
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
         closeMenu();
     };
+
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
         <>
-            <button className="profile-button" onClick={openMenu}>
+            <button className="profile-button" onClick={toggleShowMenu}>
                 <i className="fas fa-user-circle fa-2x" />
             </button>
             <ul className={ulClassName} ref={ulRef}>
@@ -52,23 +58,11 @@ function ProfileButton({ user, bgColor }) {
                             <span className="user-dropdown-info">{user.email}</span>
                         </div>
                         <div className="user-dropdown-logout dropdown-item" style={{ border: `2px solid ${bgColor}` }} >
-                            <button className="logout-button" onClick={e => { closeMenu(); logout(e); history.push('/')}}>Log Out</button>
+                            <button className="logout-button" onClick={e => { closeMenu(); logout(e); navigate('/')}}>Log Out</button>
                         </div>
-                        <div className="dropdown-item" onClick={e =>  {closeMenu(); history.push('/notebooks');}} style={{ border: `2px solid ${bgColor}` }}>
-                            My NoteBooks
-                        </div>
-                        <div className="dropdown-item" onClick={e => { closeMenu(); history.push('/new-note');}} style={{ border: `2px solid ${bgColor}` }}>
-                            Make A New Note!
-                        </div>
-                        {/* <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
-                        </div>
-                        <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
-                        </div>
-                        <div className="dropdown-item" style={{ border: `2px solid ${bgColor}` }}>
-                        </div> */}
                     </div>
                 ) : (
-                        <div className="dropdown-item" onClick={e => { closeMenu(); history.push('/'); }} style={{ border: `2px solid ${bgColor}` }}>
+                        <div className="dropdown-item" onClick={e => { closeMenu(); navigate('/'); }} style={{ border: `2px solid ${bgColor}` }}>
                             Login Below To Use App
                         </div>
                     // <>

@@ -1,62 +1,106 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkLoadPalPosts } from "../../../store/posts";
 
-const SinglePost = () => {
-    const dispatch = useDispatch()
-    const posts = useSelector(state => state.posts?.palPosts);
-    let post = {
-        body: "<div>Hello!!!!</div>"
-    }
+import CommentFeed from "./CommentFeed/CommentFeed";
 
-    const [comments, setComments] = useState([]);
-    const [newComment, setNewComment] = useState("");
+import "./SinglePost.css";
 
-    useEffect(() => {
-        dispatch(thunkLoadPalPosts());
-    }, [dispatch]);
 
-    const handleNewCommentChange = (event) => {
-        setNewComment(event.target.value);
-    };
+const SinglePost = ({ post }) => {
+  console.log(post.url);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const newCommentObj = {
-            id: uuidv4(),
-            text: newComment,
-        };
-        setComments([...comments, newCommentObj]);
-        setNewComment("");
-    };
-
-    return (
-        <div>
-            <div className="post-body" dangerouslySetInnerHTML={{ __html: post.body }}></div>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Add Comment:
-                    <input
-                        type="text"
-                        value={newComment}
-                        onChange={handleNewCommentChange}
-                    />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-            <ul>
-                {comments?.map((comment) => (
-                    <li key={comment.id}>
-                        <div>{comment.text}</div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-}
+  return (
+    <div className="post-container">
+      <div className="post-body-container">
+        {post?.url && <img src={post.url} alt="post content" />}
+        <div
+          className="post-text"
+          dangerouslySetInnerHTML={{ __html: post?.note }}></div>
+      </div>
+      {/* <CommentForm onAddComment={handleAddComment} /> */}
+      <CommentFeed />
+    </div>
+  );
+};
 
 export default SinglePost;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const SinglePost = ({ post }) => {
+//   const [comments, setComments] = useState([]);
+//   const [newComment, setNewComment] = useState("");
+
+//   const handleNewCommentChange = (event) => {
+//     setNewComment(event.target.value);
+//   };
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     const newCommentObj = {
+//       id: uuidv4(),
+//       text: newComment,
+//     };
+//     setComments([...comments, newCommentObj]);
+//     setNewComment("");
+//   };
+
+//   console.log(post.url)
+
+//   return (
+//     <div className="post-container">
+//       <div className="post-body-container">
+//         {post?.url && <img src={post.url} alt="post content" />}
+//         <div
+//           className="post-text"
+//           dangerouslySetInnerHTML={{ __html: post?.note }}></div>
+//       </div>
+
+//       <form onSubmit={handleSubmit}>
+//         <label>
+//           Add Comment:
+//           <input
+//             type="text"
+//             value={newComment}
+//             onChange={handleNewCommentChange}
+//           />
+//         </label>
+//         <button type="submit">Submit</button>
+//       </form>
+//       <ul>
+//         {comments?.map((comment) => (
+//           <li key={comment.id}>
+//             <div>{comment.text}</div>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default SinglePost;
 
 
 

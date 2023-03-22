@@ -17,7 +17,7 @@ module.exports = {
           authorId: user.id,
           notebookId: notebook.id,
           name: `Image Note for ${notebook.name}`,
-          url: 'https://storage.googleapis.com/note_garden_bucket/orangina.jpg'
+          url: "https://storage.googleapis.com/note_garden_bucket/banana-milk.jpeg",
         });
       }
     }

@@ -62,6 +62,8 @@ export const deserialize = (el, markAttributes = {}) => {
         case 'EM':
             nodeAttributes.italic = true
             break
+            //!@#$ added this recently
+        default: break
     }
 
     // flatens each node into something that can be turned into a string.

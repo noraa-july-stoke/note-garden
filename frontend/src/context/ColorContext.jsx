@@ -36,7 +36,7 @@ export const ColorProvider = ({ children }) => {
         '#7F8C8D'  // readable
     ];
 
-    const [bgColor, setBgColor] = useState("#8E44AD");
+    const [bgColor, setBgColor] = useState("rgb(0, 102, 204)");
     const [textColor, setTextColor] = useState('white');
 
     const changeBgColor = () => {

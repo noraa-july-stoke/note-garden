@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, username, email, defaultNotebookId, defaultImagenotebookId, firstName, lastName } = this; // context will be the User instance
-      return { id, username, email, defaultNotebookId, defaultImagenotebookId, firstName, lastName};
+      const { id, username, email, defaultNotebookId, defaultImagenotebookId, firstName, lastName, avatarUrl } = this; // context will be the User instance
+      return { id, username, email, defaultNotebookId, defaultImagenotebookId, firstName, lastName, avatarUrl };
     }
 
     validatePassword(password) {
@@ -339,8 +339,8 @@ module.exports = (sequelize, DataTypes) => {
             if (Validator.isEmail(value)) {
               throw new Error("Cannot be an email.");
             }
-          }
-        }
+          },
+        },
       },
       email: {
         type: DataTypes.STRING,
@@ -348,8 +348,8 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           len: [3, 256],
-          isEmail: true
-        }
+          isEmail: true,
+        },
       },
       firstName: {
         type: DataTypes.STRING,
@@ -367,22 +367,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
+      avatarUrl: {
+        type: DataTypes.TEXT,
+        allowNull:true
+      },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
         allowNull: false,
         validate: {
-          len: [60, 60]
-        }
+          len: [60, 60],
+        },
       },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW
+        defaultValue: DataTypes.NOW,
       },
       updatedAt: {
         type: DataTypes.DATE,
         allowNull: true,
-      }
+      },
     },
 
     {
@@ -390,18 +394,19 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
-        }
+          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"],
+        },
       },
       scopes: {
         currentUser: {
-          attributes: { exclude: ["hashedPassword"] }
+          attributes: { exclude: ["hashedPassword"] },
         },
         loginUser: {
-          attributes: {}
-        }
-      }
-    });
+          attributes: {},
+        },
+      },
+    }
+  );
 
   return User;
 };

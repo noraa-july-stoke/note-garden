@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createEditor, Editor, Transforms } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { helpers } from "../ComponentHelpers/index.js";
 import "./TextEditor.css";
@@ -17,7 +17,7 @@ const { serialize, deserialize } = helpers;
 
 //add back in localstorage functionality later in case of refresh or internet outage
 const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   //if note use note, if not start from scratch.
   const notebooks = useSelector((state) => state.notebooks?.userTextNotebooks);
   const notebookList = Object.values(notebooks);
@@ -83,7 +83,7 @@ const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
       await dispatch(thunkCreateTextNote(saveNote));
       await dispatch(thunkLoadNotebookNotes(selectedNotebook));
       if (standalone) {
-        history.push("/notebooks");
+        navigate("/notebooks");
       }
     } else {
       saveNote = {
@@ -257,7 +257,7 @@ const TextEditor = ({ note, onClose, setIsEditing, bgColor, standalone }) => {
             </div>
             <button
               className="editor-button circle-button"
-              onClick={standalone ? () => history.push("/") : onClose}>
+              onClick={standalone ? () => navigate("/") : onClose}>
               X
             </button>
           </div>

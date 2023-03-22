@@ -202,3 +202,64 @@ export default reducer;
 // Copy code
 //     < Tooltip arrowProps = {{ className: 'my-tooltip-arrow' }}> This is a tooltip</Tooltip >
 //         This will add the my - tooltip - arrow class to the arrow element, which you can use to customize its appearance with CSS.
+
+
+
+//!@#$ app copy
+
+// import React, { useState, useEffect, useContext } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { Route, Routes } from "react-router-dom";
+// import * as sessionActions from "./store/session";
+// import Navigation from "./components/Navigation";
+// import HomePage from "./components/Routes/HomePage";
+// import FeedPage from "./components/Routes/FeedPage";
+// import "./index.css";
+// import { ColorContext } from "./context/ColorContext";
+
+// function App() {
+//   const { bgColor } = useContext(ColorContext);
+//   const sessionUser = useSelector((state) => state.session.user);
+//   const dispatch = useDispatch();
+//   const [isLoaded, setIsLoaded] = useState(false);
+
+//   useEffect(() => {
+//     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+//   }, [dispatch]);
+
+//   return (
+//     <>
+//       {/* <Route path="/">
+//       <Navigation isLoaded={isLoaded} />
+//       </Route>
+//       {isLoaded && (
+//         <>
+//           <Routes>
+//             <Route path="/">
+//               <HomePage sessionUser={sessionUser} bgColor={bgColor} />
+//             </Route>
+//             <Route path="/feed">
+//               <FeedPage sessionUser={sessionUser} bgColor={bgColor} />
+//             </Route>
+//           </Routes>
+//         </>
+//       )} */}
+
+//       <Routes>
+//         <Route path="/" element={<Navigation isLoaded={isLoaded} />}>
+//           <Route
+//             index
+//             element={<HomePage sessionUser={sessionUser} bgColor={bgColor} />}
+//           />
+//           <Route
+//             path="feed/"
+//             element={<FeedPage sessionUser={sessionUser} bgColor={bgColor} />}
+//           />
+//           {/* <Route path="auth" element={<Authentication />} /> */}
+//           {/* <Route path="checkout" element={<Checkout />} /> */}
+//         </Route>
+//       </Routes>
+//     </>
+//   );
+// }
+// export default App;

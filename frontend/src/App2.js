@@ -35,7 +35,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <HomePage sessionUser={sessionUser} bgColor={bgColor} />
-            {/* <ImageUploadForm /> */}
+            <ImageUploadForm />
           </Route>
           <Route path="/new-note">
             <TextEditor note={false} standalone={true} bgColor={bgColor} />

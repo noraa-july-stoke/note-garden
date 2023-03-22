@@ -1,23 +1,25 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ASCIIText from "./ASCII/ASCIIText";
 import AuthForms from '../../Forms/AuthForms/AuthForms';
 import "./HomePage.css";
 //Import authforms
 
 const HomePage = ({ sessionUser, bgColor }) => {
-  const history = useHistory();
+  const  navigate= useNavigate();
   const notebookClick = (e) => {
     e.preventDefault();
-    history.push("/notebooks");
+    navigate("/notebooks");
   };
 
   const newNoteClick = (e) => {
     e.preventDefault();
-    history.push("/new-note");
+    navigate("/new-note");
   };
 
+
   return (
+    <div className="display-body" style={{backgroundColor: bgColor}}>
     <div className="home-body-container">
       {!sessionUser && <AuthForms />}
       {sessionUser && (
@@ -37,6 +39,7 @@ const HomePage = ({ sessionUser, bgColor }) => {
         </div>
       )}
       <ASCIIText />
+    </div>
     </div>
   );
 };

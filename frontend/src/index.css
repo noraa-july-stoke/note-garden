@@ -1,12 +1,30 @@
 /* TODO Add site wide styles */
 
 * {
-    -webkit-transition: all 200ms ease;
-    -moz-transition: all 200ms ease;
-    -ms-transition: all 200ms ease;
-    -o-transition: all 200ms ease;
-    transition: all 200ms ease;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
     font-family: "Raleway", monospace;
+}
+
+*::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10rem;
+    border: 1px solid #fff;
+}
+
+*::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-track-piece:end {
+    background: transparent;
 }
 
 .hidden {
@@ -23,6 +41,8 @@ button {
     border: none;
     padding: 0;
     cursor: pointer;
+    color: inherit;
+    text-align: center;
 }
 
 .feedback-button {
@@ -64,9 +84,19 @@ button {
 .blurred {
     filter: blur('1.5em')
 }
+
 .app-container {
     height: 100vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* z-index: -2; */
+}
+
+.display-body {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
 }
 
 .bg-image-container {
@@ -132,6 +162,8 @@ body {
 body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    overflow:hidden;
+    height:100%;
 }
 
 img,
@@ -141,6 +173,7 @@ canvas,
 svg {
     display: block;
     max-width: 100%;
+    /* border: none; */
 }
 
 input,

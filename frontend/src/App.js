@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/Routes/HomePage";
+import FeedPage from "./components/Routes/FeedPage";
+import ImageUploadForm from './components/Forms/ImageUploadForm';
 import "./index.css";
 import { ColorContext } from "./context/ColorContext";
-
 
 function App() {
   const { bgColor } = useContext(ColorContext);
@@ -19,22 +20,31 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="app-container" style={{ backgroundColor: bgColor }}>
-      <Switch>
+    <div className="app-container">
+      <Navigation isLoaded={isLoaded} />
+      <Routes>
         <Route path="/">
-          <Navigation isLoaded={isLoaded} />
+          <Route
+            index
+            element={
+              isLoaded && (
+                <HomePage sessionUser={sessionUser} bgColor={bgColor} />
+              )
+            }
+          />
+          <Route
+            path="feed"
+            element={
+              sessionUser && (
+                <FeedPage sessionUser={sessionUser} bgColor={bgColor} />
+              )
+            }
+          />
+          <Route path="test" element={              isLoaded && (
+                <ImageUploadForm />
+              )}/>
         </Route>
-      </Switch>
-      {isLoaded && (
-        <Switch>
-          <Route exact path="/">
-            <HomePage sessionUser={sessionUser} bgColor={bgColor} />
-          </Route>
-          <Route path="/feed">
-            {/* <PostFeed /> */}
-          </Route>
-        </Switch>
-      )}
+      </Routes>
     </div>
   );
 }
