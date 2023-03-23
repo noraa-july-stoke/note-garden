@@ -13,9 +13,10 @@ router.get('/', requireAuth, async (req, res) => {
     res.status(200).json(posts);
 });
 
-//Gets all the user's posts, gives me a feed to display.
+//Gets all the user's friends posts, gives me a feed to display.
 //This is where using my model methods came in handy.
 router.get('/pals', requireAuth, async (req, res) => {
+    //get pal relationships with userId
     const userId = req.user.id;
     const user = await User.findByPk(userId)
     const pals = await user.getPals();

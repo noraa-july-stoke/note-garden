@@ -205,7 +205,7 @@ h6 {
 }
 
 input {
-    border: 1px solid black;
+    border: none;
     border-radius: 2em;
 }
 

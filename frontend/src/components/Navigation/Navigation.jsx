@@ -9,7 +9,6 @@ import { ColorContext } from '../../context/ColorContext';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
-    console.log(sessionUser)
     const { bgColor, changeBgColor, changeTextColor } = useContext(ColorContext);
     const [isSpinning, ] = useState(false);
 

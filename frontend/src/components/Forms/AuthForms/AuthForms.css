@@ -41,6 +41,10 @@
     width: fit-content;
 }
 
+.auth-button:hover {
+    background-color: rgba(0,0,0, .2)
+}
+
 .auth-buttons-container {
     width:100%;
     display: flex;

@@ -1,88 +1,94 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+//================================================
+//  ██████╗  ██████╗ ███████╗████████╗
+//  ██╔══██╗██╔═══██╗██╔════╝╚══██╔══╝
+//  ██████╔╝██║   ██║███████╗   ██║
+//  ██╔═══╝ ██║   ██║╚════██║   ██║
+//  ██║     ╚██████╔╝███████║   ██║
+//  ███╗   ███╗═██████╗═██████╗ ███████╗██╗
+//  ████╗ ████║██╔═══██╗██╔══██╗██╔════╝██║
+//  ██╔████╔██║██║   ██║██║  ██║█████╗  ██║
+//  ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ██║
+//  ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗███████╗
+//  ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
+//================================================
+
+
+
+"use strict";
+const { Model } = require("sequelize");
+const { postFixup } = require("../db-helpers/post-helpers");
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-
+    //=======================================================
+    //Organizes a chronolologcal post feed by friend's posts;
+    //=======================================================
     static async findAllByAuthors(idObj) {
+      // Extracts authorIds from idObj
       const authorIds = Object.values(idObj);
+      // Object to store posts
       const objectPosts = {};
-      const textNoteIds = [];
-      const imageNoteIds = [];
+      // Eager loading made this way faster.
+      // Finds all posts made by authorIds in descending order of creation time
       const posts = await this.findAll({
         where: {
           authorId: authorIds,
         },
+        include: [
+          {
+            model: sequelize.models.User
+          },
+          {
+            model: sequelize.models.TextNote,
+            attributes: ["note"],
+            required: false,
+          },
+          {
+            model: sequelize.models.ImageNote,
+            attributes: ["url"],
+            required: false,
+          },
+        ],
+        order: [["createdAt", "DESC"]],
       });
 
+      // Loops through each post and adds it to objectPosts
       for (let post of posts) {
-        if (post.noteType === "TEXT") {
-          textNoteIds.push(post.contentId);
-          let textNote = await sequelize.models.TextNote.findByPk(post.contentId);
-          textNote = textNote.toJSON()
-          post = { ...post.toJSON(), note: textNote.note };
-        } else {
-          imageNoteIds.push(post.contentId);
-          let imageNote = await sequelize.models.ImageNote.findByPk(post.contentId);
-          imageNote = imageNote.toJSON()
-          post = { ...post.toJSON(), url: imageNote.url};
-        }
+        // Extracts content and author information from post
+        // Adds content and author information to post object
+        post = postFixup(post.toJSON());
         objectPosts[post.id] = post;
       }
 
+      // Returns objectPosts dictionary
       return objectPosts;
     }
 
-    // static async findAllByAuthors(idObj) {
-    //   const authorIds = Object.values(idObj);
-    //   const objectPosts = {};
-    //   const textNoteIds = []
-    //   const imageNoteIds = []
-    //   const posts = await this.findAll({
-    //     where: {
-    //       authorId: authorIds,
-    //     },
-    //   });
-    //   for (let post of posts) {
-    //     if (post.textNote) textNoteIds.push(post.noteid)
-    //     else imageNoteIds.push(post.noteId)
-    //     post = post.toJSON()
-    //     objectPosts[post.id] = post
-    //   }
-    //   return posts;
-    // }
+    //=======================================================
+    //Deletes a post by it's id.
+    //=======================================================
 
     static async deletePostById(id) {
       const rowsDeleted = await this.destroy({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       return rowsDeleted;
     }
 
     static associate(models) {
       Post.belongsTo(models.User, {
-        foreignKey: 'authorId'
+        foreignKey: "authorId",
       });
 
-      if (this.noteType === "TEXT") {
-        Post.belongsTo(models.TextNote, {
-          foreignKey: 'contentId',
-          otherKey: 'id'
-        });
-      } else {
-        Post.belongsTo(models.ImageNote, {
-          foreignKey: 'contentId',
-          otherKey: 'id'
-        });
-      }
+      Post.belongsTo(models.TextNote, {
+        foreignKey: "contentId",
+        otherKey: "id",
+      });
+      Post.belongsTo(models.ImageNote, {
+        foreignKey: "contentId",
+        otherKey: "id",
+      });
     }
   }
   Post.init(
@@ -117,16 +123,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: true,
-          isIn: [
-            [
-              "LINK",
-              "IMAGE",
-              "COLLECTION",
-              "TEXT",
-              "AUDIO",
-              "VIDEO",
-            ],
-          ],
+          isIn: [["LINK", "IMAGE", "COLLECTION", "TEXT", "AUDIO", "VIDEO"]],
         },
       },
 

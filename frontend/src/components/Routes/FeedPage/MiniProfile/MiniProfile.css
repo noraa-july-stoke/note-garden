@@ -18,6 +18,12 @@
   text-align: center;
 }
 
+.avatar-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .avatar-pic-container {
   width: 50px;
   height: 50px;
@@ -32,6 +38,41 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/*=======================================================================
+ *           ______ __        ______    __  __      __  __      ___   ___
+ *     /\ |   ||__ |__)|\ | /\ ||__    /  `/  \|\/||__)/  \|\ ||__ |\ ||
+ *    /~~\|___||___|  \| \|/~~\||___   \__,\__/|  ||   \__/| \||___| \||
+ *
+ *                       _____       ___ __
+ *                      /__`|\ /|   |__ /__`
+ *                      .__/| | |___|___.__/
+======================================================================= */
+
+.feed-avatar-pic-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 1em;
+}
+
+.feed-mini-profile-container {
+  padding-top: 0.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.post-profile-info-container {
+display: flex;
+flex-direction: column;
 }
 
 /* .avatar-pic-container {

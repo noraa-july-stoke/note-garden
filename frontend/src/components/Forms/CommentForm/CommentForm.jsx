@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import './CommentForm.css'
 
-const CommentForm = ({ onAddComment }) => {
+const CommentForm = ({ onComment }) => {
   const [newComment, setNewComment] = useState("");
 
   const handleNewCommentChange = (event) => {
@@ -15,22 +16,31 @@ const CommentForm = ({ onAddComment }) => {
       id: uuidv4(),
       text: newComment,
     };
-    onAddComment(newCommentObj);
+    onComment(newCommentObj);
     setNewComment("");
+  };
+
+  const handleKeyDown = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        handleSubmit(event);
+      }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Add Comment:
-        <input
-          type="text"
+        <textarea
+          type="text-area"
           value={newComment}
           onChange={handleNewCommentChange}
+          onKeyDown={handleKeyDown}
         />
       </label>
-      <button type="submit">Submit</button>
+      <button className="submit-comment-button" type="submit">Submit</button>
     </form>
   );
 };
+
 export default CommentForm;

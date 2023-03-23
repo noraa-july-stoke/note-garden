@@ -1,53 +1,79 @@
+//=============================================================
+//   _____  _                _        ______            _
+//  /  ___|(_)              | |       | ___ \          | |
+//  \ `--.  _  _ __    __ _ | |  ___  | |_/ /___   ___ | |_
+//   `--. \| || '_ \  / _` || | / _ \ |  __// _ \ / __|| __|
+//  /\__/ /| || | | || (_| || ||  __/ | |  | (_) |\__ \| |_
+//  \____/ |_||_| |_| \__, ||_| \___| \_|   \___/ |___/ \__|
+//                     __/ |
+//                    |___/
+//=============================================================
+// TAKES IN A POST OBJECT THAT CAN CONTAIN VARIOUS FORMS OF
+// MEDIA AND THE INFO OF THE USER THAT MADE THE POST
+//============================================================
+//       __  __  ___        __  __          ___         __  __  _______
+//  |\ |/  \|  \|__    |\/|/  \|  \|  ||   |__    ||\/||__)/  \|__)|/__`
+//  | \|\__/|__/|___   |  |\__/|__/\__/|___|___   ||  ||   \__/|  \|.__/
+//=======================================================================
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 
+//=======================================================================
+//       __  __             ___     ___         __  __  _______
+//  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
+//  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
+//=======================================================================
+// COMPONENTS
 import CommentFeed from "./CommentFeed/CommentFeed";
-
+import MiniProfile from "../MiniProfile";
+import Reactions from "../Reactions/Reactions";
+// STYLESHEET
 import "./SinglePost.css";
 
-
+//============================================================
 const SinglePost = ({ post }) => {
-  console.log(post.url);
+  //==========================================
+  //   VARIABLE DECLARATIONS, INITIALIZERS,
+  //    STATE VARIABLE ASSIGNMENTS
+  //==========================================
+  const {authorInfo} = post;
 
+  //===========================
+  //          HOOKS
+  //===========================
+
+  //===========================
+  // HELPERS/EVENT LISTENERS
+  //===========================
+
+  //===========================
+  //         JSX BODY
+  //===========================
   return (
     <div className="post-container">
+      <MiniProfile user={authorInfo} postMode={true} />
       <div className="post-body-container">
-        {post?.url && <img src={post.url} alt="post content" />}
-        <div
-          className="post-text"
-          dangerouslySetInnerHTML={{ __html: post?.note }}></div>
+        {post.content.url && (
+          <img
+            className="post-image"
+            src={post.content.url}
+            alt="post content"
+          />
+        )}
+        {post.content.note && (
+          <div
+            className="post-text"
+            dangerouslySetInnerHTML={{ __html: post.content.note }}></div>
+        )}
       </div>
       {/* <CommentForm onAddComment={handleAddComment} /> */}
-      <CommentFeed />
+      <Reactions />
+      <CommentFeed post={post} />
     </div>
   );
 };
 
 export default SinglePost;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // const SinglePost = ({ post }) => {
 //   const [comments, setComments] = useState([]);
@@ -67,7 +93,6 @@ export default SinglePost;
 //     setNewComment("");
 //   };
 
-//   console.log(post.url)
 
 //   return (
 //     <div className="post-container">
@@ -101,8 +126,6 @@ export default SinglePost;
 // };
 
 // export default SinglePost;
-
-
 
 // import React, { useState } from "react";
 // import { v4 as uuidv4 } from 'uuid';

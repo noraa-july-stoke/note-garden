@@ -1,20 +1,51 @@
-const { Model, Validator, Op } = require('sequelize');
-const bcrypt = require('bcryptjs');
+//===================================================
+//  ██╗   ██╗███████╗███████╗██████╗
+//  ██║   ██║██╔════╝██╔════╝██╔══██╗
+//  ██║   ██║███████╗█████╗  ██████╔╝
+//  ██║   ██║╚════██║██╔══╝  ██╔══██╗
+//  ╚██████╔╝███████║███████╗██║  ██║
+//  ███╗═══███╗═██████╗═██████╗╝███████╗██╗
+//  ████╗ ████║██╔═══██╗██╔══██╗██╔════╝██║
+//  ██╔████╔██║██║   ██║██║  ██║█████╗  ██║
+//  ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ██║
+//  ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗███████╗
+//  ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
+//====================================================
+
+"use strict";
+const { Model, Validator, Op } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, username, email, defaultNotebookId, defaultImagenotebookId, firstName, lastName, avatarUrl } = this; // context will be the User instance
-      return { id, username, email, defaultNotebookId, defaultImagenotebookId, firstName, lastName, avatarUrl };
+      const {
+        id,
+        username,
+        email,
+        defaultNotebookId,
+        defaultImagenotebookId,
+        firstName,
+        lastName,
+        avatarUrl,
+      } = this; // context will be the User instance
+      return {
+        id,
+        username,
+        email,
+        defaultNotebookId,
+        defaultImagenotebookId,
+        firstName,
+        lastName,
+        avatarUrl,
+      };
     }
 
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
 
-
     async getNotes() {
-
       const ImageNote = sequelize.models.ImageNote;
       const TextNote = sequelize.models.TextNote;
       let objectTextNotes = {};
@@ -22,12 +53,12 @@ module.exports = (sequelize, DataTypes) => {
 
       const imageNotes = await ImageNote.findAll({
         where: { authorId: this.id },
-        order: [['createdAt']]
+        order: [["createdAt"]],
       });
 
       const textNotes = await TextNote.findAll({
         where: { authorId: this.id },
-        order: [['createdAt']]
+        order: [["createdAt"]],
       });
 
       for (let imageNote of imageNotes) {
@@ -43,55 +74,56 @@ module.exports = (sequelize, DataTypes) => {
       return { imageNotes: objectImageNotes, textNotes: objectTextNotes };
     }
 
-
     // query notebook model for any notebooks and any image notebooks that belong to the user and return them as arrays inside
     // a composite object
     async getNotebooks() {
       const Notebook = sequelize.models.Notebook;
       const ImageNotebook = sequelize.models.ImageNotebook;
-      const objectNotebooks = {}
-      const objectImageNotebooks = {}
+      const objectNotebooks = {};
+      const objectImageNotebooks = {};
 
       const notebooks = await Notebook.findAll({
         where: { authorId: this.id },
-        order: [['createdAt']]
+        order: [["createdAt"]],
       });
 
       const imageNotebooks = await ImageNotebook.findAll({
         where: { authorId: this.id },
-        order: [['createdAt']]
+        order: [["createdAt"]],
       });
 
       for (let notebook of notebooks) {
-        notebook = notebook.toJSON()
+        notebook = notebook.toJSON();
         objectNotebooks[notebook.id] = notebook;
       }
 
       for (let imageNotebook of imageNotebooks) {
-        imageNotebook = imageNotebook.toJSON()
+        imageNotebook = imageNotebook.toJSON();
         objectImageNotebooks[imageNotebook.id] = imageNotebook;
       }
 
-      return { textNotebooks: objectNotebooks, imageNotebooks: objectImageNotebooks };
+      return {
+        textNotebooks: objectNotebooks,
+        imageNotebooks: objectImageNotebooks,
+      };
     }
 
     // getpals gets any of the pal relationships of the user. the user could be found as palOne or palTwo
     async getPals() {
       const Pal = sequelize.models.Pal;
-      const objectPals = {}
+      const objectPals = {};
       const pals = await Pal.findAll({
         where: {
-          [Op.or]: [
-            { palOne: this.id },
-            { palTwo: this.id }
-          ]
+          [Op.or]: [{ palOne: this.id }, { palTwo: this.id }],
         },
-        include: {model: User}
+        include: { model: User },
       });
 
       for (let pal of pals) {
         pal = pal.toJSON();
-        pal.palOne === this.id ? objectPals[pal.palTwo] = pal.palTwo : objectPals[pal.palOne] = pal.palOne
+        pal.palOne === this.id
+          ? (objectPals[pal.palTwo] = pal.palTwo)
+          : (objectPals[pal.palOne] = pal.palOne);
       }
       return objectPals;
     }
@@ -100,11 +132,11 @@ module.exports = (sequelize, DataTypes) => {
     async getPalsByIds(idObj) {
       const User = sequelize.models.User;
       const ids = Object.values(idObj);
-      const palsObject = {}
+      const palsObject = {};
       const users = await User.findAll({
         where: {
-          id: ids
-        }
+          id: ids,
+        },
       });
       for (let user of users) {
         user = user.toJSON();
@@ -119,12 +151,12 @@ module.exports = (sequelize, DataTypes) => {
       const objectCollaborations = {};
       const collaborations = await Collaboration.findAll({
         where: { collaboratorId: this.id },
-        order: [['createdAt']]
+        order: [["createdAt"]],
       });
       for (let collaboration of collaborations) {
-        collaboration = collaboration.toJSON()
+        collaboration = collaboration.toJSON();
         objectCollaborations[collaboration.id] = collaboration;
-      };
+      }
 
       return objectCollaborations;
     }
@@ -136,7 +168,7 @@ module.exports = (sequelize, DataTypes) => {
 
       const posts = await Post.findAll({
         where: { authorId: this.id },
-        order: [['createdAt']]
+        order: [["createdAt"]],
       });
 
       for (let post of posts) {
@@ -148,15 +180,15 @@ module.exports = (sequelize, DataTypes) => {
     // query for and return any comments the user has left on a post the user exists in under the key userId
     async getComments() {
       const Comment = sequelize.models.Comment;
-      const objectComments = {}
+      const objectComments = {};
 
       const comments = await Comment.findAll({
         where: { userId: this.id },
-        order: [['createdAt']]
+        order: [["createdAt"]],
       });
 
       for (let comment of comments) {
-        comment = comment.toJSON()
+        comment = comment.toJSON();
         objectComments[comment.id] = comment;
       }
       return objectComments;
@@ -167,21 +199,26 @@ module.exports = (sequelize, DataTypes) => {
       const Reaction = sequelize.models.Reaction;
       const reactions = await Reaction.findAll({
         where: { userId: this.id },
-        order: [['createdAt']]
+        order: [["createdAt"]],
       });
       return reactions;
     }
 
-
     async createDefaultNotebook() {
       const Notebook = sequelize.models.Notebook;
-      const notebook = await Notebook.create({ name: 'Default', authorId: this.id });
+      const notebook = await Notebook.create({
+        name: "Default",
+        authorId: this.id,
+      });
       await this.update({ defaultNotebookId: notebook.id });
     }
 
     async createDefaultImageNotebook() {
       const ImageNotebook = sequelize.models.ImageNotebook;
-      const notebook = await ImageNotebook.create({ name: 'Default Photo Album', authorId: this.id });
+      const notebook = await ImageNotebook.create({
+        name: "Default Photo Album",
+        authorId: this.id,
+      });
       await this.update({ defaultImageNotebookId: notebook.id });
     }
 
@@ -192,25 +229,25 @@ module.exports = (sequelize, DataTypes) => {
     static async deleteUserById(id) {
       const rowsDeleted = await this.destroy({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       return rowsDeleted;
     }
 
     static async login({ credential, password }) {
-      const { Op } = require('sequelize');
-      const user = await User.scope('loginUser').findOne({
+      const { Op } = require("sequelize");
+      const user = await User.scope("loginUser").findOne({
         where: {
           [Op.or]: {
             username: credential,
-            email: credential
-          }
-        }
+            email: credential,
+          },
+        },
       });
 
       if (user && user.validatePassword(password)) {
-        return await User.scope('currentUser').findByPk(user.id);
+        return await User.scope("currentUser").findByPk(user.id);
       }
     }
 
@@ -221,106 +258,105 @@ module.exports = (sequelize, DataTypes) => {
         email,
         hashedPassword,
         firstName,
-        lastName
-
+        lastName,
       });
-      return await User.scope('currentUser').findByPk(user.id);
+      return await User.scope("currentUser").findByPk(user.id);
     }
 
     static associate(models) {
       User.hasMany(models.Notebook, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.ImageNotebook, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.TextNote, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.ImageNote, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Reaction, {
         foreignKey: "userId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Reaction, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Comment, {
         foreignKey: "userId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Comment, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Collaboration, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Collaboration, {
         foreignKey: "collaboratorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Post, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Pal, {
         foreignKey: "palOne",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.hasMany(models.Pal, {
         foreignKey: "palTwo",
         onDelete: "CASCADE",
-        hooks: true
+        hooks: true,
       });
 
       User.belongsToMany(models.User, {
         as: "palOne",
         foreignKey: "palOne",
         through: models.Pal,
-        otherKey: "palTwo"
+        otherKey: "palTwo",
       });
 
       User.belongsToMany(models.User, {
         as: "palTwo",
         foreignKey: "palTwo",
         through: models.Pal,
-        otherKey: "palOne"
+        otherKey: "palOne",
       });
     }
-  };
+  }
 
   User.init(
     {
@@ -369,7 +405,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       avatarUrl: {
         type: DataTypes.TEXT,
-        allowNull:true
+        allowNull: true,
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
@@ -394,7 +430,13 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"],
+          exclude: [
+            "hashedPassword",
+            "createdAt",
+            "updatedAt",
+            "defaultImageNotebookId",
+            "defaultNotebookId",
+          ],
         },
       },
       scopes: {
@@ -407,6 +449,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-
   return User;
 };
