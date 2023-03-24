@@ -11,7 +11,7 @@
 
 const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Notebook, TextNote, ImageNotebook } = require("../../db/models");
+const { User, Notebook, TextNote, PhotoAlbum } = require("../../db/models");
 
 const router = express.Router();
 
@@ -32,7 +32,7 @@ const router = express.Router();
 //==================================================
 
 //=====================================================
-//Gets all the user's imagenotebooks and notebooks
+//Gets all the user's Photo Albums and notebooks
 //=====================================================
 router.get("/", requireAuth, async (req, res) => {
   const userId = req.user.id;
@@ -42,7 +42,7 @@ router.get("/", requireAuth, async (req, res) => {
 });
 
 //====================================================================
-//Gets all the user's imagenotebooks and notebooks
+//Gets all the user's photo albums and notebooks
 //====================================================================
 router.get("/text-notebooks/:notebookId(\\d+)", async (req, res) => {
   const id = req.params.notebookId;
@@ -122,18 +122,18 @@ router.put("/text-notebook/:id(\\d+)", requireAuth, async (req, res) => {
 //
 //==================================================================================
 router.put("/image-notebook/:id(\\d+)", requireAuth, async (req, res) => {
-  const imageNotebookId = req.params.id;
+  const photoAlbumId = req.params.id;
   const { name, description } = req.body;
   try {
-    const imageNotebook = await ImageNotebook.findByPk(imageNotebookId);
-    if (!imageNotebook) {
+    const photoAlbum = await PhotoAlbum.findByPk(photoAlbumId);
+    if (!photoAlbum) {
       return res.status(404).json({ message: "Image notebook not found" });
     }
-    await imageNotebook.update({
+    await photoAlbum.update({
       name,
       description,
     });
-    res.json(imageNotebook);
+    res.json(photoAlbum);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Something went wrong" });

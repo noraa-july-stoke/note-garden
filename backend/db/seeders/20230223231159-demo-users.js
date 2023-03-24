@@ -81,7 +81,7 @@ module.exports = {
       createdUsers.map((user) => {
         return user
           .createDefaultNotebook()
-          .then(() => user.createDefaultImageNotebook())
+          .then(() => user.createDefaultPhotoAlbum())
           .catch((error) => console.log(error));
       })
     );

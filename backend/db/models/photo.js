@@ -14,8 +14,8 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class ImageNote extends Model {
-    static async deleteImageNoteById(id) {
+  class Photo extends Model {
+    static async deletePhotoById(id) {
       const rowsDeleted = await this.destroy({
         where: {
           id: id,
@@ -24,17 +24,17 @@ module.exports = (sequelize, DataTypes) => {
       return rowsDeleted;
     }
     static associate(models) {
-      ImageNote.belongsTo(models.User, {
+      Photo.belongsTo(models.User, {
         foreignKey: "authorId",
       });
 
-      ImageNote.belongsTo(models.ImageNotebook, {
-        foreignKey: "notebookId",
+      Photo.belongsTo(models.PhotoAlbum, {
+        foreignKey: "albumId",
       });
     }
   }
 
-  ImageNote.init(
+  Photo.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -47,14 +47,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         foreignKey: true,
       },
-      notebookId: {
+      albumId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         foreignKey: true,
       },
-      name: {
-        type: DataTypes.STRING(60),
-        allowNull: false,
+      caption: {
+        type: DataTypes.STRING(300),
+        allowNull: true,
       },
       url: {
         type: DataTypes.STRING(255),
@@ -72,8 +72,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "ImageNote",
+      modelName: "Photo",
     }
   );
-  return ImageNote;
+  return Photo;
 };

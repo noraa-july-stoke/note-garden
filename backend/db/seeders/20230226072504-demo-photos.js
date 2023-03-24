@@ -1,22 +1,22 @@
 'use strict';
 
-const { User, ImageNotebook } = require('../models');
+const { User, PhotoAlbum } = require('../models');
 
 let options = {};
 options.schema = process.env.SCHEMA; // define your schema in options object
-options.tableName = 'ImageNotes';
+options.tableName = 'Photos';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const users = await User.findAll({ include: ImageNotebook });
+    const users = await User.findAll({ include: PhotoAlbum });
     const notes = [];
     for (const user of users) {
-      const notebooks = user.ImageNotebooks;
-      for (const notebook of notebooks) {
+      const albums = user.PhotoAlbums;
+      for (const album of albums) {
         notes.push({
           authorId: user.id,
-          notebookId: notebook.id,
-          name: `Image Note for ${notebook.name}`,
+          albumId: album.id,
+          caption: `Image Note for ${album.name}`,
           url: "https://storage.googleapis.com/note_garden_bucket/banana-milk.jpeg",
         });
       }

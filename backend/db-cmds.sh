@@ -11,14 +11,14 @@ npx sequelize model:generate --name User --attributes username:string,email:stri
 Notebook
 npx sequelize model:generate --name Notebook --attributes authorId:integer,name:string
 
-ImageNotebook
-npx sequelize model:generate --name ImageNotebook --attributes authorId:integer,name:string
+PhotoAlbum
+npx sequelize model:generate --name PhotoAlbum --attributes authorId:integer,name:string
 
 TextNote
 npx sequelize model:generate --name TextNote --attributes authorId:integer,name:string,note:string
 
-ImageNote
-npx sequelize model:generate --name ImageNote --attributes authorId:integer,name:string,url:string
+Photo
+npx sequelize model:generate --name Photo --attributes authorId:integer,name:string,url:string
 
 Pal
 npx sequelize model:generate --name Pal --attributes palOne:integer,palTwo:integer

@@ -1,8 +1,8 @@
-const { ImageNotebook, User } = require('../models');
+const { PhotoAlbum, User } = require('../models');
 
 let options = {};
 options.schema = process.env.SCHEMA; // define your schema in options object
-options.tableName = 'ImageNotebooks';
+options.tableName = 'PhotoAlbums';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

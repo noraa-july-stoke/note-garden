@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
             required: false,
           },
           {
-            model: sequelize.models.ImageNote,
+            model: sequelize.models.Photo,
             attributes: ["url"],
             required: false,
           },
@@ -85,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "contentId",
         otherKey: "id",
       });
-      Post.belongsTo(models.ImageNote, {
+      Post.belongsTo(models.Photo, {
         foreignKey: "contentId",
         otherKey: "id",
       });
@@ -112,7 +112,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Notes",
+          // | !@#$DB | -needs update to reference "post content"
+          model: ["TextNotes", "Photos"],
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -126,7 +127,6 @@ module.exports = (sequelize, DataTypes) => {
           isIn: [["LINK", "IMAGE", "COLLECTION", "TEXT", "AUDIO", "VIDEO"]],
         },
       },
-
       caption: {
         type: DataTypes.STRING,
         allowNull: false,

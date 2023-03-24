@@ -16,7 +16,7 @@ function postFixup(post) {
     case "TEXT":
       post.content.note = post.TextNote?.note;
     case "IMAGE":
-      post.content.url = post.ImageNote?.url;
+      post.content.url = post.Photo?.url;
     case "LINK":
       post.content.link = post.Link?.url;
     case "COLLECTION":
@@ -31,7 +31,7 @@ function postFixup(post) {
   const authorInfo = post.User;
   post.authorInfo = authorInfo;
   delete post.User;
-  delete post.ImageNote;
+  delete post.Photo;
   delete post.TextNote;
   return post;
 }

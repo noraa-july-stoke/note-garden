@@ -1,6 +1,6 @@
 let options = {};
 options.schema = process.env.SCHEMA;
-options.tableName = "ImageNotes"
+options.tableName = "PhotoAlbums";
 
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
@@ -15,27 +15,15 @@ module.exports = {
       },
       authorId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: 'Users',
-          key: 'id'
-        }
-      },
-      notebookId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'ImageNotebooks',
-          key: 'id'
-        }
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       name: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      url: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

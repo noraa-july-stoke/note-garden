@@ -34,7 +34,7 @@ router.post("/", validateSignup, async (req, res) => {
     password,
   });
   await user.createDefaultNotebook();
-  await user.createDefaultImageNotebook();
+  await user.createDefaultPhotoAlbum();
   setTokenCookie(res, user);
   return res.json({
     user: user,

@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       // the scope here determine which association to choose
-      Collaboration.belongsTo(models.ImageNote, {
+      Collaboration.belongsTo(models.Photo, {
         foreignKey: "noteId",
         constraints: false,
         scope: {

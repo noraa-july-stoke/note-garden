@@ -19,14 +19,14 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class ImageNotebook extends Model {
+  class PhotoAlbum extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
 
-    static async deleteImageNotebookById(id) {
+    static async deleteAlbumById(id) {
       const rowsDeleted = await this.destroy({
         where: {
           id: id,
@@ -35,18 +35,18 @@ module.exports = (sequelize, DataTypes) => {
       return rowsDeleted;
     }
     static associate(models) {
-      ImageNotebook.hasMany(models.ImageNote, {
-        foreignKey: "notebookId",
+      PhotoAlbum.hasMany(models.Photo, {
+        foreignKey: "albumId",
         hooks: true,
       });
 
-      ImageNotebook.belongsTo(models.User, {
+      PhotoAlbum.belongsTo(models.User, {
         foreignKey: "authorId",
       });
     }
   }
 
-  ImageNotebook.init(
+  PhotoAlbum.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -73,8 +73,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "ImageNotebook",
+      modelName: "PhotoAlbum",
     }
   );
-  return ImageNotebook;
+  return PhotoAlbum;
 };

@@ -35,7 +35,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: true,
         },
-        defaultImageNotebookId: {
+        defaultPhotoAlbum: {
           type: Sequelize.INTEGER,
           allowNull: true,
         },

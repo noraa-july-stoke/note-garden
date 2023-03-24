@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         username,
         email,
         defaultNotebookId,
-        defaultImagenotebookId,
+        defaultPhotoAlbum,
         firstName,
         lastName,
         avatarUrl,
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         username,
         email,
         defaultNotebookId,
-        defaultImagenotebookId,
+        defaultPhotoAlbum,
         firstName,
         lastName,
         avatarUrl,
@@ -46,12 +46,12 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     async getNotes() {
-      const ImageNote = sequelize.models.ImageNote;
+      const Photo = sequelize.models.Photo;
       const TextNote = sequelize.models.TextNote;
       let objectTextNotes = {};
-      let objectImageNotes = {};
+      let objectPhotos = {};
 
-      const imageNotes = await ImageNote.findAll({
+      const photos = await Photo.findAll({
         where: { authorId: this.id },
         order: [["createdAt"]],
       });
@@ -61,9 +61,9 @@ module.exports = (sequelize, DataTypes) => {
         order: [["createdAt"]],
       });
 
-      for (let imageNote of imageNotes) {
-        imageNote = imageNote.toJSON();
-        objectImageNotes[imageNote.id] = imageNote;
+      for (let photo of photos) {
+        photo = photo.toJSON();
+        objectPhotos[photo.id] = photo;
       }
 
       for (let textNote of textNotes) {
@@ -71,23 +71,23 @@ module.exports = (sequelize, DataTypes) => {
         objectTextNotes[textNote.id] = textNote;
       }
 
-      return { imageNotes: objectImageNotes, textNotes: objectTextNotes };
+      return { photos: objectPhotos, textNotes: objectTextNotes };
     }
 
     // query notebook model for any notebooks and any image notebooks that belong to the user and return them as arrays inside
     // a composite object
     async getNotebooks() {
       const Notebook = sequelize.models.Notebook;
-      const ImageNotebook = sequelize.models.ImageNotebook;
+      const PhotoAlbum = sequelize.models.PhotoAlbum;
       const objectNotebooks = {};
-      const objectImageNotebooks = {};
+      const objectPhotoAlbums = {};
 
       const notebooks = await Notebook.findAll({
         where: { authorId: this.id },
         order: [["createdAt"]],
       });
 
-      const imageNotebooks = await ImageNotebook.findAll({
+      const photoAlbums = await PhotoAlbum.findAll({
         where: { authorId: this.id },
         order: [["createdAt"]],
       });
@@ -97,14 +97,14 @@ module.exports = (sequelize, DataTypes) => {
         objectNotebooks[notebook.id] = notebook;
       }
 
-      for (let imageNotebook of imageNotebooks) {
-        imageNotebook = imageNotebook.toJSON();
-        objectImageNotebooks[imageNotebook.id] = imageNotebook;
+      for (let photoAlbum of photoAlbums) {
+        photoAlbum = photoAlbum.toJSON();
+        objectPhotoAlbums[photoAlbum.id] = photoAlbum;
       }
 
       return {
         textNotebooks: objectNotebooks,
-        imageNotebooks: objectImageNotebooks,
+        photoAlbums: objectPhotoAlbums,
       };
     }
 
@@ -213,13 +213,13 @@ module.exports = (sequelize, DataTypes) => {
       await this.update({ defaultNotebookId: notebook.id });
     }
 
-    async createDefaultImageNotebook() {
-      const ImageNotebook = sequelize.models.ImageNotebook;
-      const notebook = await ImageNotebook.create({
+    async createDefaultPhotoAlbum() {
+      const PhotoAlbum = sequelize.models.PhotoAlbum;
+      const notebook = await PhotoAlbum.create({
         name: "Default Photo Album",
         authorId: this.id,
       });
-      await this.update({ defaultImageNotebookId: notebook.id });
+      await this.update({ defaultPhotoAlbumId: notebook.id });
     }
 
     static getCurrentUserById(id) {
@@ -270,7 +270,7 @@ module.exports = (sequelize, DataTypes) => {
         hooks: true,
       });
 
-      User.hasMany(models.ImageNotebook, {
+      User.hasMany(models.PhotoAlbum, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
         hooks: true,
@@ -282,7 +282,7 @@ module.exports = (sequelize, DataTypes) => {
         hooks: true,
       });
 
-      User.hasMany(models.ImageNote, {
+      User.hasMany(models.Photo, {
         foreignKey: "authorId",
         onDelete: "CASCADE",
         hooks: true,
@@ -399,7 +399,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      defaultImageNotebookId: {
+      defaultPhotoAlbum: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
@@ -434,7 +434,7 @@ module.exports = (sequelize, DataTypes) => {
             "hashedPassword",
             "createdAt",
             "updatedAt",
-            "defaultImageNotebookId",
+            "defaultPhotoAlbum",
             "defaultNotebookId",
           ],
         },

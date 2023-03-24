@@ -5,7 +5,7 @@
 | id | INTEGER | Primary Key, Unique | - |
 | username | STRING(30) | Not Null, Unique | - |
 | defaultNotebookId | INTEGER | Nullable | - |
-| defaultImageNotebookId | INTEGER | Nullable | - |
+| defaultPhotoAlbumId | INTEGER | Nullable | - |
 | email | STRING(256) | Not Null, Unique | - |
 | hashedPassword | STRING.BINARY | Not Null | - |
 | createdAt | DATE | Not Null, Default Value: CURRENT_TIMESTAMP | - |
@@ -27,7 +27,7 @@
 
 
 
-## IMAGENOTES
+## Photos
 
 | Column    | Type       | Allow Null | Default            |
 |-----------|------------|-----------|--------------------|
@@ -55,7 +55,7 @@
 
 
 
-## IMAGENOTES
+## Photos
 
 | Column | Type | Attributes |
 | ------ | ---- | ---------- |
