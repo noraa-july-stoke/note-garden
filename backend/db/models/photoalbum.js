@@ -40,8 +40,12 @@ module.exports = (sequelize, DataTypes) => {
         hooks: true,
       });
 
-      PhotoAlbum.belongsTo(models.User, {
+      PhotoAlbum.belongsTo(models.UserData, {
         foreignKey: "authorId",
+      });
+
+      PhotoAlbum.belongsTo(models.Collection, {
+        foreignKey: "collectionId",
       });
     }
   }
@@ -56,9 +60,30 @@ module.exports = (sequelize, DataTypes) => {
       authorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "UserData",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      collectionId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        foreignKey: true,
+        references: {
+          model: "Collection",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       name: {
         type: DataTypes.STRING(60),
+        allowNull: false,
+      },
+      isPublic: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       createdAt: {

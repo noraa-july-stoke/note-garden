@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      Comment.belongsTo(models.User, { foreignKey: "authorId" });
-      Comment.belongsTo(models.User, { foreignKey: "userId" });
+      Comment.belongsTo(models.UserData, { foreignKey: "authorId" });
+      Comment.belongsTo(models.UserData, { foreignKey: "userId" });
       Comment.belongsTo(models.Post, { foreignKey: "postId" });
       Comment.belongsTo(models.Comment, { foreignKey: "parentCommentId" });
       Comment.hasMany(models.Comment, { foreignKey: "parentCommentId" });

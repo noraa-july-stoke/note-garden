@@ -25,8 +25,9 @@
 }
 
 .avatar-pic-container {
-  width: 50px;
-  height: 50px;
+  border: 2px solid white;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -50,29 +51,58 @@
  *                      .__/| | |___|___.__/
 ======================================================================= */
 
-.feed-avatar-pic-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 1em;
-}
-
 .feed-mini-profile-container {
   padding-top: 0.5em;
   display: flex;
   flex-direction: row;
-  align-items: center;
   width: 100%;
   text-align: center;
+  padding-bottom: 5px;
+  margin-bottom: 1em;
+  border-bottom: 2px solid rgba(255,255,255,.5);
+  color: white;
+}
+
+.mini-name-pic-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* holds the profile pic and the user's first & last name */
+.feed-avatar-pic-container {
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 2px;
 }
 
 .post-profile-info-container {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+}
+
+
+.mini-post-sub-info {
+  display: flex;
+  gap: 1em;
+  padding-bottom: 1.8em;
+}
+
+.post-profile-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
 }
 
 /* .avatar-pic-container {

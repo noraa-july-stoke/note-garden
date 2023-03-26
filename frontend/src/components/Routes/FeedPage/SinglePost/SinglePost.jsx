@@ -32,12 +32,13 @@ import "./SinglePost.css";
 
 //============================================================
 const SinglePost = ({ post }) => {
+  console.log(post);
+
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //    STATE VARIABLE ASSIGNMENTS
   //==========================================
-  const {authorInfo} = post;
-
+  // const { authorInfo } = post.UserDatum;
   //===========================
   //          HOOKS
   //===========================
@@ -49,10 +50,11 @@ const SinglePost = ({ post }) => {
   //===========================
   //         JSX BODY
   //===========================
+
   return (
     <div className="post-container">
-      <MiniProfile user={authorInfo} postMode={true} />
-      <div className="post-body-container">
+      <MiniProfile user={post.UserDatum} postDate={post.createdAt} postMode={true} />
+      {/* <div className="post-body-container">
         {post.content.url && (
           <img
             className="post-image"
@@ -65,7 +67,7 @@ const SinglePost = ({ post }) => {
             className="post-text"
             dangerouslySetInnerHTML={{ __html: post.content.note }}></div>
         )}
-      </div>
+      </div> */}
       {/* <CommentForm onAddComment={handleAddComment} /> */}
       <Reactions />
       <CommentFeed post={post} />
@@ -92,7 +94,6 @@ export default SinglePost;
 //     setComments([...comments, newCommentObj]);
 //     setNewComment("");
 //   };
-
 
 //   return (
 //     <div className="post-container">

@@ -96,7 +96,7 @@ export const thunkDeleteTextNotebook = (notebookId) => async (dispatch) => {
 
 const initialState = {
   userTextNotebooks: {},
-  userImageNotebooks: {},
+  userPhotoAlbums: {},
   collabsNoteBook: {},
   singleNotebook: {},
 };
@@ -105,7 +105,7 @@ const notebooksReducer = (state = initialState, action) => {
     case LOAD_NOTEBOOKS:
       return {
         userTextNotebooks: { ...action.notebooks.textNotebooks },
-        userImageNotebooks: { ...action.notebooks.imageNotebooks },
+        userPhotoAlbums: { ...action.notebooks.photoAlbums },
         collabsNoteBook: { ...action.notebooks.collabsNotebook },
       };
     case ADD_NOTEBOOK:

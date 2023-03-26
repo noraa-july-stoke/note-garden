@@ -80,6 +80,7 @@ const ReactionCounter = ({ postId }) => {
     }));
   };
 
+
   // CREATES A LIST OF COMPONENTs CONTAINING ALL OF
   // THE REACTION EMOJS WITH THEIR RESPECTIVE COUNT
   const reactionCounters = Object.entries(reactionEmoji).map(
@@ -89,7 +90,9 @@ const ReactionCounter = ({ postId }) => {
           <button
             type="button"
             className="reaction-button"
-            onClick={() => handleReactionClick(name)}>
+            onClick={() => {
+              handleReactionClick(name);
+            }}>
             {emoji} {reactions[name]}
           </button>
         </div>

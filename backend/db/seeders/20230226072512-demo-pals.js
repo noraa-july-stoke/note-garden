@@ -1,5 +1,5 @@
 
-const { User, Pal } = require('../models');
+const { UserData, Pal } = require('../models');
 
 
 let options = {};
@@ -9,7 +9,7 @@ options.tableName = 'Pals';
 //I optimized this to use a set to avoid duplicate pals.
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const users = await User.findAll();
+    const users = await UserData.findAll();
     const pals = new Set();
     //Implementation of set to keep track of unique pairs. ##l33tcode ftw.
     for (let i = 0; i < users.length; i++) {

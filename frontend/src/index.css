@@ -184,6 +184,9 @@ select {
     margin: none;
     padding: none;
 }
+input:focus {
+      outline: none;
+}
 
 p,
 h1,

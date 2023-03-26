@@ -24,12 +24,16 @@ module.exports = (sequelize, DataTypes) => {
       return rowsDeleted;
     }
     static associate(models) {
-      Photo.belongsTo(models.User, {
+      Photo.belongsTo(models.UserData, {
         foreignKey: "authorId",
       });
 
       Photo.belongsTo(models.PhotoAlbum, {
         foreignKey: "albumId",
+      });
+
+      Photo.belongsTo(models.Collection, {
+        foreignKey: "collectionId",
       });
     }
   }
@@ -46,11 +50,34 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
+        references: {
+          model: "UserData",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       albumId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         foreignKey: true,
+        references: {
+          model: "PhotoAlbums",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      collectionId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        foreignKey: true,
+        references: {
+          model: "Collection",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       caption: {
         type: DataTypes.STRING(300),
@@ -58,6 +85,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       url: {
         type: DataTypes.STRING(255),
+        allowNull: false,
+      },
+      isPublic: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       createdAt: {

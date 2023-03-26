@@ -1,0 +1,19 @@
+.ascii-logo {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  white-space: pre;
+  line-height: 1;
+  color: white;
+  align-self: center;
+  padding-top: 2em;
+}
+
+
+.ascii-logo span {
+  font-family: "Courier New", Courier, monospace;
+}
+/* .ascii-logo:hover {
+  line-height: 1.2;
+} */

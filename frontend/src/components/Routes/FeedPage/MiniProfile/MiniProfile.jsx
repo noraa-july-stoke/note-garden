@@ -21,12 +21,12 @@ import { useNavigate } from "react-router-dom";
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
-import "./MiniProfile.css";
+import { formatTimestamp } from "../../../ComponentHelpers/misc-helpers";
 import { logout } from "../../../../store/session";
+import "./MiniProfile.css";
 
 //=======================================================================
-
-const MiniProfile = ({ user, postMode }) => {
+const MiniProfile = ({ user, postMode, postDate }) => {
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //    STATE VARIABLE ASSIGNMENTS
@@ -60,18 +60,25 @@ const MiniProfile = ({ user, postMode }) => {
   // ALTERNATE STYLES DEPENDING ON "postMode"
   const content = postMode ? (
     <div className="feed-mini-profile-container">
-      <div className="feed-avatar-pic-container">
-        <img
-          onClick={toggleMenu}
-          className="avatar-pic"
-          src={user.avatarUrl}
-          alt="profile avatar"
-        />
+      <div className="mini-name-pic-container">
+        <div className="feed-avatar-pic-container">
+          <img
+            onClick={toggleMenu}
+            className="avatar-pic"
+            src={user.avatarUrl}
+            alt="profile avatar"
+          />
+        </div>
+        <h5>
+          {user.firstName} {user.lastName}
+        </h5>
       </div>
       <div className="post-profile-info-container">
-        <span>{user.username}</span>
-        <span>
-          {user.firstName} {user.lastName}
+        <span className="mini-post-sub-info">
+        <h4 className="post-profile-username">{user.username}</h4>
+        <span className="post-profile-time">
+          {formatTimestamp(postDate)}
+        </span>
         </span>
       </div>
     </div>

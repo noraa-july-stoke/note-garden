@@ -20,9 +20,9 @@ import { useDispatch, useSelector } from "react-redux";
 //=======================================================================
 import { thunkLoadPalPosts } from "../../../../store/posts";
 import SinglePost from "../SinglePost/SinglePost";
-
-
 import "./PostFeed.css";
+
+//=======================================================================
 const PostFeed = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts?.palPosts);

@@ -11,9 +11,6 @@
 //  ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗███████╗
 //  ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
 //================================================
-
-
-
 "use strict";
 const { Model } = require("sequelize");
 const { postFixup } = require("../db-helpers/post-helpers");
@@ -35,18 +32,21 @@ module.exports = (sequelize, DataTypes) => {
         },
         include: [
           {
-            model: sequelize.models.User
+            model: sequelize.models.UserData,
           },
           {
-            model: sequelize.models.TextNote,
-            attributes: ["note"],
-            required: false,
+            model: sequelize.models.PostContent,
           },
-          {
-            model: sequelize.models.Photo,
-            attributes: ["url"],
-            required: false,
-          },
+          // {
+          //   model: sequelize.models.TextNote,
+          //   attributes: ["note"],
+          //   required: false,
+          // },
+          // {
+          //   model: sequelize.models.Photo,
+          //   attributes: ["url"],
+          //   required: false,
+          // },
         ],
         order: [["createdAt", "DESC"]],
       });
@@ -55,8 +55,10 @@ module.exports = (sequelize, DataTypes) => {
       for (let post of posts) {
         // Extracts content and author information from post
         // Adds content and author information to post object
-        post = postFixup(post.toJSON());
+        post = post.toJSON();
         objectPosts[post.id] = post;
+              console.log(post);
+
       }
 
       // Returns objectPosts dictionary
@@ -77,17 +79,16 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      Post.belongsTo(models.User, {
+      Post.belongsTo(models.UserData, {
         foreignKey: "authorId",
       });
 
-      Post.belongsTo(models.TextNote, {
-        foreignKey: "contentId",
-        otherKey: "id",
+      Post.hasMany(models.PostContent, {
+        foreignKey: "postId",
       });
-      Post.belongsTo(models.Photo, {
-        foreignKey: "contentId",
-        otherKey: "id",
+
+      Post.belongsTo(models.Collection, {
+        foreignKey: "collectionId",
       });
     }
   }
@@ -102,33 +103,29 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Users",
+          model: "UserData",
           key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      contentId: {
+      collectionId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        foreignKey: true,
         references: {
-          // | !@#$DB | -needs update to reference "post content"
-          model: ["TextNotes", "Photos"],
+          model: "Collection",
           key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
-      },
-      noteType: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: true,
-          isIn: [["LINK", "IMAGE", "COLLECTION", "TEXT", "AUDIO", "VIDEO"]],
-        },
       },
       caption: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      palsOnly: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       createdAt: {

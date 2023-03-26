@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       return rowsDeleted;
     }
     static associate(models) {
-      Reaction.belongsTo(models.User, { foreignKey: "userId", as: "user" });
-      Reaction.belongsTo(models.User, { foreignKey: "authorId", as: "author" });
+      Reaction.belongsTo(models.UserData, { foreignKey: "userId", as: "user" });
+      Reaction.belongsTo(models.UserData, { foreignKey: "authorId", as: "author" });
       Reaction.belongsTo(models.Post, { foreignKey: "postId", as: "post" });
       Reaction.belongsTo(models.Comment, {
         foreignKey: "commentId",
@@ -43,10 +43,22 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "UserData",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       authorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "UserData",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       postId: {
         type: DataTypes.INTEGER,

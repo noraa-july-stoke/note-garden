@@ -15,14 +15,18 @@
 //=======================================================================
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 //=======================================================================
 //       __  __             ___     ___         __  __  _______
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
-import ASCIIText from "./ASCII/ASCIIText";
+// COMPONENTS
+import ASCIIVideo from "./ASCII/ASCIIVideo";
+import ASCIILogo from "./ASCII/ASCIILogo";
 import AuthForms from "../../Forms/AuthForms/AuthForms";
+// HELPERS
+// CONTEXTS
+// STYLES
 import "./HomePage.css";
 
 const HomePage = ({ sessionUser, bgColor }) => {
@@ -30,33 +34,43 @@ const HomePage = ({ sessionUser, bgColor }) => {
   // Variable Declarations, initializers, state variable assignments;
   //=============================================================================
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   //=============================================================================
   // Hooks
   //=============================================================================
-  const notebookClick = (e) => {
-    e.preventDefault();
-    navigate("/notebooks");
-  };
+  // const notebookClick = (e) => {
+  //   e.preventDefault();
+  //   navigate("/notebooks");
+  // };
 
   //=============================================================================
-  // HELPERS/EVENT LLISTENERS
+  // HELPERS/EVENT LISTENERS
   //=============================================================================
 
-  const newNoteClick = (e) => {
-    e.preventDefault();
-    navigate("/new-note");
-  };
+  // const newNoteClick = (e) => {
+  //   e.preventDefault();
+  //   navigate("/new-note");
+  // };
 
   //=============================================================================
   // JSX BODY - Should conditionally render either login form or the home page
   //=============================================================================
   return (
     <div className="display-body" style={{ backgroundColor: bgColor }}>
-      <div className="home-body-container">
-        {!sessionUser && <AuthForms />}
-        {sessionUser && (
+      <div className="home-body-header-container">
+        <ASCIILogo sessionUser={sessionUser} />
+        <div className="home-body-container">
+          {!sessionUser && <AuthForms />}
+          <ASCIIVideo />
+        </div>
+      </div>
+    </div>
+  );
+};
+export default HomePage;
+
+  /* {sessionUser && (
           <div className="buttons-container">
             <button
               style={{ backgroundColor: bgColor }}
@@ -71,10 +85,4 @@ const HomePage = ({ sessionUser, bgColor }) => {
               Create New Note
             </button>
           </div>
-        )}
-        <ASCIIText />
-      </div>
-    </div>
-  );
-};
-export default HomePage;
+        )} */

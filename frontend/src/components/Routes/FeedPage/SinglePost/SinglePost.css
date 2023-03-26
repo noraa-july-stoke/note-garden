@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   border: none;
-  max-width: 30%;
+  width: 40%;
 }
 
 .post-text {
@@ -11,8 +11,6 @@
   justify-content: center;
   width: 100%;
 }
-
-
 
 /* .avatar-pic-container {
   width: 50px;

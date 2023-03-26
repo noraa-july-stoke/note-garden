@@ -35,7 +35,7 @@ export const thunkLoadPosts = () => async (dispatch) => {
 
 export const thunkLoadPalPosts = () => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/posts/pals`, {
+        const response = await csrfFetch(`/api/posts/all-posts`, {
             method: "GET"
         });
         const data = await response.json();

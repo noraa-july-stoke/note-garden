@@ -23,26 +23,6 @@ module.exports = {
             len: [3, 30],
           },
         },
-        firstName: {
-          type: Sequelize.STRING(30),
-          allowNull: false,
-        },
-        lastName: {
-          type: Sequelize.STRING(30),
-          allowNull: false,
-        },
-        defaultNotebookId: {
-          type: Sequelize.INTEGER,
-          allowNull: true,
-        },
-        defaultPhotoAlbum: {
-          type: Sequelize.INTEGER,
-          allowNull: true,
-        },
-        avatarUrl: {
-          type: Sequelize.TEXT,
-          allowNull: true,
-        },
         email: {
           type: Sequelize.STRING(256),
           allowNull: false,

@@ -26,6 +26,24 @@ export const uploadImage = (formData) => async (dispatch) => {
     }
 };
 
+export const uploadMp3 = (formData) => async (dispatch) => {
+    // try {
+    //     dispatch({ type: UPLOAD_IMAGE_PENDING });
+    //     const response = await csrfFetch('/api/notes/image-note', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         },
+    //         body: formData
+    //     });
+    //     const data = await response.json();
+    //     dispatch({ type: UPLOAD_IMAGE_SUCCESS, payload: data });
+    //     return data;
+    // } catch (error) {
+    //     dispatch({ type: UPLOAD_IMAGE_FAILED, payload: error });
+    // }
+};
+
 const initialState = {
     status: 'idle',
     error: null

@@ -20,7 +20,7 @@ const express = require("express");
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 const { requireAuth } = require("../../utils/auth");
-const { User, Post } = require("../../db/models");
+const { User, UserData, Post } = require("../../db/models");
 
 //=======================================================================
 const router = express.Router();
@@ -57,9 +57,10 @@ router.get("/all-posts", requireAuth, async (req, res) => {
   //get pal relationships with userId
   const userId = req.user.id;
   // !@#$ needs changed to Pals.getUserPals........
-  const user = await User.findByPk(userId);
+  const user = await UserData.findByPk(userId);
   const pals = await user.getPals();
   pals.userId = userId;
+  // console.log(pals);
   const palPosts = await Post.findAllByAuthors(pals);
   res.status(200).json(palPosts);
 });

@@ -14,7 +14,6 @@
 
 "use strict";
 const { Model } = require("sequelize");
-
 module.exports = (sequelize, DataTypes) => {
   class Pal extends Model {
     static async deletePalById(id) {
@@ -27,11 +26,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      Pal.belongsTo(models.User, {
+      Pal.belongsTo(models.UserData, {
         foreignKey: "palOne",
       });
 
-      Pal.belongsTo(models.User, {
+      Pal.belongsTo(models.UserData, {
         foreignKey: "palTwo",
       });
     }
@@ -47,17 +46,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Users",
+          model: "UserData",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       palTwo: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Users",
+          model: "UserData",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       createdAt: {
         type: DataTypes.DATE,

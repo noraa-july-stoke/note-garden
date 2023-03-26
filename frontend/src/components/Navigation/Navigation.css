@@ -1,110 +1,115 @@
 .nav-header {
-    display: flex;
-    flex-direction: row;
-    border: 2px solid white;
-    background: black;
-    justify-content: space-around;
-    align-items: center;
-    height: 50px;
-    width: 100%;
-    padding-right: 2em;
-    padding-left: 2em;
-    padding-top: .5em;
-    padding-bottom: .5em;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid white;
+  background: black;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  padding-right: 3em;
+  padding-left: 3em;
 }
 
 .search-bar {
-    display: flex;
-    justify-content: center;
-    justify-self: center;
-    align-items: center;
-    background-color: inherit;
-    color: white;
-    border: 2px solid white;
-    width: 30%;
-    height: 100%;
-    padding: none;
-    margin: none;
-    font-size: 25px;
-    font-weight: bolder;
-    text-align: center;
-    transition: width 0.3s ease;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+  background-color: inherit;
+  color: white;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  width: 30%;
+  font-size: 25px;
+  font-weight: bolder;
+  text-align: center;
+  transition: width 0.2s ease;
+  margin: 2px;
 }
 
 .search-bar:focus {
-    width: 50%;
+  width: 50%;
+  outline: none;
+
 }
 
 .user-info-container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
 }
-
 
 /* !@#$ this is inside the "profile dropdown for some reason, this is a bad name, fix later */
 .user-dropdown {
-    background-color: inherit;
+  background-color: inherit;
 }
 
 ul.profile-dropdown {
-    position: absolute;
-    width: fit-content;
-    height: fit-content;
-    background-color: inherit;
-    list-style-type: none;
-    max-height: 50%;
-    height: fit-content;
-    background-color: inherit;
-    top: 67px;
-    right: 35px;
-    z-index: 20;
-    border: 2px solid white;
-    border-radius: 1em;
-    overflow: hidden;
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  background-color: inherit;
+  list-style-type: none;
+  max-height: 50%;
+  height: fit-content;
+  background-color: inherit;
+  top: 67px;
+  right: .5em;
+  z-index: 20;
+  border: 2px solid white;
+  border-radius: 1em;
+  overflow: hidden;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .dropdown-item {
-    background-color:inherit;
-    font-size: 16px;
-    color: white;
-    border: 2px solid black;
-    padding: 8px 12px;
-    cursor: pointer;
-    padding: .5em;
+  background-color: inherit;
+  font-size: 16px;
+  color: white;
+  border: 2px solid black;
+  padding: 8px 12px;
+  cursor: pointer;
+  padding: 0.5em;
 }
 
 .dropdown-item:hover {
-    border: 2px solid white !important;
+  border: 2px solid white !important;
 }
 
-.logout-button{
-    color:white;
-    font-size: 16px;
+.logout-button {
+  color: white;
+  font-size: 16px;
 }
 
 .profile-button {
-    background-color: inherit;
-    color: white;
-    justify-self: flex-start;
+  background-color: inherit;
+  color: white;
+  justify-self: flex-start;
 }
 
 .profile-button:hover {
-    color:antiquewhite;
+  color: antiquewhite;
+}
+.ascii-nav-logo {
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  white-space: pre;
+  line-height: 1;
+}
+.ascii-nav-logo span {
+  font-family: "Courier New", Courier, monospace;
 }
 
-
-
-/* error modal */
-
-
-.tarot-frog {
-    height: 60px;
-    width: 45px;
+.nav-div {
+  display: flex;
+  align-items: center;
+  gap: 3em;
 }

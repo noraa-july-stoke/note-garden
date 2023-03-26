@@ -2,7 +2,7 @@ const express = require("express");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User, UserData } = require("../../db/models");
 
 const router = express.Router();
 
@@ -28,16 +28,16 @@ router.post("/", validateSignup, async (req, res) => {
   const { email, password, username, firstName, lastName } = req.body;
   const user = await User.signup({
     email,
-    firstName,
-    lastName,
     username,
     password,
+    firstName,
+    lastName
   });
-  await user.createDefaultNotebook();
-  await user.createDefaultPhotoAlbum();
+  // await user.createDefaultNotebook();
+  // await user.createDefaultAlbum();
   setTokenCookie(res, user);
   return res.json({
-    user: user,
+    user
   });
 });
 

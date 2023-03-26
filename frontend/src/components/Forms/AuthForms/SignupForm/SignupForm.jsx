@@ -1,21 +1,78 @@
+//======================================================================
+//   _____  _
+//  /  ___|(_)
+//  \ `--.  _   __ _  _ __   _   _  _ __  ______
+//   `--. \| | / _` || '_ \ | | | || '_ \|______|
+//  /\__/ /| || (_| || | | || |_| || |_) |
+//  \____/ |_| \__, ||_| |_| \__,_|| .__/
+//      ______  __/ |              | |
+//      |  ___||___/               |_|
+//      | |_  ___   _ __  _ __ ___
+//      |  _|/ _ \ | '__|| '_ ` _ \
+//      | | | (_) || |   | | | | | |
+//      \_|  \___/ |_|   |_| |_| |_|
+//======================================================================
+//       __  __  ___        __  __          ___         __  __  _______
+//  |\ |/  \|  \|__    |\/|/  \|  \|  ||   |__    ||\/||__)/  \|__)|/__`
+//  | \|\__/|__/|___   |  |\__/|__/\__/|___|___   ||  ||   \__/|  \|.__/
+//=======================================================================
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useModal } from "../../../../context/Modal";
-import * as sessionActions from "../../../../store/session";
+//=======================================================================
+//       __  __             ___     ___         __  __  _______
+//  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
+//  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
+//=======================================================================
+// COMPONENTS
 import ErrorModal from "../../../ErrorModal";
-
+import FormInput from "../../FormInput";
+// HELPERS
+import * as sessionActions from "../../../../store/session";
+// CONTEXTS
+import { useModal } from "../../../../context/Modal";
+//=======================================================================
+const defaultFields = {
+  email: "",
+  username: "",
+  firstName: "",
+  lastName: "",
+  password: "",
+  confirmPassword: "",
+};
+//=======================================================================
 const SignupForm = ({ bgColor, toggleForm }) => {
+  //==========================================
+  //   VARIABLE DECLARATIONS, INITIALIZERS,
+  //       STATE VARIABLE ASSIGNMENTS
+  //==========================================
   const dispatch = useDispatch();
   const { closeModal, setModalContent } = useModal();
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formFields, setFormFields] = useState(defaultFields);
+  const { email, username, firstName, lastName, password, confirmPassword} = formFields;
   // eslint-disable-next-line
   const [errors, setErrors] = useState([]);
 
+  //====================================
+  //              HOOKS
+  //====================================
+  useEffect(() => {
+    const handleClick = (e) => {
+      // check if click target is outside the modal window
+      const modal = document.querySelector(".error-container");
+      if (modal && !modal.contains(e.target)) {
+        closeModal();
+      }
+    };
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [closeModal]);
+
+  //====================================
+  //      HELPERS/EVENT LISTENERS
+  //         ADDITIONAL LOGIC
+  //====================================
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -53,96 +110,79 @@ const SignupForm = ({ bgColor, toggleForm }) => {
     }
   };
 
-  useEffect(() => {
-    const handleClick = (e) => {
-      // check if click target is outside the modal window
-      const modal = document.querySelector(".error-container");
-      if (modal && !modal.contains(e.target)) {
-        closeModal();
-      }
+    const onChange = (e) => {
+      const { name, value } = e.target;
+      setFormFields({ ...formFields, [name]: value });
     };
-    document.addEventListener("click", handleClick);
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, [closeModal]);
 
+  //====================================
+  //            JSX BODY
+  //====================================
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
       <div className="form-container">
         <h2>Sign Up</h2>
-        <label className="auth-credentials">
-          <span>Email: </span>
-          <input
-            className="auth-form-input"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ backgroundColor: bgColor }}
-          />
-        </label>
-        <label className="auth-credentials">
-          <span>Username: </span>
-          <input
-            className="auth-form-input"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            style={{ backgroundColor: bgColor }}
-          />
-        </label>
-        <label className="auth-credentials">
-          <span>First Name: </span>
-          <input
-            className="auth-form-input"
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-            style={{ backgroundColor: bgColor }}
-          />
-        </label>
-        <label className="auth-credentials">
-          <span>Last Name: </span>
-          <input
-            className="auth-form-input"
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-            style={{ backgroundColor: bgColor }}
-          />
-        </label>
-        <label className="auth-credentials">
-          <span>Password: </span>
-          <input
-            className="auth-form-input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ backgroundColor: bgColor }}
-          />
-        </label>
-        <label className="auth-credentials">
-          <span>Confirm Password:</span>
-          <input
-            className="auth-form-input"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            style={{ backgroundColor: bgColor }}
-          />
-        </label>
+        {/* <label className="auth-credentials"> */}
+        <FormInput
+          label="Email: "
+          type="email"
+          name="email"
+          value={email}
+          onChange={onChange}
+          style={{ backgroundColor: bgColor }}
+          required
+        />
+        <FormInput
+          label="Username: "
+          type="text"
+          name="username"
+          value={username}
+          onChange={onChange}
+          style={{ backgroundColor: bgColor }}
+          required
+        />
+        <FormInput
+          label="First name: "
+          type="text"
+          name="firstName"
+          value={firstName}
+          onChange={onChange}
+          style={{ backgroundColor: bgColor }}
+          required
+        />
+        <FormInput
+          label="Last name: "
+          type="text"
+          name="lastName"
+          value={lastName}
+          onChange={onChange}
+          style={{ backgroundColor: bgColor }}
+          required
+        />
+        <FormInput
+          label="Password: "
+          type="password"
+          name="password"
+          value={password}
+          onChange={onChange}
+          style={{ backgroundColor: bgColor }}
+          required
+        />
+        <FormInput
+          label="Confirm password: "
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={onChange}
+          style={{ backgroundColor: bgColor }}
+          required
+        />
         <div className="buttons-container">
           <button className="auth-button" type="submit">
             Sign Up
           </button>
         </div>
-        <button onClick={toggleForm} className="auth-button">
+        <button type="button" onClick={toggleForm} className="auth-button">
           Login instead.
         </button>
       </div>

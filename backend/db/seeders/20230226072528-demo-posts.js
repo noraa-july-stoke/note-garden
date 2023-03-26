@@ -1,25 +1,24 @@
-"use strict";
-const { User, Post } = require("../models");
+("use strict");
+
 let options = {};
-options.schema = process.env.SCHEMA; // define your schema in options object
-options.tableName = "Posts";
+options.schema = process.env.SCHEMA;
+options.tableName = "Comments";
+const { UserData, Post } = require("../models");
+
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const users = await User.findAll();
+    const users = await UserData.findAll();
     for (const user of users) {
-      const notes = await user.getNotes();
       await Post.create({
         authorId: user.id,
-        contentId: Object.values(notes.textNotes)[0].id,
-        noteType: "TEXT",
-        caption: "My text note",
+        caption: "My first post",
+        palsOnly: false,
       });
-
       await Post.create({
         authorId: user.id,
-        contentId: Object.values(notes.photos)[0].id,
-        noteType: "IMAGE",
-        caption: "My image note",
+        caption: "My second post",
+        palsOnly: true,
       });
     }
   },

@@ -28,9 +28,8 @@ function postFixup(post) {
     default:
       break;
   }
-  const authorInfo = post.User;
+  const authorInfo = post.UserDatum;
   post.authorInfo = authorInfo;
-  delete post.User;
   delete post.Photo;
   delete post.TextNote;
   return post;

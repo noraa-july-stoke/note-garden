@@ -39,12 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      TextNote.hasMany(models.Post, {
-        foreignKey: "contentId",
-        onDelete: "CASCADE",
-      });
-
-      TextNote.belongsTo(models.User, {
+      TextNote.belongsTo(models.UserData, {
         foreignKey: "authorId",
       });
 
@@ -65,11 +60,23 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         foreignKey: true,
+        references: {
+          model: "UserData",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       notebookId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         foreignKey: true,
+        references: {
+          model: "Notebooks",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       name: {
         type: DataTypes.STRING(60),

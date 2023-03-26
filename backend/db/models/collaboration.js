@@ -31,11 +31,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      Collaboration.belongsTo(models.User, {
+      Collaboration.belongsTo(models.UserData, {
         foreignKey: "authorId",
       });
 
-      Collaboration.belongsTo(models.User, {
+      Collaboration.belongsTo(models.UserData, {
         foreignKey: "collaboratorId",
       });
 
@@ -69,14 +69,32 @@ module.exports = (sequelize, DataTypes) => {
       authorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "UserData",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       collaboratorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "UserData",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       noteId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "TextNotes",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       textNote: {
         type: DataTypes.BOOLEAN,

@@ -6,46 +6,57 @@ options.tableName = "Posts";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
-    await queryInterface.createTable(options, {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      authorId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id'
+    await queryInterface.createTable(
+      options,
+      {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER,
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        authorId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            model: "UserData",
+            key: "id",
+          },
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
+        },
+        collectionId: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          references: {
+            model: "Collections",
+            key: "id",
+          },
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
+        },
+        caption: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        palsOnly: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        },
       },
-      contentId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      noteType: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      caption: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-      }
-    }, options);
+      options
+    );
   },
   down: async (queryInterface, Sequelize) => {
 

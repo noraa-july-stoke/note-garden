@@ -1,6 +1,6 @@
 'use strict';
 
-const { User, PhotoAlbum } = require('../models');
+const { UserData, PhotoAlbum } = require('../models');
 
 let options = {};
 options.schema = process.env.SCHEMA; // define your schema in options object
@@ -8,7 +8,7 @@ options.tableName = 'Photos';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const users = await User.findAll({ include: PhotoAlbum });
+    const users = await UserData.findAll({ include: PhotoAlbum });
     const notes = [];
     for (const user of users) {
       const albums = user.PhotoAlbums;
