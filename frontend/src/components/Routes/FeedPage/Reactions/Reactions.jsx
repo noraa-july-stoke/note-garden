@@ -80,7 +80,6 @@ const ReactionCounter = ({ postId }) => {
     }));
   };
 
-
   // CREATES A LIST OF COMPONENTs CONTAINING ALL OF
   // THE REACTION EMOJS WITH THEIR RESPECTIVE COUNT
   const reactionCounters = Object.entries(reactionEmoji).map(

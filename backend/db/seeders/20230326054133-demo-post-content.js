@@ -31,6 +31,13 @@ module.exports = {
             ? "www.nasa.gov"
             : "https://storage.googleapis.com/note_garden_bucket/banana-milk.jpeg",
       });
+      postData.push({
+        authorId: post.authorId,
+        postId: post.id,
+        contentType: "TEXT",
+        content: "<p><strong>HELLO TEXT</strong></p>",
+      });
+
     });
 
     await queryInterface.bulkInsert(options, postData, {});

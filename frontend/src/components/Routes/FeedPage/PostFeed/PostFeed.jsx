@@ -31,8 +31,6 @@ const PostFeed = () => {
   useEffect(() => {
     dispatch(thunkLoadPalPosts());
   }, [dispatch]);
-
-  console.log(posts);
   return (
     <div className="feed-container">
       {postList.map((post) => {

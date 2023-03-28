@@ -57,8 +57,6 @@ module.exports = (sequelize, DataTypes) => {
         // Adds content and author information to post object
         post = post.toJSON();
         objectPosts[post.id] = post;
-              console.log(post);
-
       }
 
       // Returns objectPosts dictionary

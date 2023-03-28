@@ -60,7 +60,6 @@ router.get("/all-posts", requireAuth, async (req, res) => {
   const user = await UserData.findByPk(userId);
   const pals = await user.getPals();
   pals.userId = userId;
-  // console.log(pals);
   const palPosts = await Post.findAllByAuthors(pals);
   res.status(200).json(palPosts);
 });

@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 // COMPONENTS
+import PolyPost from "../../../Cards/PolyPost"
 import CommentFeed from "./CommentFeed/CommentFeed";
 import MiniProfile from "../MiniProfile";
 import Reactions from "../Reactions/Reactions";
@@ -32,7 +33,7 @@ import "./SinglePost.css";
 
 //============================================================
 const SinglePost = ({ post }) => {
-  console.log(post);
+  // console.log(post);
 
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
@@ -50,10 +51,14 @@ const SinglePost = ({ post }) => {
   //===========================
   //         JSX BODY
   //===========================
-
   return (
     <div className="post-container">
-      <MiniProfile user={post.UserDatum} postDate={post.createdAt} postMode={true} />
+      <MiniProfile
+        user={post.UserDatum}
+        postDate={post.createdAt}
+        postMode={true}
+      />
+      <PolyPost contents={post.PostContents} />
       {/* <div className="post-body-container">
         {post.content.url && (
           <img
