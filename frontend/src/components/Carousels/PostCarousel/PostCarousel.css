@@ -1,0 +1,29 @@
+.carousel {
+  position: relative;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  color: black;
+  cursor: pointer;
+}
+
+.carousel-button-left {
+  left: 5px;
+}
+
+.carousel-button-right {
+  right: 5px;
+}
+
+.carousel-items {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+}

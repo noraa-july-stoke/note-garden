@@ -1,37 +1,30 @@
-//======================================================================
-//  ______       _         ______            _
-//  | ___ \     | |        | ___ \          | |
-//  | |_/ /___  | | _   _  | |_/ /___   ___ | |_
-//  |  __// _ \ | || | | | |  __// _ \ / __|| __|
-//  | |  | (_) || || |_| | | |  | (_) |\__ \| |_
-//  \_|   \___/ |_| \__, | \_|   \___/ |___/ \__|
-//                   __/ |
-//                  |___/
+//=======================================================================
+// HEADER HERE
 //======================================================================
 //       __  __  ___        __  __          ___         __  __  _______
 //  |\ |/  \|  \|__    |\/|/  \|  \|  ||   |__    ||\/||__)/  \|__)|/__`
 //  | \|\__/|__/|___   |  |\__/|__/\__/|___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
-import React from "react";
+import React, { useState } from "react";
 //=======================================================================
 //       __  __             ___     ___         __  __  _______
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 // COMPONENTS
-import PostCarousel from '../../Carousels/PostCarousel'
 // HELPERS
-import { organizePost } from "../../ComponentHelpers/post-fixup";
 // CONTEXTS
 // STYLES
-import "./PolyPost.css";
-const PolyPost = ({ contents }) => {
+import "./PostCarousel.css";
+//=======================================================================
+
+const PostCarousel = ({ components }) => {
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //       STATE VARIABLE ASSIGNMENTS
   //==========================================
-  const postHTML = organizePost(contents);
-  // console.log(postHTML);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const activeComponent = components[currentIndex];
   //====================================
   //              HOOKS
   //====================================
@@ -39,18 +32,36 @@ const PolyPost = ({ contents }) => {
   //      HELPERS/EVENT LISTENERS
   //         ADDITIONAL LOGIC
   //====================================
+  const goToPrevSlide = () => {
+    const index = currentIndex === 0 ? components.length - 1 : currentIndex - 1;
+    setCurrentIndex(index);
+  };
+
+  const goToNextSlide = () => {
+    const index = currentIndex === components.length - 1 ? 0 : currentIndex + 1;
+    setCurrentIndex(index);
+  };
+
   //====================================
   //            JSX BODY
   //====================================
 
   return (
-    <div className="poly-post-container">
-      <div className="post-text-container">{postHTML.TEXT}</div>
-      {postHTML.IMAGE && <PostCarousel components={postHTML.IMAGE} />}
-      {postHTML.AUDIO && <PostCarousel components={postHTML.AUDIO} />}
-      {postHTML.LINK && <PostCarousel components={postHTML.LINK} />}
+    <div className="carousel">
+      <div className="carousel-items">
+        <button
+          className="carousel-button carousel-button-left"
+          onClick={goToPrevSlide}>
+          <i className="fa fa-chevron-left"></i>
+        </button>
+        <div className="carousel-item active">{activeComponent}</div>
+        <button
+          className="carousel-button carousel-button-right"
+          onClick={goToNextSlide}>
+          <i className="fa fa-chevron-right"></i>
+        </button>
+      </div>
     </div>
   );
 };
-
-export default PolyPost;
+export default PostCarousel;

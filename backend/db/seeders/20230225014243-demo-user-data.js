@@ -55,6 +55,8 @@ module.exports = {
       "vader@galactic-empire.gov": {
         firstName: "Darth",
         lastName: "Vader",
+        avatarUrl:
+          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/darth-vader-obi-wan-kenobi-1648722348.jpg?crop=0.361xw:0.431xh;0.316xw,0.134xh&resize=640:*",
       },
     };
 

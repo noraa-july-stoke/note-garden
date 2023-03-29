@@ -15,8 +15,9 @@
     border: 1px solid black;
     padding: 5px;
     border-radius: 10px;
+
 }
 
 .reaction-button{
-  font-size: 2em;
+  font-size: 1em;
 }

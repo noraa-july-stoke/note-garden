@@ -4,13 +4,18 @@
   align-items: center;
   border: none;
   width: 40%;
+
 }
 
-.post-text {
+.profile-post-body-container{
+  background-color: whitesmoke;
+}
+
+/* .post-text {
   display: flex;
   justify-content: center;
   width: 100%;
-}
+} */
 
 /* .avatar-pic-container {
   width: 50px;

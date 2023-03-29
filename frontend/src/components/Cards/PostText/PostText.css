@@ -1,5 +1,4 @@
 .text-note-card-container {
-    border: 2px solid white;
     margin-top: 2em;
     margin-bottom: 2em;
     border-radius: 1em;
@@ -7,7 +6,10 @@
 }
 
 .text-note-body {
-    height: 250px;
+    padding: 1em;
+    height: fit-content;
+    min-height: 2em;
+    max-height: 300px;
     overflow-y: scroll;
     cursor: pointer;
 }

@@ -9,6 +9,7 @@ const collaborationsRouter = require("./collaborations");
 const postsRouter = require("./posts");
 const reactionsRouter = require("./reactions");
 const commentsRouter = require("./comments");
+const microservicesRouter = require('./microservices');
 const { restoreUser } = require("../../utils/auth.js");
 
 // Connect restoreUser middleware to the API router
@@ -25,7 +26,7 @@ router.use("/collaborations", collaborationsRouter);
 router.use("/posts", postsRouter);
 router.use("/reactions", reactionsRouter);
 router.use("/comments", commentsRouter);
-
+router.use("/microservices", microservicesRouter);
 router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });
 });

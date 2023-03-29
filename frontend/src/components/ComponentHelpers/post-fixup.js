@@ -1,6 +1,6 @@
 import React from "react";
-
-import TextPost from "../Cards/TextPostContent/PostText";
+import PostText from "../Cards/PostText";
+import PostLink from "../Cards/PostLink";
 
 export const organizePost = (contents) => {
   // Create an object to store the contents grouped by contentType
@@ -27,7 +27,7 @@ export const organizePost = (contents) => {
     postHTML[contentType] = contentArr.map((content, index) => {
       switch (contentType) {
         case "TEXT":
-          return <TextPost key={`text-${content.id}`} TEXT={content.content} />;
+          return (<PostText key={`text-${content.id}`} TEXT={content.content} />);
         case "IMAGE":
           return (
             <img
@@ -46,6 +46,8 @@ export const organizePost = (contents) => {
               src={content.content}
             />
           );
+        case "LINK":
+          return (<PostLink key={`link-${content.id}`} url={content.content} />);
         // Add more cases for additional content types as needed
         default:
           return "";
@@ -53,6 +55,5 @@ export const organizePost = (contents) => {
     });
   });
 
-  // Return the HTML for the post contents
   return postHTML;
 };
