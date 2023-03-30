@@ -77,7 +77,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await UserData.destroy({ where: {} });
+    await queryInterface.bulkDelete(options, null, {});
     return;
   },
 };

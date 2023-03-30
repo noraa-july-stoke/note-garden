@@ -4,11 +4,11 @@
   align-items: center;
   border: none;
   width: 40%;
-
+  border-radius: 10px;
 }
 
 .profile-post-body-container{
-  background-color: whitesmoke;
+  background-color: white;
 }
 
 /* .post-text {

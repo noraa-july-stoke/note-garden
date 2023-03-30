@@ -11,11 +11,10 @@ const SidePanel = ({ panelItems, children}) => {
   return (
     <div className="side-panel-container" style={{ backgroundColor: bgColor }}>
       {children}
-      <div className="tabs-container">SIDE PANEL</div>
-      <div>
-        {panelItems?.map((item) => {
-          return <PanelTab item={item} />;
-        })}
+      <div className="tabs-container">
+          {panelItems?.map((item) => {
+            return <PanelTab item={item} />;
+          })}
       </div>
     </div>
   );

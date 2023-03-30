@@ -1,29 +1,3 @@
-.notebooks-component-container {
-    background-color: rgba(255, 255, 255, .5);
-    display: flex;
-    flex-flow: row nowrap;
-    border: 2px solid black;
-}
-
-.notebooks-component-wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    height: 100%;
-}
-
-.notebook-header {
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    border: 4px solid white;
-    padding: 1em;
-    border-radius: 1em;
-    margin-top: 1em;
-    color: white;
-
-}
-
 .side-panel-container {
     min-height: 100%;
     display: flex;
@@ -46,7 +20,7 @@
     width: fit-content;
     height: 90%;
     padding: 1em;
-    gap: .5em;
+    gap: 1em;
 }
 
 .tabs-container::-webkit-scrollbar {
@@ -67,7 +41,7 @@
     background: transparent;
 }
 
-.notebook-tab {
+.panel-tab {
     height: 50px;
     cursor: pointer;
     display: flex;
@@ -78,64 +52,10 @@
     padding-left: 1.5em;
     padding-right: 1.5em;
     color: white;
-    border: 3px solid white;
     border-radius: 1em;
-}
-
-.notebook-tab:hover {
-    border: 3px solid white;
-
-}
-
-.text-notebook-display {
-    overflow-y: scroll;
-    height: 90%;
-    width: 60%;
-    align-self: flex-start;
-    border-left: 6px solid white;
-    border-right: 6px solid white;
-    border-bottom: 6px solid white;
-    margin-left: 150px;
-    padding-bottom: 1em;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-.text-notebook-display::-webkit-scrollbar {
-    width: 0.5em;
-}
-
-.text-notebook-display::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 10rem;
-    border: 1px solid #fff;
-}
-
-.text-notebook-display::-webkit-scrollbar-track-piece:start {
-    background: transparent;
-}
-
-.text-notebook-display::-webkit-scrollbar-track-piece:end {
-    background: transparent;
-}
-
-
-.add-notebook-container {
-    width: 100%;
-}
-
-.add-notebook-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: inherit;
-    color: white;
-    text-align: center;
-    border-radius: 2em;
-    height: 2.2em;
     border: 2px solid white;
 }
 
-.notebook-header-title {
-    cursor: pointer;
+.panel-tab:hover {
+    border: 2px solid slategray;
 }

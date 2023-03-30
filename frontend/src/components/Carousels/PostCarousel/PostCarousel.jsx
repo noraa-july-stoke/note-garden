@@ -17,7 +17,6 @@ import React, { useState } from "react";
 // STYLES
 import "./PostCarousel.css";
 //=======================================================================
-
 const PostCarousel = ({ components }) => {
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
@@ -49,17 +48,21 @@ const PostCarousel = ({ components }) => {
   return (
     <div className="carousel">
       <div className="carousel-items">
-        <button
-          className="carousel-button carousel-button-left"
-          onClick={goToPrevSlide}>
-          <i className="fa fa-chevron-left"></i>
-        </button>
+        {components.length > 1 && (
+          <button
+            className="carousel-button carousel-button-left"
+            onClick={goToPrevSlide}>
+            <i className="fa fa-chevron-left"></i>
+          </button>
+        )}
         <div className="carousel-item active">{activeComponent}</div>
-        <button
-          className="carousel-button carousel-button-right"
-          onClick={goToNextSlide}>
-          <i className="fa fa-chevron-right"></i>
-        </button>
+        {components.length > 1 && (
+          <button
+            className="carousel-button carousel-button-right"
+            onClick={goToNextSlide}>
+            <i className="fa fa-chevron-right"></i>
+          </button>
+        )}
       </div>
     </div>
   );

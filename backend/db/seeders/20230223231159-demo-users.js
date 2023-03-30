@@ -59,10 +59,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    const usersToDelete = await User.findAll();
-    const userIds = usersToDelete.map((user) => user.id);
-    await User.destroy({ where: { id: userIds } });
-    // await queryInterface.dropTable(options, options);
+    await queryInterface.bulkDelete(options, null, {});
     return;
   },
 };

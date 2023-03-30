@@ -1,2 +1,2 @@
-import SideBar from "./SideBar";
-export default SideBar;
+import SidePanel from "./SidePanel";
+export default SidePanel;
