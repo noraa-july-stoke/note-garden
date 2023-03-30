@@ -18,10 +18,13 @@ import { useDispatch, useSelector } from "react-redux";
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
-import { thunkLoadPalPosts } from "../../../../store/posts";
+// COMPONENTS
+import NewPost from "../../../Forms/PostForms/NewPost";
 import SinglePost from "../SinglePost/SinglePost";
+// Thunks
+import { thunkLoadPalPosts } from "../../../../store/posts";
+// STYLES
 import "./PostFeed.css";
-
 //=======================================================================
 const PostFeed = () => {
   const dispatch = useDispatch();
@@ -31,8 +34,10 @@ const PostFeed = () => {
   useEffect(() => {
     dispatch(thunkLoadPalPosts());
   }, [dispatch]);
+
   return (
     <div className="feed-container">
+      <NewPost />
       {postList.map((post) => {
         return <SinglePost key={post.id} post={post} />;
       })}

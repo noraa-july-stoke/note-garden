@@ -15,24 +15,24 @@ const isProduction = environment === 'production';
 const app = express();
 
 const multerMid = multer({
-    storage: multer.memoryStorage(),
-    limits: {
-        fileSize: 5 * 1024 * 1024,
-    },
-    fileFilter: function (req, file, callback) {
-        if (!file.mimetype.startsWith('image/')) {
-            return callback(new Error('Only image files are allowed!'));
-        }
-        callback(null, true);
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+  fileFilter: function (req, file, callback) {
+    if (!file.mimetype.startsWith("image/")) {
+      return callback(new Error("Only image files are allowed!"));
     }
-})
+    callback(null, true);
+  },
+}); // change 'files' to match the name of your input field, and set a maximum limit if you wish
 
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
-app.use(multerMid.single('file'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(multerMid.fields([{ name: "files", maxCount: 10 }]));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 // Security Middleware
 if (!isProduction) {

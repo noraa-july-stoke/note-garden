@@ -31,7 +31,6 @@ const PolyPost = ({ contents }) => {
   //       STATE VARIABLE ASSIGNMENTS
   //==========================================
   const postHTML = organizePost(contents);
-  // console.log(postHTML);
   //====================================
   //              HOOKS
   //====================================

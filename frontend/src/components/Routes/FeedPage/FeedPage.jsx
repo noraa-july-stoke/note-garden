@@ -19,12 +19,12 @@ import { useNavigate } from "react-router";
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
+// COMPONENTS
 import SidePanel from "../../Navigation/SidePanel/SidePanel";
 import MiniProfile from "./MiniProfile";
 import PostFeed from "./PostFeed";
+// STYLES
 import "./FeedPage.css";
-import PanelTab from "../../Navigation/SidePanel/PanelTab";
-
 //=======================================================================
 
 const FeedPage = ({ bgColor, sessionUser }) => {

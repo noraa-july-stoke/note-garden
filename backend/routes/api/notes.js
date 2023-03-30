@@ -11,7 +11,7 @@
 const { Storage } = require("@google-cloud/storage");
 const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Notebook, ImageNote, TextNote } = require("../../db/models");
+const { User, Notebook, Photo, TextNote } = require("../../db/models");
 
 const router = express.Router();
 const uploadImage = require("../../utils/upload-helpers");
@@ -99,24 +99,30 @@ router.get("/image-note/:noteId(\\d+)", async (req, res) => {
 //============================================================
 //============================================================
 router.post("/image-note", async (req, res, next) => {
-  let imageUrl;
   try {
-    const newFile = req.file;
-    imageUrl = await uploadImage(newFile);
+    const newFiles = req.files.files;
+    const imageUrls = await uploadImage(newFiles);
+    console.log(imageUrls);
+
+    const newPhotos = imageUrls.map((url) => {
+      return Photo.build({
+        authorId: req.user.id,
+        name: req.body.name,
+        isPublic: false,
+        url,
+        caption: "a photo"
+      });
+    });
+    const responseNotes = await Promise.all(
+      newPhotos.map((photo) => photo.save())
+    );
+
+    res.status(201).json(responseNotes);
   } catch (error) {
     next(error);
   }
-  const newImageNote = ImageNote.build({
-    authorId: req.user.id,
-    name: req.body.name,
-    url: imageUrl,
-  });
-
-  console.log(newImageNote);
-  const responseNote = await newImageNote.save();
-
-  res.status(201).json(responseNote);
 });
+
 
 
 //============================================================

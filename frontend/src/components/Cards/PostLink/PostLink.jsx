@@ -34,7 +34,7 @@ const PostLink = ({ url }) => {
   //====================================
   useEffect(() => {
     fetchData();
-  }, [url]);
+  }, []);
   //====================================
   //      HELPERS/EVENT LISTENERS
   //         ADDITIONAL LOGIC
@@ -49,9 +49,7 @@ const PostLink = ({ url }) => {
   const image = og?.image || alt?.image;
   const description = og?.description || alt?.description;
   const siteUrl = og?.url || alt?.url;
-
-  console.log(image);
-
+  console.log(linkData.og?.image);
   //====================================
   //            JSX BODY
   //====================================

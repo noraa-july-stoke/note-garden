@@ -1,11 +1,17 @@
 //=======================================================================
-// HEADER HERE
+//   _   _                 ______            _
+//  | \ | |                | ___ \          | |
+//  |  \| |  ___ __      __| |_/ /___   ___ | |_
+//  | . ` | / _ \\ \ /\ / /|  __// _ \ / __|| __|
+//  | |\  ||  __/ \ V  V / | |  | (_) |\__ \| |_
+//  \_| \_/ \___|  \_/\_/  \_|   \___/ |___/ \__|
 //======================================================================
 //       __  __  ___        __  __          ___         __  __  _______
 //  |\ |/  \|  \|__    |\/|/  \|  \|  ||   |__    ||\/||__)/  \|__)|/__`
 //  | \|\__/|__/|___   |  |\__/|__/\__/|___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 import React from 'react';
+import { useSelector } from 'react-redux';
 //=======================================================================
 //       __  __             ___     ___         __  __  _______
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
@@ -15,9 +21,11 @@ import React from 'react';
 // HELPERS
 // CONTEXTS
 // STYLES
-import './Component.css'
+import './NewPost.css'
 //=======================================================================
-const Component = () => {
+const NewPost = () => {
+  const user = useSelector (state => state.session?.user);
+  console.log(user);
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //       STATE VARIABLE ASSIGNMENTS
@@ -33,9 +41,7 @@ const Component = () => {
   //            JSX BODY
   //====================================
   return (
-    <div>Hello from Component!</div>
+    <div>Hello from NewPost!</div>
   )
 }
-export default Component
-import Component from './Component';
-export default Component;
+export default NewPost
