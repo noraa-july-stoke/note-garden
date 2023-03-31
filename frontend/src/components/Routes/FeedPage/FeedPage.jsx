@@ -50,7 +50,6 @@ const FeedPage = ({ bgColor, sessionUser }) => {
       className: "panel-tab expandable",
     },
   ];
-
   return (
     <div className="display-body" style={{ backgroundColor: bgColor }}>
       <SidePanel panelItems={panelItems}>

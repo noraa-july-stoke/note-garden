@@ -128,23 +128,26 @@ module.exports = (sequelize, DataTypes) => {
       });
       return reactions;
     }
-
-    async createDefaultCollection() {
+    static async createDefaultCollection(userId) {
       const Collection = sequelize.models.Collection;
       const collection = await Collection.create({
         name: "Misc",
-        authorId: this.id,
+        authorId: userId,
+        isPublic: false
       });
-      await this.update({ defaultCollection: collection.id });
+      const user = await this.findByPk(userId);
+      await user.update({ defaultCollection: collection.id });
     }
 
-    async createDefaultAlbum() {
+    static async createDefaultAlbum(userId) {
       const PhotoAlbum = sequelize.models.PhotoAlbum;
       const album = await PhotoAlbum.create({
         name: "Default Photo Album",
-        authorId: this.id,
+        authorId: userId,
+        isPublic: false
       });
-      await this.update({ defaultAlbumId: album.id });
+      const user = await this.findByPk(userId);
+      await user.update({ defaultAlbum: album.id });
     }
 
     static associate(models) {

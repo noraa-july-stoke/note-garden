@@ -1,0 +1,28 @@
+.group {
+  position: relative;
+  margin: 1em 0;
+  select {
+    color: white;
+    font-size: 1rem;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid gray;
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid #8b8b8b;
+    }
+  }
+  .select-label {
+    color:white;
+    padding-left: 1em;
+  }
+  .form-select {
+    padding-left: 1em;
+    border: 2px solid white;
+    overflow: hidden;
+    border-radius: 2em;
+  }
+}

@@ -33,8 +33,8 @@ router.post("/", validateSignup, async (req, res) => {
     firstName,
     lastName
   });
-  // await user.createDefaultNotebook();
-  // await user.createDefaultAlbum();
+  await UserData.createDefaultCollection(user.id);
+  await UserData.createDefaultAlbum(user.id);
   setTokenCookie(res, user);
   return res.json({
     user

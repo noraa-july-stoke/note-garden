@@ -8,10 +8,10 @@ const UPLOAD_IMAGE_PENDING = 'UPLOAD_IMAGE_PENDING';
 const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 const UPLOAD_IMAGE_FAILED = 'UPLOAD_IMAGE_FAILED';
 
-export const uploadImage = (formData) => async (dispatch) => {
+export const uploadPostImages = (formData) => async (dispatch) => {
     try {
         dispatch({ type: UPLOAD_IMAGE_PENDING });
-        const response = await csrfFetch('/api/notes/image-note', {
+        const response = await csrfFetch('/api/photos/post-photos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'multipart/form-data'

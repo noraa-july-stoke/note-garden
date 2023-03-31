@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { uploadImage } from '../../store/uploads';
+import { uploadPostImages } from '../../store/uploads';
 
 const ImageUploadForm = () => {
     const [images, setImages] = useState([]);
@@ -10,6 +10,7 @@ const ImageUploadForm = () => {
         const files = Array.from(e.target.files);
         setImages(files);
     };
+
     const handleNameChange = (e) => {
         setName(e.target.value);
     };

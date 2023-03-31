@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 // COMPONENTS
-import NewPost from "../../../Forms/PostForms/NewPost";
+import NewPost from "../../../NewPost";
 import SinglePost from "../SinglePost/SinglePost";
 // Thunks
 import { thunkLoadPalPosts } from "../../../../store/posts";

@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 // COMPONENTS
+import PostForm from '../Forms/PostForm';
 // HELPERS
 // CONTEXTS
 // STYLES
@@ -25,7 +26,6 @@ import './NewPost.css'
 //=======================================================================
 const NewPost = () => {
   const user = useSelector (state => state.session?.user);
-  console.log(user);
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //       STATE VARIABLE ASSIGNMENTS
@@ -40,8 +40,11 @@ const NewPost = () => {
   //====================================
   //            JSX BODY
   //====================================
+
   return (
-    <div>Hello from NewPost!</div>
-  )
+    <div className="new-post-container">
+      <PostForm />
+    </div>
+  );
 }
 export default NewPost

@@ -37,16 +37,6 @@ module.exports = (sequelize, DataTypes) => {
           {
             model: sequelize.models.PostContent,
           },
-          // {
-          //   model: sequelize.models.TextNote,
-          //   attributes: ["note"],
-          //   required: false,
-          // },
-          // {
-          //   model: sequelize.models.Photo,
-          //   attributes: ["url"],
-          //   required: false,
-          // },
         ],
         order: [["createdAt", "DESC"]],
       });

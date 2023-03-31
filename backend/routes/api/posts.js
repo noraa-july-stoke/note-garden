@@ -20,8 +20,7 @@ const express = require("express");
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 const { requireAuth } = require("../../utils/auth");
-const { User, UserData, Post } = require("../../db/models");
-
+const { User, UserData, Post, PostContent } = require("../../db/models");
 //=======================================================================
 const router = express.Router();
 //=======================================================================
@@ -80,11 +79,55 @@ router.get("/all-posts", requireAuth, async (req, res) => {
 
 router.post("/", requireAuth, async (req, res) => {
   const { content } = req.body;
+  const { textContent, linkContent, photoContent } = content;
   const userId = req.user.id;
-  const post = await Post.create({ content, authorId: userId });
-  res.json({ post });
-});
+  const post = await Post.create({
+    palsOnly: content.visibility,
+    caption: content.caption,
+    authorId: userId,
+  });
+  if (textContent) {
+    await PostContent.create({
+      authorId: userId,
+      postId: post.id,
+      contentType: "TEXT",
+      content: textContent,
+    });
+  }
+if (linkContent) {
+  const linkContentObject = {
+    authorId: userId,
+    postId: post.id,
+    contentType: "LINK",
+    content: linkContent,
+  };
+  await PostContent.create(linkContentObject);
+}
 
+if (photoContent && photoContent.length) {
+  const photoContentObjects = photoContent.map((photo) => ({
+    authorId: userId,
+    postId: post.id,
+    contentType: "IMAGE",
+    content: photo.url,
+  }));
+  await PostContent.bulkCreate(photoContentObjects);
+}
+  const resPost = await Post.findOne({
+    where: {
+      id: post.id,
+    },
+    include: [
+      {
+        model: UserData,
+      },
+      {
+        model: PostContent,
+      },
+    ],
+  });
+  res.json(resPost);
+});
 
 //=======================================================================
 //   ▄▄▄▄▄▄▄▄▄▄▄  ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄

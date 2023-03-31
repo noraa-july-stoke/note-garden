@@ -27,7 +27,7 @@ import { Redirect } from "react-router-dom";
 //=======================================================================
 // COMPONENTS
 import ErrorModal from "../../../ErrorModal";
-import FormInput from "../../FormInput";
+import FormInput from "../../Inputs/FormInput";
 // HELPERS
 import * as sessionActions from "../../../../store/session";
 // CONTEXTS

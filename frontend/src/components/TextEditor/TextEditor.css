@@ -4,12 +4,10 @@
     width: 100%;
     border-radius: 1em;
     height: fit-content;
-    margin-top: 2em;
-    margin-bottom: 2em;
 }
 
 .text-editor-controls {
-    height: 5em;
+    height: 3em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

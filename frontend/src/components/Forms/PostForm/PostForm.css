@@ -1,0 +1,48 @@
+.post-form-container {
+    margin: 2em;
+}
+
+.new-post-title{
+    padding:1em;
+}
+
+
+.post-buttons-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: center;
+}
+
+.post-button {
+    color: white;
+    border: 3px solid white;
+    padding: 1em;
+    border-radius: 2em;
+    font-weight:bolder;
+}
+
+.link-container{
+    display: flex;
+    padding-left: 1em;
+    align-items: center;
+}
+
+
+.remove-post-link-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.2em;
+    width: 1.2em;
+    color: white;
+    font-weight: bolder;
+    border: 1px solid white;
+    border-radius: 50%;
+    margin-left: 2em;
+}
+
+.previews-container{
+    display: flex;
+    flex-direction: row;
+}

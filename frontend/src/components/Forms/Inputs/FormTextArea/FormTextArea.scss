@@ -1,0 +1,29 @@
+
+.group {
+  margin: 10px 0;
+
+  .form-textarea {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    line-height: 1.2;
+    border: 2px solid white;
+    border-radius: 4px;
+    background-color: white;
+    color: white;
+
+    &:focus {
+      outline: none;
+      border-color: white;
+    }
+  }
+
+  .form-textarea-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+  }
+}

@@ -1,0 +1,16 @@
+.add-post-links-container{
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top: 1em;
+}
+
+.add-links-button{
+    color: white;
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}

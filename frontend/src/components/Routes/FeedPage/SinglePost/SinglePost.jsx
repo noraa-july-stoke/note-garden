@@ -58,6 +58,7 @@ const SinglePost = ({ post }) => {
           postDate={post.createdAt}
           postMode={true}
         />
+        {post.caption}
         <PolyPost contents={post.PostContents} />
       </div>
       <Reactions />

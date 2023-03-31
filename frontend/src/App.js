@@ -37,6 +37,7 @@ import Navigation from "./components/Navigation";
 import HomePage from "./components/Routes/HomePage";
 import FeedPage from "./components/Routes/FeedPage";
 import ImageUploadForm from "./components/Forms/ImageUploadForm";
+import NewPost from "./components/NewPost";
 import "./index.css";
 import { ColorContext } from "./context/ColorContext";
 
@@ -94,7 +95,7 @@ function App() {
               )
             }
           />
-          <Route path="test" element={isLoaded && <ImageUploadForm />} />
+          <Route path="test" element={isLoaded && <NewPost />} />
         </Route>
       </Routes>
     </div>
