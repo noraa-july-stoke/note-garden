@@ -64,11 +64,10 @@ router.get("/user-comments", requireAuth, async (req, res) => {
 // Get all comments associated with posts in the user's feed from database
 //==================================================================================
 router.get("/feed-comments", requireAuth, async (req, res) => {
-  const comments = await Comment.getCommentsByPostIds(ids);
+  const { ids } = req.query;
+  const comments = await Comment.getCommentsByPostIds(ids.split(','));
   res.status(200).json(comments);
 });
-
-
 
 //==================================================================================
 //   ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄
@@ -85,24 +84,23 @@ router.get("/feed-comments", requireAuth, async (req, res) => {
 //==================================================================================
 
 //==================================================================================
-// Create a new comment
+// Create a new comment at the top level of a post;
 //==================================================================================
-
 router.post("/", requireAuth, async (req, res) => {
-  const { content } = req.body;
-  const userId = req.user.id;
+  res.json({ message: "hello" });
+  // const { content } = req.body;
+  // const userId = req.user.id;
+  // try {
+  //   const newComment = await Comment.create({
+  //     content,
+  //     userId,
+  //   });
 
-  try {
-    const newComment = await Comment.create({
-      content,
-      userId,
-    });
-
-    res.json(newComment);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server Error" });
-  }
+  //   res.json(newComment);
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(500).json({ message: "Server Error" });
+  // }
 });
 
 //==================================================================================

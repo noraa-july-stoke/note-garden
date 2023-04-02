@@ -23,6 +23,7 @@ import NewPost from "../../../NewPost";
 import SinglePost from "../SinglePost/SinglePost";
 // Thunks
 import { thunkLoadPalPosts } from "../../../../store/posts";
+import { thunkLoadPostComments } from "../../../../store/comments";
 // STYLES
 import "./PostFeed.css";
 //=======================================================================
@@ -30,10 +31,17 @@ const PostFeed = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts?.palPosts);
   const postList = Object.values(posts);
+  const postIds = Object.keys(posts);
 
   useEffect(() => {
     dispatch(thunkLoadPalPosts());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (postIds?.length) {
+      dispatch(thunkLoadPostComments(postIds));
+    }
+  }, [dispatch, postIds]);
 
   return (
     <div className="feed-container">

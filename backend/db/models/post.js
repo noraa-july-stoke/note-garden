@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
           {
             model: sequelize.models.PostContent,
           },
+          {
+            model: sequelize.models.Reaction,
+          },
         ],
         order: [["createdAt", "DESC"]],
       });
@@ -77,6 +80,14 @@ module.exports = (sequelize, DataTypes) => {
 
       Post.belongsTo(models.Collection, {
         foreignKey: "collectionId",
+      });
+
+      Post.hasMany(models.Reaction, {
+        foreignKey: "postId",
+      });
+
+      Post.hasMany(models.Comment, {
+        foreignKey: "postId",
       });
     }
   }

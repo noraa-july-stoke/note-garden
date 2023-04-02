@@ -67,7 +67,6 @@ const PostForm = () => {
   //====================================
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formFields);
     await dispatch(
       thunkAddPost({ ...formFields, linkContent: link, photoContent: photos })
     );

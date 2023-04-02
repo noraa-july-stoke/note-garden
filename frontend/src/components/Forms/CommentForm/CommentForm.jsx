@@ -1,44 +1,64 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import './CommentForm.css'
+import FormTextArea from "../Inputs/FormTextArea";
+import "./CommentForm.css";
 
-const CommentForm = ({ onComment }) => {
+const CommentForm = ({ postId }) => {
+  const user = useSelector((state) => state.session.user);
+  const post = useSelector((state) => state.posts?.palPosts[postId]);
+  const postComments = useSelector((state) => state.comments?.postComments[postId]);
   const [newComment, setNewComment] = useState("");
+  // console.log(post)
 
-  const handleNewCommentChange = (event) => {
-    setNewComment(event.target.value);
-  };
+  // const handleNewCommentChange = (event) => {
+  //   setNewComment(event.target.value);
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!newComment) return;
     const newCommentObj = {
-      id: uuidv4(),
-      text: newComment,
+      userId: user?.id,
+      authorId: post?.authorId,
+      parentCommentId: null,
+      content: newComment,
     };
-    onComment(newCommentObj);
+    console.log(newCommentObj);
+    // onComment(newCommentObj);
     setNewComment("");
   };
 
-  const handleKeyDown = (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        handleSubmit(event);
-      }
-  };
+  // const handleKeyDown = (event) => {
+  //   if (event.key === "Enter") {
+  //     event.preventDefault();
+  //     handleSubmit(event);
+  //   }
+  // };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Add Comment:
-        <textarea
-          type="text-area"
-          value={newComment}
-          onChange={handleNewCommentChange}
-          onKeyDown={handleKeyDown}
-        />
-      </label>
-      <button className="submit-comment-button" type="submit">Submit</button>
+    // <form onSubmit={handleSubmit}>
+    //   <FormTextArea
+    //     label="Add Comment:"
+    //     value={newComment}
+    //     onChange={handleNewCommentChange}
+    //     onKeyDown={handleKeyDown}
+    //   />
+    //   <button className="submit-comment-button" type="submit">
+    //     Submit
+    //   </button>
+    // </form>
+    <form>
+      <FormTextArea
+        label="Add Comment:"
+        // value={newComment}
+        // onChange={handleNewCommentChange}
+        // onKeyDown={handleKeyDown}
+      />
+      <button className="submit-comment-button" type="submit">
+        Submit
+      </button>
     </form>
   );
 };

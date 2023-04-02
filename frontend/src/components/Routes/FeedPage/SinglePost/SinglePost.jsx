@@ -30,15 +30,12 @@ import MiniProfile from "../MiniProfile";
 import Reactions from "../Reactions/Reactions";
 // STYLESHEET
 import "./SinglePost.css";
-
 //============================================================
 const SinglePost = ({ post }) => {
-
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //    STATE VARIABLE ASSIGNMENTS
   //==========================================
-  // const { authorInfo } = post.UserDatum;
   //===========================
   //          HOOKS
   //===========================
@@ -50,6 +47,7 @@ const SinglePost = ({ post }) => {
   //===========================
   //         JSX BODY
   //===========================
+
   return (
     <div className="post-container">
       <div className="profile-post-body-container">
@@ -61,11 +59,10 @@ const SinglePost = ({ post }) => {
         {post.caption}
         <PolyPost contents={post.PostContents} />
       </div>
-      <Reactions />
-      <CommentFeed post={post} />
+      <Reactions postReactions={post.Reactions} />
+      <CommentFeed postId={post.id} />
     </div>
-  );
-};
+)};
 
 export default SinglePost;
 

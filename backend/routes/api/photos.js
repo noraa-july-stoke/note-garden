@@ -66,7 +66,6 @@ router.post("/post-photos", async (req, res, next) => {
   try {
     const newFiles = req.files.files;
     const imageUrls = await uploadImage(newFiles);
-    console.log(imageUrls);
 
     const newPhotos = imageUrls.map((url) => {
       return Photo.build({

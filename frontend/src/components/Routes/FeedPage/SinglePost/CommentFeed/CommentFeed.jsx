@@ -15,8 +15,9 @@
 //       __  __  ___        __  __          ___         __  __  _______
 //  |\ |/  \|  \|__    |\/|/  \|  \|  ||   |__    ||\/||__)/  \|__)|/__`
 //  | \|\__/|__/|___   |  |\__/|__/\__/|___|___   ||  ||   \__/|  \|.__/
-//=======================================================================
-import React, { useState } from "react";
+//======================================================================
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 //=======================================================================
 //       __  __             ___     ___         __  __  _______
@@ -28,33 +29,36 @@ import Comment from "./Comment";
 import "./CommentFeed.css";
 
 //========================================================================
-const CommentFeed = () => {
+const CommentFeed = ({ postId }) => {
+    const comments = useSelector(
+      (state) => state.comments?.postComments[postId]
+    );
+
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //    STATE VARIABLE ASSIGNMENTS
   //==========================================
-  const [comments, setComments] = useState([]);
-
   //===========================
   //          HOOKS
   //===========================
+  // useEffect(() => {
+
+  // }, [postId])
 
   //===========================
   // HELPERS/EVENT LISTENERS
   //===========================
-  const handleAddComment = (newCommentObj) => {
-    setComments([...comments, newCommentObj]);
-  };
 
   //===========================
   //         JSX BODY
   //===========================
   return (
     <div className="comments-container">
-      {comments?.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+      {comments?.map((comment) =>
+      (
+        <Comment key={comment.id} comment={comment} comments={comments} />
       ))}
-      <CommentForm onComment={handleAddComment} />
+      <CommentForm postId={postId} />
     </div>
   );
 };

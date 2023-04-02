@@ -37,33 +37,33 @@ const AddLinksInput = ({ linkState, bgColor }) => {
     if (link.trim()) {
       linkState.setLink(link);
       setLink("");
-      linkState.toggleAddLink()
+      linkState.toggleAddLink();
     }
   };
 
-    const handleKeyPress = (e) => {
-      if (e.key === "Enter") {
-        handleSubmit(e);
-      }
-    };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
   //====================================
   //            JSX BODY
   //====================================
-return (
-  <div className="add-post-links-container">
-    <FormInput
-      style={{ backgroundColor: bgColor }}
-      label="URL: "
-      type="text"
-      value={link}
-      onChange={(e) => setLink(e.target.value)}
-      onKeyPress={handleKeyPress}
-      required
-    />
-    <button className="add-links-button" type="button" onClick={handleSubmit}>
-      Add
-    </button>
-  </div>
-);
+  return (
+    <div className="add-post-links-container">
+      <FormInput
+        style={{ backgroundColor: bgColor }}
+        label="URL: "
+        type="text"
+        value={link}
+        onChange={(e) => setLink(e.target.value)}
+        onKeyPress={handleKeyPress}
+        required
+      />
+      <button className="add-links-button" type="button" onClick={handleSubmit}>
+        Add
+      </button>
+    </div>
+  );
 };
 export default AddLinksInput;

@@ -15,20 +15,43 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
-    static async deleteCommentById(id) {
-      const rowsDeleted = await this.destroy({
+    static async getCommentsByPostIds(ids) {
+      const comments = await this.findAll({
         where: {
-          id: id,
+          "postId": ids, // specify table alias for postId column
+          "parentCommentId": null, // filter only top-level comments
         },
+        include: [
+          {
+            model: sequelize.models.UserData,
+          },
+          {
+            model: sequelize.models.Reaction,
+          },
+        ],
+        order: [["createdAt", "ASC"]],
       });
-      return rowsDeleted;
+
+      // Transform the comments into an object with the post ID as the key
+      const commentsByPost = {};
+      for (const comment of comments) {
+        const postId = comment.postId;
+        if (!commentsByPost[postId]) {
+          commentsByPost[postId] = [];
+        }
+        commentsByPost[postId].push(comment);
+      }
+
+      return commentsByPost;
     }
 
     static associate(models) {
       Comment.belongsTo(models.UserData, { foreignKey: "authorId" });
       Comment.belongsTo(models.UserData, { foreignKey: "userId" });
       Comment.belongsTo(models.Post, { foreignKey: "postId" });
-      Comment.belongsTo(models.Comment, { foreignKey: "parentCommentId" });
+      Comment.belongsTo(models.Comment, {
+        foreignKey: "parentCommentId",
+      });
       Comment.hasMany(models.Comment, { foreignKey: "parentCommentId" });
       Comment.hasMany(models.Reaction, { foreignKey: "commentId" });
     }
@@ -41,6 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
+      //the user who left the comment(s)
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -51,6 +75,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      // the user who owns the post the comments were left on.
       authorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -61,6 +86,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      // the user who owns the post the comments were left on.
       postId: {
         type: DataTypes.INTEGER,
         allowNull: false,

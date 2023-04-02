@@ -34,7 +34,7 @@ const PostLink = ({ url }) => {
   //====================================
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [url]);
   //====================================
   //      HELPERS/EVENT LISTENERS
   //         ADDITIONAL LOGIC
@@ -49,20 +49,19 @@ const PostLink = ({ url }) => {
   const image = og?.image || alt?.image;
   const description = og?.description || alt?.description;
   const siteUrl = og?.url || alt?.url;
-  console.log(linkData.og?.image);
 
   //====================================
   //            JSX BODY
   //====================================
   return (
     <div className="post-link-container">
-      <a href={siteUrl} target="_blank" rel="noopener noreferrer">
-        {image && <img src={image} alt={title} />}
-        <div className="post-link__info">
-          <h2 style={{ color: "black" }}>{title}</h2>
-          {description && <p>{description.slice(0,300)}...</p>}
-        </div>
-      </a>
+        <a href={siteUrl} target="_blank" rel="noopener noreferrer">
+          {image && <img src={image} alt={title} />}
+          <div className="post-link__info">
+            <h2 style={{ color: "black" }}>{title}</h2>
+            {description && <p>{description.slice(0, 300)}...</p>}
+          </div>
+        </a>
     </div>
   );
 };
