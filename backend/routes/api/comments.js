@@ -87,20 +87,18 @@ router.get("/feed-comments", requireAuth, async (req, res) => {
 // Create a new comment at the top level of a post;
 //==================================================================================
 router.post("/", requireAuth, async (req, res) => {
-  res.json({ message: "hello" });
-  // const { content } = req.body;
-  // const userId = req.user.id;
-  // try {
-  //   const newComment = await Comment.create({
-  //     content,
-  //     userId,
-  //   });
+  const comment = req.body;
+  // res.json(newComment);
+  try {
+    const newComment = await Comment.create(
+      comment
+    );
 
-  //   res.json(newComment);
-  // } catch (err) {
-  //   console.error(err);
-  //   res.status(500).json({ message: "Server Error" });
-  // }
+    res.json(newComment);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
 //==================================================================================

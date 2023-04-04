@@ -30,14 +30,13 @@ import "./CommentFeed.css";
 
 //========================================================================
 const CommentFeed = ({ postId }) => {
-    const comments = useSelector(
-      (state) => state.comments?.postComments[postId]
-    );
-
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //    STATE VARIABLE ASSIGNMENTS
   //==========================================
+
+  const comments = useSelector((state) => state.comments?.postComments[postId]);
+
   //===========================
   //          HOOKS
   //===========================
@@ -54,8 +53,7 @@ const CommentFeed = ({ postId }) => {
   //===========================
   return (
     <div className="comments-container">
-      {comments?.map((comment) =>
-      (
+      {comments?.map((comment) => (
         <Comment key={comment.id} comment={comment} comments={comments} />
       ))}
       <CommentForm postId={postId} />
