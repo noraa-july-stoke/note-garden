@@ -66,7 +66,7 @@ module.exports = {
           userId: userId,
           authorId: authorId,
           postId: postId,
-          content: 'This is a comment.'
+          content: `This is a comment left by ${user.username} `
         };
 
         return comment;

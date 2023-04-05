@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     static async getCommentsByPostIds(ids) {
       const comments = await this.findAll({
         where: {
-          "postId": ids, // specify table alias for postId column
-          "parentCommentId": null, // filter only top-level comments
+          postId: ids,
+          parentCommentId: null,
         },
         include: [
           {
@@ -32,15 +32,20 @@ module.exports = (sequelize, DataTypes) => {
         order: [["createdAt", "ASC"]],
       });
 
-      // Transform the comments into an object with the post ID as the key
       const commentsByPost = {};
-      for (const comment of comments) {
+
+      // Loop through the IDs and initialize the commentsByPost object with empty arrays
+      ids.forEach((id) => {
+        commentsByPost[id] = [];
+      });
+
+      // Loop through the comments and push them into the appropriate array in commentsByPost
+      comments.forEach((comment) => {
         const postId = comment.postId;
-        if (!commentsByPost[postId]) {
-          commentsByPost[postId] = [];
+        if (commentsByPost[postId]) {
+          commentsByPost[postId].push(comment);
         }
-        commentsByPost[postId].push(comment);
-      }
+      });
 
       return commentsByPost;
     }

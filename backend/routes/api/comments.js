@@ -120,18 +120,16 @@ router.post("/", requireAuth, async (req, res) => {
 //==================================================================================
 
 router.put("/:id(\\d+)", requireAuth, async (req, res) => {
-  const commentId = req.params.id;
-  const { content } = req.body;
-
+  const comment = req.body;
   try {
-    const comment = await Comment.findByPk(commentId);
-    if (!comment) {
+    const prevComment = await Comment.findByPk(comment.id);
+    if (!prevComment) {
       return res.status(404).json({ message: "Comment not found" });
     }
-    await comment.update({
-      content,
-    });
-    return res.json(comment.toJSON());
+    const newComment= await prevComment.update(
+      comment,
+    );
+    return res.json(newComment.toJSON());
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal server error" });
@@ -158,16 +156,13 @@ router.put("/:id(\\d+)", requireAuth, async (req, res) => {
 
 router.delete("/:id(\\d+)", requireAuth, async (req, res) => {
   const commentId = req.params.id;
-
   try {
     const comment = await Comment.findByPk(commentId);
-
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
     }
-
     await comment.destroy();
-    res.status(204).end();
+    res.status(204).send();
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server Error" });
