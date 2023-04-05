@@ -18,25 +18,21 @@
 //======================================================================
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 //=======================================================================
 //       __  __             ___     ___         __  __  _______
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 import CommentForm from "../../../../Forms/CommentForm/CommentForm";
-import Comment from "./Comment";
+import Comment from "../../../../Cards/Comment/Comment";
 import "./CommentFeed.css";
-
 //========================================================================
 const CommentFeed = ({ postId }) => {
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //    STATE VARIABLE ASSIGNMENTS
-  //==========================================
-
+  //=========================================
   const comments = useSelector((state) => state.comments?.postComments[postId]);
-
   //===========================
   //          HOOKS
   //===========================
@@ -54,7 +50,7 @@ const CommentFeed = ({ postId }) => {
   return (
     <div className="comments-container">
       {comments?.map((comment) => (
-        <Comment key={comment.id} comment={comment} comments={comments} />
+        <Comment key={comment.id} comment={comment} />
       ))}
       <CommentForm postId={postId} />
     </div>

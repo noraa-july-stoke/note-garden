@@ -10,8 +10,8 @@
 //  |\ |/  \|  \|__    |\/|/  \|  \|  ||   |__    ||\/||__)/  \|__)|/__`
 //  | \|\__/|__/|___   |  |\__/|__/\__/|___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import {useSelector} from "react-redux";
 //=======================================================================
 //       __  __             ___     ___         __  __  _______
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
@@ -19,110 +19,94 @@ import React, { useState } from "react";
 //=======================================================================
 //STYLESHEET
 import "./Reactions.css";
-
+import ReactionCounter from "./ReactionCounter";
 //=======================================================================
+const Reactions = ({ postReactions }) => {
+  const user = useSelector((state) => state.session?.user);
 
-const reactionEmoji = {
-  thumbsUp: "👍",
-  thumbsDown: "👎",
-  heart: "❤️",
-  brokenHeart: "💔",
-  funny: "🤣",
-  sad: "😢",
-  lemon: "🍋",
-  chicken: "🐔",
-  duck: "🦆",
-  roastChicken: "🍗",
-  baby: "👶🏻",
-  eagle: "🦅",
-  lungs: "🫁",
-};
-
-const ReactionCounter = ({ postId }) => {
-  //==========================================
-  //   VARIABLE DECLARATIONS, INITIALIZERS,
-  //    STATE VARIABLE ASSIGNMENTS
-  //==========================================
-  const [reactions, setReactions] = useState({
-    thumbsUp: 0,
-    thumbsDown: 0,
-    heart: 0,
-    brokenHeart: 0,
-    funny: 0,
-    sad: 0,
-    lemon: 0,
-    chicken: 0,
-    duck: 0,
-    roastChicken: 0,
-    baby: 0,
-    eagle: 0,
-    lungs: 0,
-  });
-  const [showReactions, setShowReactions] = useState(false);
-  const totalReactions = Object.values(reactions).reduce((a, b) => a + b, 0);
-
-  //===========================
-  //       HOOK CALLS
-  //===========================
-
-  //===========================
-  // HELPERS/EVENT LISTENERS
-  //===========================
-
-  const toggleReactions = () => {
-    setShowReactions(!showReactions);
+  const initialReactions = {
+    "👍": postReactions.filter((reaction) => reaction.reactionType === "👍")
+      .length,
+    "👎": postReactions.filter((reaction) => reaction.reactionType === "👎")
+      .length,
+    "❤️": postReactions.filter((reaction) => reaction.reactionType === "❤️")
+      .length,
+    "💔": postReactions.filter((reaction) => reaction.reactionType === "💔")
+      .length,
+    "🤣": postReactions.filter((reaction) => reaction.reactionType === "🤣")
+      .length,
+    "😢": postReactions.filter((reaction) => reaction.reactionType === "😢")
+      .length,
+    "🍋": postReactions.filter((reaction) => reaction.reactionType === "🍋")
+      .length,
+    "🐔": postReactions.filter((reaction) => reaction.reactionType === "🐔")
+      .length,
+    "🦆": postReactions.filter((reaction) => reaction.reactionType === "🦆")
+      .length,
+    "🍗": postReactions.filter((reaction) => reaction.reactionType === "🍗")
+      .length,
+    "👶🏻": postReactions.filter((reaction) => reaction.reactionType === "👶🏻")
+      .length,
+    "🦅": postReactions.filter((reaction) => reaction.reactionType === "🦅")
+      .length,
+    "🫁": postReactions.filter((reaction) => reaction.reactionType === "🫁")
+      .length,
   };
 
-  const handleReactionClick = (name) => {
-    setReactions((prevReactions) => ({
-      ...prevReactions,
-      [name]: prevReactions[name] + 1,
-    }));
-  };
+  const [reactions, setReactions] = useState(initialReactions);
+    const [userReactions, setUserReactions] = useState(() => {
+      return postReactions
+        .filter((reaction) => reaction.userId === user?.id)
+        .map((reaction) => reaction.reactionType);
+    });
 
-  // CREATES A LIST OF COMPONENTs CONTAINING ALL OF
-  // THE REACTION EMOJS WITH THEIR RESPECTIVE COUNT
-  const reactionCounters = Object.entries(reactionEmoji).map(
-    ([name, emoji]) => {
-      return (
-        <div key={name} className="reaction-button-container">
-          <button
-            type="button"
-            className="reaction-button"
-            onClick={() => {
-              handleReactionClick(name);
-            }}>
-            {emoji} {reactions[name]}
-          </button>
-        </div>
-      );
-    }
-  );
+    const handleReaction = async (reactionType) => {
+      if (userReactions.includes(reactionType)) {
+        // Remove user's reaction
+        setUserReactions((prevReactions) =>
+          prevReactions.filter((r) => r !== reactionType)
+        );
+        setReactions((prevReactions) => {
+          return {
+            ...prevReactions,
+            [reactionType]: prevReactions[reactionType] - 1,
+          };
+        });
+      } else {
+        // Add user's reaction
+        setUserReactions((prevReactions) => [...prevReactions, reactionType]);
+        setReactions((prevReactions) => {
+          return {
+            ...prevReactions,
+            [reactionType]: prevReactions[reactionType] + 1,
+          };
+        });
+      }
+    };
 
-  //===========================
-  //         JSX BODY
-  //===========================
-  // <span className="total-reaction">{totalReactions} Reactions</span>;
-
-  // DISPLAYS A BUTTON AT FIRST, BUT THEN CHANGES
-  // TO DISPLAY REACTION OPTIONS TO USER
+    const totalReactionsCount = Object.values(reactions).reduce(
+      (total, reactionCount) => total + reactionCount,
+      0
+    );
 
   return (
-    <>
-      {!showReactions && (
-        <button
-          type="button"
-          className="add-reaction-button"
-          onClick={toggleReactions}>
-          <div className="count-button-text">
-            <span>Add Reactions</span>
-          </div>
-        </button>
-      )}
-      {showReactions && (
-        <div className="post-reactions-container">{reactionCounters}</div>
-      )}
-    </>
+    <div className="reactions">
+      <div className="reaction-counter">
+        {Object.keys(reactions)
+          .filter((reactionType) => reactions[reactionType] > 0)
+          .map((reactionType) => (
+            <ReactionCounter
+              key={reactionType}
+              reactionType={reactionType}
+              count={reactions[reactionType]}
+              isReacted={userReactions.includes(reactionType)}
+              onClick={() => handleReaction(reactionType)}
+            />
+          ))}
+        {totalReactionsCount}
+      </div>
+    </div>
   );
 };
-export default ReactionCounter;
+
+export default Reactions;

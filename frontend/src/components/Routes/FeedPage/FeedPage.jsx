@@ -36,6 +36,7 @@ const FeedPage = ({ bgColor, sessionUser }) => {
         navigate("/dashboard");
       },
       className: "panel-tab",
+      id: "dsh"
     },
     {
       name: "Create Post",
@@ -43,11 +44,13 @@ const FeedPage = ({ bgColor, sessionUser }) => {
         navigate("/new-post");
       },
       className: "panel-tab",
+      id: "cte"
     },
     {
       name: "Filters",
       onClick: () => null,
       className: "panel-tab expandable",
+      id:  "flt"
     },
   ];
   return (

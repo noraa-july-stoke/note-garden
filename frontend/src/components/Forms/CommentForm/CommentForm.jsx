@@ -26,20 +26,21 @@ import { useSelector, useDispatch } from "react-redux";
 import FormTextArea from "../Inputs/FormTextArea";
 // HELPERS
 // THUNKS
-import { thunkAddComment } from "../../../store/comments";
+import { thunkAddComment, thunkEditComment } from "../../../store/comments";
 // CONTEXTS
 // STYLES
 import "./CommentForm.css";
 //=======================================================================
 
-const CommentForm = ({ postId }) => {
+const CommentForm = ({ postId, comment, setIsEditing }) => {
   //==========================================
   //   VARIABLE DECLARATIONS, INITIALIZERS,
   //       STATE VARIABLE ASSIGNMENTS
   //==========================================
   const user = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts?.palPosts[postId]);
-  const [comment, setComment] = useState("");
+  const [newComment, setNewComment] = useState(comment?.content || "");
+
   const dispatch = useDispatch();
   //====================================
   //              HOOKS
@@ -49,21 +50,29 @@ const CommentForm = ({ postId }) => {
   //         ADDITIONAL LOGIC
   //====================================
   const handleNewCommentChange = (event) => {
-    setComment(event.target.value);
+    setNewComment(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!comment) return;
-    const newComment = {
-      userId: user?.id,
-      authorId: post?.authorId,
-      postId,
-      parentCommentId: null,
-      content: comment,
-    };
-    setComment("");
-    dispatch(thunkAddComment(newComment));
+    if (comment) {
+      const editedComment = {
+        ...comment, content: newComment
+      };
+      dispatch(thunkEditComment(editedComment));
+      setIsEditing(false);
+      setNewComment("");
+    } else {
+      const newCommentObj = {
+        userId: user?.id,
+        authorId: post?.authorId,
+        postId,
+        parentCommentId: null,
+        content: newComment,
+      };
+      dispatch(thunkAddComment(newCommentObj));
+    }
+    setNewComment("");
   };
 
   const handleKeyDown = (event) => {
@@ -77,18 +86,26 @@ const CommentForm = ({ postId }) => {
   //            JSX BODY
   //====================================
 
-
   return (
     <form onSubmit={handleSubmit}>
       <FormTextArea
         label="Add Comment:"
-        value={comment}
+        value={newComment}
         onChange={handleNewCommentChange}
         onKeyDown={handleKeyDown}
       />
-      <button className="submit-comment-button" type="submits">
+      <button className="submit-comment-button" type="submit">
         Submit
       </button>
+      {comment && <button
+        className="cancel-comment-button"
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          setIsEditing(false);
+        }}>
+        cancel
+      </button>}
     </form>
   );
 };

@@ -13,7 +13,7 @@ const SidePanel = ({ panelItems, children}) => {
       {children}
       <div className="tabs-container">
           {panelItems?.map((item) => {
-            return <PanelTab item={item} />;
+            return <PanelTab key={item.id} item={item} />;
           })}
       </div>
     </div>
