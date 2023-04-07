@@ -25,38 +25,38 @@ const Reactions = ({ postReactions }) => {
   const user = useSelector((state) => state.session?.user);
 
   const initialReactions = {
-    "👍": postReactions.filter((reaction) => reaction.reactionType === "👍")
+    "👍": postReactions?.filter((reaction) => reaction.reactionType === "👍")
       .length,
-    "👎": postReactions.filter((reaction) => reaction.reactionType === "👎")
+    "👎": postReactions?.filter((reaction) => reaction.reactionType === "👎")
       .length,
-    "❤️": postReactions.filter((reaction) => reaction.reactionType === "❤️")
+    "❤️": postReactions?.filter((reaction) => reaction.reactionType === "❤️")
       .length,
-    "💔": postReactions.filter((reaction) => reaction.reactionType === "💔")
+    "💔": postReactions?.filter((reaction) => reaction.reactionType === "💔")
       .length,
-    "🤣": postReactions.filter((reaction) => reaction.reactionType === "🤣")
+    "🤣": postReactions?.filter((reaction) => reaction.reactionType === "🤣")
       .length,
-    "😢": postReactions.filter((reaction) => reaction.reactionType === "😢")
+    "😢": postReactions?.filter((reaction) => reaction.reactionType === "😢")
       .length,
-    "🍋": postReactions.filter((reaction) => reaction.reactionType === "🍋")
+    "🍋": postReactions?.filter((reaction) => reaction.reactionType === "🍋")
       .length,
-    "🐔": postReactions.filter((reaction) => reaction.reactionType === "🐔")
+    "🐔": postReactions?.filter((reaction) => reaction.reactionType === "🐔")
       .length,
-    "🦆": postReactions.filter((reaction) => reaction.reactionType === "🦆")
+    "🦆": postReactions?.filter((reaction) => reaction.reactionType === "🦆")
       .length,
-    "🍗": postReactions.filter((reaction) => reaction.reactionType === "🍗")
+    "🍗": postReactions?.filter((reaction) => reaction.reactionType === "🍗")
       .length,
-    "👶🏻": postReactions.filter((reaction) => reaction.reactionType === "👶🏻")
+    "👶🏻": postReactions?.filter((reaction) => reaction.reactionType === "👶🏻")
       .length,
-    "🦅": postReactions.filter((reaction) => reaction.reactionType === "🦅")
+    "🦅": postReactions?.filter((reaction) => reaction.reactionType === "🦅")
       .length,
-    "🫁": postReactions.filter((reaction) => reaction.reactionType === "🫁")
+    "🫁": postReactions?.filter((reaction) => reaction.reactionType === "🫁")
       .length,
   };
 
   const [reactions, setReactions] = useState(initialReactions);
     const [userReactions, setUserReactions] = useState(() => {
       return postReactions
-        .filter((reaction) => reaction.userId === user?.id)
+        ?.filter((reaction) => reaction.userId === user?.id)
         .map((reaction) => reaction.reactionType);
     });
 
@@ -64,7 +64,7 @@ const Reactions = ({ postReactions }) => {
       if (userReactions.includes(reactionType)) {
         // Remove user's reaction
         setUserReactions((prevReactions) =>
-          prevReactions.filter((r) => r !== reactionType)
+          prevReactions?.filter((r) => r !== reactionType)
         );
         setReactions((prevReactions) => {
           return {
@@ -93,7 +93,7 @@ const Reactions = ({ postReactions }) => {
     <div className="reactions">
       <div className="reaction-counter">
         {Object.keys(reactions)
-          .filter((reactionType) => reactions[reactionType] > 0)
+          ?.filter((reactionType) => reactions[reactionType] > 0)
           .map((reactionType) => (
             <ReactionCounter
               key={reactionType}
