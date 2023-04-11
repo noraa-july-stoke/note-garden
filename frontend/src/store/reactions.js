@@ -1,6 +1,6 @@
 import { csrfFetch } from "./csrf";
 
-const LOAD_REACTIONS = "LOAD_REACTIONS";
+const LOAD_POST_REACTIONS = "LOAD_REACTIONS";
 const ADD_REACTION = "ADD_REACTION";
 const DELETE_REACTION = "DELETE_REACTION";
 const ERROR = "ERROR";
@@ -10,8 +10,8 @@ const actionError = (errors) => ({
   errors,
 });
 
-const actionLoadReactions = (reactions) => ({
-  type: LOAD_REACTIONS,
+const actionLoadPostReactions = (reactions) => ({
+  type: LOAD_POST_REACTIONS,
   reactions,
 });
 
@@ -25,13 +25,13 @@ const actionDeleteReaction = (reaction) => ({
   reaction,
 });
 
-export const thunkLoadReactions = () => async (dispatch) => {
+export const thunkLoadPostReactions = (ids) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/reactions`, {
+    const response = await csrfFetch(`/api/reactions?ids=${ids.join(",")}`, {
       method: "GET",
     });
     const data = await response.json();
-    dispatch(actionLoadReactions(data));
+    dispatch(actionLoadPostReactions(data));
   } catch (error) {
     console.error("Error loading reactions", error);
     dispatch(actionError(error));
@@ -65,11 +65,12 @@ export const thunkDeleteReaction = (reaction) => async (dispatch) => {
   }
 };
 
-const initialState = { userReactions: {} };
+const initialState = { userReactions: {}, postReactions: {} };
+
 const reactionsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOAD_REACTIONS: {
-      return { userReactions: { ...action.reactions } };
+    case LOAD_POST_REACTIONS: {
+      return { ...state, postReactions: { ...action.reactions } };
     }
     case ADD_REACTION: {
       const newReaction = {

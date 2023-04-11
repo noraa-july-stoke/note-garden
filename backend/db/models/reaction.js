@@ -15,6 +15,25 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Reaction extends Model {
+
+    static async getReactionsByPostIds(postIds) {
+      const reactions = await this.findAll({
+        where: {
+          postId: postIds,
+          commentId: null,
+        },
+      });
+      const reactionsByPostId = {};
+      reactions.forEach((reaction) => {
+        const { postId } = reaction;
+        if (!reactionsByPostId[postId]) {
+          reactionsByPostId[postId] = [];
+        }
+        reactionsByPostId[postId].push(reaction.toJSON());
+      });
+      return reactionsByPostId;
+    }
+
     static async deleteReactionById(id) {
       const rowsDeleted = await this.destroy({
         where: {
@@ -23,9 +42,13 @@ module.exports = (sequelize, DataTypes) => {
       });
       return rowsDeleted;
     }
+
     static associate(models) {
       Reaction.belongsTo(models.UserData, { foreignKey: "userId", as: "user" });
-      Reaction.belongsTo(models.UserData, { foreignKey: "authorId", as: "author" });
+      Reaction.belongsTo(models.UserData, {
+        foreignKey: "authorId",
+        as: "author",
+      });
       Reaction.belongsTo(models.Post, { foreignKey: "postId", as: "post" });
       Reaction.belongsTo(models.Comment, {
         foreignKey: "commentId",

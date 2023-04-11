@@ -11,7 +11,7 @@
 //  | \|\__/|__/|___   |  |\__/|__/\__/|___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 import React, { useState, useEffect } from "react";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 //=======================================================================
 //       __  __             ___     ___         __  __  _______
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
@@ -53,41 +53,41 @@ const Reactions = ({ postReactions }) => {
       .length,
   };
 
+  const initialUserReactions = postReactions
+    ?.filter((reaction) => reaction.userId === user?.id)
+    .map((reaction) => reaction.reactionType);
+
   const [reactions, setReactions] = useState(initialReactions);
-    const [userReactions, setUserReactions] = useState(() => {
-      return postReactions
-        ?.filter((reaction) => reaction.userId === user?.id)
-        .map((reaction) => reaction.reactionType);
-    });
+  const [userReactions, setUserReactions] = useState(initialUserReactions);
 
-    const handleReaction = async (reactionType) => {
-      if (userReactions.includes(reactionType)) {
-        // Remove user's reaction
-        setUserReactions((prevReactions) =>
-          prevReactions?.filter((r) => r !== reactionType)
-        );
-        setReactions((prevReactions) => {
-          return {
-            ...prevReactions,
-            [reactionType]: prevReactions[reactionType] - 1,
-          };
-        });
-      } else {
-        // Add user's reaction
-        setUserReactions((prevReactions) => [...prevReactions, reactionType]);
-        setReactions((prevReactions) => {
-          return {
-            ...prevReactions,
-            [reactionType]: prevReactions[reactionType] + 1,
-          };
-        });
-      }
-    };
+  const handleReaction = async (reactionType) => {
+    if (userReactions.includes(reactionType)) {
+      // Remove user's reaction
+      setUserReactions((prevReactions) =>
+        prevReactions?.filter((r) => r !== reactionType)
+      );
+      setReactions((prevReactions) => {
+        return {
+          ...prevReactions,
+          [reactionType]: prevReactions[reactionType] - 1,
+        };
+      });
+    } else {
+      // Add user's reaction
+      setUserReactions((prevReactions) => [...prevReactions, reactionType]);
+      setReactions((prevReactions) => {
+        return {
+          ...prevReactions,
+          [reactionType]: prevReactions[reactionType] + 1,
+        };
+      });
+    }
+  };
 
-    const totalReactionsCount = Object.values(reactions).reduce(
-      (total, reactionCount) => total + reactionCount,
-      0
-    );
+  const totalReactionsCount = Object.values(reactions).reduce(
+    (total, reactionCount) => total + reactionCount,
+    0
+  );
 
   return (
     <div className="reactions">
