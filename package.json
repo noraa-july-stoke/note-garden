@@ -1,7 +1,5 @@
 {
   "name": "notegarden",
-  "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start:backend": "cd backend && npm start",
@@ -23,5 +21,7 @@
   "bugs": {
     "url": "https://github.com/noraa-july-stoke/note-garden/issues"
   },
-  "homepage": "https://github.com/noraa-july-stoke/note-garden#readme"
+  "homepage": "https://github.com/noraa-july-stoke/note-garden#readme",
+  "dependencies": {
+  }
 }

@@ -14,6 +14,8 @@ const isProduction = environment === 'production';
 
 const app = express();
 
+// multer middleware it will populate req.files with the files
+// payload and req.body with the text fields
 const multerMid = multer({
   storage: multer.memoryStorage(),
   limits: {
@@ -25,11 +27,17 @@ const multerMid = multer({
     }
     callback(null, true);
   },
-}); // change 'files' to match the name of your input field, and set a maximum limit if you wish
+});
 
+// morgan middleware for logging
 app.use(morgan('dev'));
+// cookie parser middleware for parsing cookies
+// it will populate req.cookies with an object keyed by the cookie names
 app.use(cookieParser());
+// express middleware for parsing json it will populate req.body with the json payload
 app.use(express.json());
+// express middleware for parsing urlencoded data it will
+//  populate req.body with the urlencoded payload
 app.use(multerMid.fields([{ name: "files", maxCount: 10 }]));
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -58,6 +66,8 @@ app.use(
     })
 );
 
+
+// routes middleware it works by matching the request url with the routes
 app.use(routes);
 
 app.use((_req, _res, next) => {
