@@ -7,20 +7,25 @@ import { csrfFetch } from './csrf';
 const UPLOAD_IMAGE_PENDING = 'UPLOAD_IMAGE_PENDING';
 const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 const UPLOAD_IMAGE_FAILED = 'UPLOAD_IMAGE_FAILED';
+const UPLOAD_MP3_PENDING = 'UPLOAD_MP3_PENDING';
+const UPLOAD_MP3_SUCCESS = 'UPLOAD_MP3_SUCCESS';
+const UPLOAD_MP3_FAILED = 'UPLOAD_MP3_FAILED';
+const ADD_PREVIEWS = 'ADD_PREVIEWS';
 
 export const uploadPostImages = (formData) => async (dispatch) => {
     try {
         dispatch({ type: UPLOAD_IMAGE_PENDING });
-        const response = await csrfFetch('/api/photos/post-photos', {
+        const {data} = await csrfFetch('/api/photos/post-photos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'multipart/form-data'
             },
-            body: formData
+            data: formData
         });
-        const data = await response.json();
+
         dispatch({ type: UPLOAD_IMAGE_SUCCESS, payload: data });
-        return data;
+        dispatch({ type: ADD_PREVIEWS, payload: data });
+        return data
     } catch (error) {
         dispatch({ type: UPLOAD_IMAGE_FAILED, payload: error });
     }
@@ -46,7 +51,8 @@ export const uploadMp3 = (formData) => async (dispatch) => {
 
 const initialState = {
     status: 'idle',
-    error: null
+    error: null,
+    previews: []
 };
 
 const uploadReducer = (state = initialState, action) => {
@@ -68,6 +74,12 @@ const uploadReducer = (state = initialState, action) => {
                 status: 'failed',
                 error: action.payload
             };
+
+        case ADD_PREVIEWS:
+            return {
+                ...state,
+                previews: [...action.payload]
+            }
         default:
             return state;
     }

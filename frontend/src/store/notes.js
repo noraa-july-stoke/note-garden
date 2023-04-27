@@ -47,10 +47,9 @@ const actionError = (errors) => ({
 //Loads user's imagenotes and textnotes
 export const thunkLoadNotes = () => async (dispatch) => {
     try {
-        const response = await csrfFetch("/api/notes", {
+        const { data } = await csrfFetch("/api/notes", {
             method: "GET"
         });
-        const data = await response.json();
         dispatch(actionLoadNotes(data));
     } catch (error) {
         console.error("Error loading notes:", error);
@@ -62,10 +61,9 @@ export const thunkLoadNotes = () => async (dispatch) => {
 //Loads Notes from a single notebook.
 export const thunkLoadNotebookNotes = (notebookId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/notebooks/text-notebooks/${notebookId}`, {
+        const { data } = await csrfFetch(`/api/notebooks/text-notebooks/${notebookId}`, {
             method: "GET"
         });
-        const data = await response.json();
         dispatch(actionLoadNotebookNotes(data));
     } catch (error) {
         console.error("Error loading notebook notes:", error);
@@ -76,10 +74,9 @@ export const thunkLoadNotebookNotes = (notebookId) => async (dispatch) => {
 // Loads a single note.
 export const thunkLoadSingleNote = (noteId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/notes/text-notes/${noteId}`, {
+        const { data } = await csrfFetch(`/api/notes/text-notes/${noteId}`, {
             method: "GET"
         });
-        const data = await response.json();
         dispatch(actionLoadSingleNote(data));
     } catch (error) {
         console.error("Error loading single note:", error);
@@ -90,11 +87,10 @@ export const thunkLoadSingleNote = (noteId) => async (dispatch) => {
 //creates a new note and sends it to DB & updates state with new note
 export const thunkCreateTextNote = (note) => async (dispatch) => {
     try {
-        const response = await csrfFetch("/api/notes/text-note", {
+        const { data } = await csrfFetch("/api/notes/text-note", {
             method: "POST",
             body: JSON.stringify({ note })
         });
-        const data = await response.json();
         dispatch(actionCreateTextNote(note))
     } catch (error) {
         console.error("Error saving new note:", error);
@@ -105,11 +101,10 @@ export const thunkCreateTextNote = (note) => async (dispatch) => {
 
 export const thunkEditTextNote = (note) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/notes/text-note/${note.id}`, {
+        const { data } = await csrfFetch(`/api/notes/text-note/${note.id}`, {
             method: "PUT",
             body: JSON.stringify({ note })
         });
-        const data = await response.json();
         dispatch(actionEditTextNote(data))
     } catch (error) {
         console.error("Error editing note:", error);
@@ -119,7 +114,7 @@ export const thunkEditTextNote = (note) => async (dispatch) => {
 
 export const thunkDeleteTextNote = (noteId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/notes/text-note/${noteId}`, {
+        const { data } = await csrfFetch(`/api/notes/text-note/${noteId}`, {
             method: "DELETE"
         });
         dispatch(actionDeleteTextNote(noteId))

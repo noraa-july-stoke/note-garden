@@ -70,6 +70,7 @@ const CommentForm = ({ postId, comment, setIsEditing }) => {
         parentCommentId: null,
         content: newComment,
       };
+      console.log("thunk comment disaptch", newCommentObj)
       dispatch(thunkAddComment(newCommentObj));
     }
     setNewComment("");

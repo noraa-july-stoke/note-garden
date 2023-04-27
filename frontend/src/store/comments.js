@@ -68,13 +68,12 @@ export const thunkLoadUserComments = () => async (dispatch) => {
 //==================================================================================
 export const thunkLoadPostComments = (ids) => async (dispatch) => {
   try {
-    const response = await csrfFetch(
+    const { data } = await csrfFetch(
       `/api/comments/feed-comments?ids=${ids.join(",")}`,
       {
         method: "GET",
       }
     );
-    const data = await response.json();
     dispatch(actionLoadPostComments(data));
   } catch (error) {
     console.error("Error loading comments", error);
@@ -86,12 +85,12 @@ export const thunkLoadPostComments = (ids) => async (dispatch) => {
 // Add a new comment to a post
 //==================================================================================
 export const thunkAddComment = (comment) => async (dispatch) => {
+  console.log(comment, "THUNK COMMENT!!!!!!")
   try {
-    const response = await csrfFetch(`/api/comments`, {
+    const { data } = await csrfFetch(`/api/comments`, {
       method: "POST",
-      body: JSON.stringify(comment),
+      data: JSON.stringify(comment),
     });
-    const data = await response.json();
     dispatch(actionAddComment(data));
   } catch (error) {
     console.error("Error adding comment", error);
@@ -99,32 +98,29 @@ export const thunkAddComment = (comment) => async (dispatch) => {
   }
 };
 
+
 //==================================================================================
-// Add a new comment to a post
+// Add a new comment to a post !@#$ Might have pass-through issue
 //==================================================================================
 export const thunkEditComment = (comment) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/comments/${comment.id}`, {
+    const { data } = await csrfFetch(`/api/comments/${comment.id}`, {
       method: "PUT",
-      body: JSON.stringify(comment),
+      data: JSON.stringify(comment),
     });
-    const data = await response.json();
-    // console.log(data)
     dispatch(actionEditComment(comment));
   } catch (error) {
     console.error("Error adding comment", error);
     dispatch(actionError(error));
   }
-  // console.log("fuck")
 };
 
 export const thunkDeleteComment = (comment) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/comments/${comment.id}`, {
+    const { data } = await csrfFetch(`/api/comments/${comment.id}`, {
       method: "DELETE",
     });
     // const data = await response.json();
-    console.log(response);
     dispatch(actionDeleteComment(comment));
   } catch (error) {
     console.error("Error deleting comment", error);
@@ -150,7 +146,6 @@ const commentsReducer = (state = initialState, action) => {
       const postComments = { ...state.postComments };
       const comment = action.comment;
       postComments[comment.postId] = [...postComments[comment.postId], comment];
-      console.log(postComments[comment.postId]);
       return {
         ...state,
         postComments,

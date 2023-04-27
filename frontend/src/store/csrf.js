@@ -22,14 +22,14 @@ export async function csrfFetch(url, options = {}) {
     options.headers["XSRF-Token"] = Cookies.get("XSRF-TOKEN");
   }
   // call axios with the url and the options passed in
-  try {
+  // try {
     const res = await axios(url, options);
     if (res.status > 399) throw new Error(res);
-    console.log(res);
-  } catch (err) {
-    console.log(err);
-    return err.response;
-  }
+    return res
+  // } catch (err) {
+    // console.log(err);
+    // return err.response;
+  // }
 }
 
 // restoreCSRF function

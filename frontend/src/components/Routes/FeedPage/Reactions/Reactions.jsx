@@ -24,22 +24,36 @@ import ReactionCounter from "./ReactionCounter";
 //=======================================================================
 const Reactions = ({ postReactions }) => {
   const user = useSelector((state) => state.session?.user);
+  const [showReactions, setShowReactions] = useState(false);
 
-const initialReactions = {
-    "👍": postReactions?.filter((reaction) => reaction.reactionType === "👍").length,
-    "👎": postReactions?.filter((reaction) => reaction.reactionType === "👎").length,
-    "❤️": postReactions?.filter((reaction) => reaction.reactionType === "❤️").length,
-    "💔": postReactions?.filter((reaction) => reaction.reactionType === "💔").length,
-    "🤣": postReactions?.filter((reaction) => reaction.reactionType === "🤣").length,
-    "😢": postReactions?.filter((reaction) => reaction.reactionType === "😢").length,
-    "🍋": postReactions?.filter((reaction) => reaction.reactionType === "🍋").length,
-    "🐔": postReactions?.filter((reaction) => reaction.reactionType === "🐔").length,
-    "🦆": postReactions?.filter((reaction) => reaction.reactionType === "🦆").length,
-    "🍗": postReactions?.filter((reaction) => reaction.reactionType === "🍗").length,
-    "👶🏻": postReactions?.filter((reaction) => reaction.reactionType === "👶🏻").length,
-    "🦅": postReactions?.filter((reaction) => reaction.reactionType === "🦅").length,
-    "🫁": postReactions?.filter((reaction) => reaction.reactionType === "🫁").length
-};
+  const initialReactions = {
+    "👍": postReactions?.filter((reaction) => reaction.reactionType === "👍")
+      .length,
+    "👎": postReactions?.filter((reaction) => reaction.reactionType === "👎")
+      .length,
+    "❤️": postReactions?.filter((reaction) => reaction.reactionType === "❤️")
+      .length,
+    "💔": postReactions?.filter((reaction) => reaction.reactionType === "💔")
+      .length,
+    "🤣": postReactions?.filter((reaction) => reaction.reactionType === "🤣")
+      .length,
+    "😢": postReactions?.filter((reaction) => reaction.reactionType === "😢")
+      .length,
+    "🍋": postReactions?.filter((reaction) => reaction.reactionType === "🍋")
+      .length,
+    "🐔": postReactions?.filter((reaction) => reaction.reactionType === "🐔")
+      .length,
+    "🦆": postReactions?.filter((reaction) => reaction.reactionType === "🦆")
+      .length,
+    "🍗": postReactions?.filter((reaction) => reaction.reactionType === "🍗")
+      .length,
+    "👶🏻": postReactions?.filter((reaction) => reaction.reactionType === "👶🏻")
+      .length,
+    "🦅": postReactions?.filter((reaction) => reaction.reactionType === "🦅")
+      .length,
+    "🫁": postReactions?.filter((reaction) => reaction.reactionType === "🫁")
+      .length,
+  };
 
   const initialUserReactions = postReactions
     ?.filter((reaction) => reaction.userId === user?.id)
@@ -47,6 +61,10 @@ const initialReactions = {
 
   const [reactions, setReactions] = useState(initialReactions);
   const [userReactions, setUserReactions] = useState(initialUserReactions);
+  const totalReactionsCount = Object.values(reactions).reduce(
+    (total, reactionCount) => total + reactionCount,
+    0
+  );
 
   const handleReaction = async (reactionType) => {
     if (userReactions.includes(reactionType)) {
@@ -74,18 +92,14 @@ const initialReactions = {
     }
   };
 
-  const totalReactionsCount = Object.values(reactions).reduce(
-    (total, reactionCount) => total + reactionCount,
-    0
-  );
-
-
   return (
     <div className="reactions">
-      <div className="reaction-counter">
-        {Object.keys(reactions)
-          ?.filter((reactionType) => reactions[reactionType] > 0)
-          .map((reactionType) => (
+      <button onClick={() => setShowReactions(!showReactions)}>
+        {totalReactionsCount}😀
+      </button>
+      {showReactions && (
+        <div className="reaction-counter">
+          {Object.keys(reactions)?.map((reactionType) => (
             <ReactionCounter
               key={reactionType}
               reactionType={reactionType}
@@ -94,22 +108,8 @@ const initialReactions = {
               onClick={() => handleReaction(reactionType)}
             />
           ))}
-        {totalReactionsCount}
-      </div>
-      {/* make a second div that will hold the reactions of count 0 */}
-      <div className="reaction-counter">
-        {Object.keys(reactions)
-        ?.filter((reactionType) => reactions[reactionType] === 0)
-        .map((reactionType) => (
-          <ReactionCounter
-            key={reactionType}
-            reactionType={reactionType}
-            count={reactions[reactionType]}
-            isReacted={userReactions.includes(reactionType)}
-            onClick={() => handleReaction(reactionType)}
-          />
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

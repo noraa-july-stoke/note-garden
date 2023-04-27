@@ -1,0 +1,85 @@
+# docker-compose.yml
+# Build the frontend and backend containers, attach them to the
+# note_garden_network, and expose their ports to the host machine.
+# The frontend container's port is exposed as 5001, and the backend
+# container's port is exposed as 5000. The frontend container is
+# aliased as frontend, and the backend container is aliased as backend.
+
+version: "3.8"
+
+networks:
+  note_garden_network:
+    driver: bridge
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5001:5001"
+    restart: always
+    networks:
+      note_garden_network:
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000"
+    restart: always
+    networks:
+      note_garden_network:
+    environment:
+      - DATABASE_URL=postgres://root:root@db:5432/note_garden_db?schema=note_garden_sequelize
+      - GCLOUD_CLIENT_EMAIL=note-garden@southern-surge-378705.iam.gserviceaccount.com
+      - GCLOUD_PRIVATE_KEY=AIzaSyByjk5Lm_5kTpiPSfaLl_ry-lubUvar084
+      - GCLOUD_PROJECT_ID=southern-surge-378705
+      - GCLOUD_BUCKET_NAME=note_garden_bucket
+      - JWT_SECRET=6qifLTtG2xKUiA==
+      - JWT_EXPIRES_IN=604800
+      - SECRET_KEY=1ffba3dad4c8c35e6992e586a68bcd75
+      - ENVIRONMENT=-development/
+      - SCHEMA=note_garden_sequelize
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=note_garden_db
+      - DB_HOST=db
+
+  db:
+    container_name: pg_container
+    image: postgres:15.2-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: note_garden_db
+    ports:
+      - "5432"
+    networks:
+      note_garden_network:
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+      SECRET_KEY: 1ffba3dad4c8c35e6992e586a68bcd75
+    ports:
+      - "5050:80"
+    networks:
+      note_garden_network:
+
+  mindsdb:
+    container_name: mindsdb_container
+    image: mindsdb/mindsdb:latest
+    restart: always
+    environment:
+      - MINDSDB_HTTP_PORT=47334
+      - MINDSDB_EXTERNAL_HTTP_PORT=47334
+    ports:
+      - "47334:47334"
+    networks:
+      note_garden_network:
+
+volumes:
+  mypgdata:

@@ -24,51 +24,73 @@ import { fetchOpenGraphData } from "../../../api-calls/opengraph";
 import "./PostLink.css";
 //=======================================================================
 const PostLink = ({ url }) => {
-  //==========================================
-  //   VARIABLE DECLARATIONS, INITIALIZERS,
-  //       STATE VARIABLE ASSIGNMENTS
-  //==========================================
   const [linkData, setLinkData] = useState({});
-  //====================================
-  //              HOOKS
-  //====================================
-useEffect(() => {
-  if (
-    /^(https?:\/\/)?(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test(
-      url
-    )
-  ) {
-    fetchData();
-  }
-}, [url]);
-  //====================================
-  //      HELPERS/EVENT LISTENERS
-  //         ADDITIONAL LOGIC
-  //====================================
+  const isValidYoutubeUrl = (url) => {
+    const pattern = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/gi;
+    return pattern.test(url);
+  };
+
+  // const isValidUrl = (url) => {
+  //   try {
+  //     new URL(url);
+  //     return true;
+  //   } catch (error) {
+  //     return false;
+  //   }
+  // };
+
+  useEffect(() => {
+    if (isValidYoutubeUrl(url)) {
+      setLinkData({ youtubeUrl: url });
+    }
+    else {
+      fetchData();
+    }
+  }, [url]);
+
   const fetchData = async () => {
     const data = await fetchOpenGraphData(url);
     setLinkData(data);
   };
 
-  const { og, alt } = linkData;
+  const { og, alt, youtubeUrl } = linkData;
   const title = og?.title || alt?.title;
   const image = og?.image || alt?.image;
   const description = og?.description || alt?.description;
   const siteUrl = og?.url || alt?.url;
 
-  //====================================
-  //            JSX BODY
-  //====================================
+  if (youtubeUrl) {
+    const videoId = getYoutubeVideoId(youtubeUrl);
+    return (
+      <div className="post-link-container">
+        <iframe
+          title={title}
+          width="560"
+          height="315"
+          src={`https://www.youtube.com/embed/${videoId}`}
+          frameBorder="0"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="post-link-container">
-        <a href={siteUrl} target="_blank" rel="noopener noreferrer">
-          {image && <img src={image} alt={title} />}
-          <div className="post-link__info">
-            <h2 style={{ color: "black" }}>{title}</h2>
-            {description && <p>{description.slice(0, 300)}...</p>}
-          </div>
-        </a>
+      <a href={siteUrl} target="_blank" rel="noopener noreferrer">
+        {image && <img src={image} alt={title} />}
+        <div className="post-link__info">
+          <h2 style={{ color: "black" }}>{title}</h2>
+          {description && <p>{description.slice(0, 300)}...</p>}
+        </div>
+      </a>
     </div>
   );
 };
+
+const isValidYoutubeUrl = (url) =>
+  /^https?:\/\/(www\.)?youtube\.com\/watch/.test(url);
+
+const getYoutubeVideoId = (url) => url.match(/(?:v=)([\w-]+)/)[1];
+
 export default PostLink;

@@ -8,6 +8,7 @@ const PostPhotos = ({ imageState, toggleAddPhotos }) => {
   const [name, setName] = useState("");
   const [previews, setPreviews] = useState([]);
   const dispatch = useDispatch();
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     setImageFiles([...imageFiles, ...files]);
@@ -16,17 +17,18 @@ const PostPhotos = ({ imageState, toggleAddPhotos }) => {
       ...files.map((file) => URL.createObjectURL(file)),
     ]);
   };
+
   const removeImage = (index) => {
     const newImageFiles = [...imageFiles];
     newImageFiles.splice(index, 1);
     setImageFiles(newImageFiles);
 
-    const newPreviews = [...previews];
+  const newPreviews = [...previews];
     newPreviews.splice(index, 1);
     setPreviews(newPreviews);
   };
 
-  const handleSubmit = async (e) => {
+  const handleConfirm = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     imageFiles.forEach((image) => {
@@ -35,6 +37,7 @@ const PostPhotos = ({ imageState, toggleAddPhotos }) => {
     formData.append("name", name);
     // eslint-disable-next-line
     const imgUrls = await dispatch(uploadPostImages(formData));
+    console.log(imgUrls);
     setPhotos(imgUrls);
     setImageFiles([]);
     setPreviews([]);
@@ -42,8 +45,8 @@ const PostPhotos = ({ imageState, toggleAddPhotos }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <button className="post-button" type="submit">
+    <form>
+      <button className="post-button" type="button" onClick={handleConfirm}>
         Confirm Selected Photos
       </button>
       <label htmlFor="file-input">

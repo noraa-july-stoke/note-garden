@@ -105,13 +105,15 @@ if (linkContent) {
 }
 
 if (photoContent && photoContent.length) {
+  console.log(photoContent)
   const photoContentObjects = photoContent.map((photo) => ({
     authorId: userId,
     postId: post.id,
     contentType: "IMAGE",
-    content: photo.url,
+    content: photo,
   }));
   await PostContent.bulkCreate(photoContentObjects);
+
 }
   const resPost = await Post.findOne({
     where: {

@@ -67,8 +67,9 @@ const PostForm = () => {
   //====================================
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(photos)
     await dispatch(
-      thunkAddPost({ ...formFields, linkContent: link, photoContent: photos })
+      thunkAddPost({ ...formFields, linkContent: link, photoContent: photos})
     );
     reset();
   };
@@ -158,9 +159,9 @@ const PostForm = () => {
           </div>
         )}
         <div className="photos-container">
-          {photos.map((photo, index) => (
+          {photos?.map((url, index) => (
             <div key={index} className="thumbnail-container">
-              <img src={photo.url} alt="preview" width="100" height="100" />
+              <img src={url} alt="preview" width="100" height="100" />
             </div>
           ))}
         </div>

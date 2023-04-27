@@ -62,10 +62,10 @@ router.get("/test", (req, res) => {
 // Handles image uploads to post feed.
 //============================================================
 router.post("/post-photos", async (req, res, next) => {
-  console.log(req.user);
   try {
     const newFiles = req.files.files;
     const imageUrls = await uploadImage(newFiles);
+    console.log(imageUrls)
 
     const newPhotos = imageUrls.map((url) => {
       return Photo.build({
@@ -77,10 +77,13 @@ router.post("/post-photos", async (req, res, next) => {
         albumId: req.user.defaultAlbum
       });
     });
-    const responseNotes = await Promise.all(
-      newPhotos.map((photo) => photo.save())
+    const responsePhotos = await Promise.all(
+      newPhotos.map(async (photo) => {
+          const { url } = await photo.save();
+          return url
+      })
     );
-    res.status(201).json(responseNotes);
+    res.status(201).json(responsePhotos);
   } catch (error) {
     next(error);
   }

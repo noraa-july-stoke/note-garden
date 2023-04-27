@@ -28,10 +28,9 @@ const actionLoadPalPosts = (palPosts) => ({
 
 export const thunkLoadPosts = () => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/posts`, {
+    const { data } = await csrfFetch(`/api/posts`, {
       method: "GET",
     });
-    const data = await response.json();
     dispatch(actionLoadPosts(data));
   } catch (error) {
     console.error("Error loading posts", error);
@@ -41,12 +40,10 @@ export const thunkLoadPosts = () => async (dispatch) => {
 
 export const thunkAddPost = (content) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/posts`, {
+    const { data } = await csrfFetch(`/api/posts`, {
       method: "POST",
-      body: JSON.stringify({ content }),
+      data: JSON.stringify({ content }),
     });
-    const data = await response.json();
-
     dispatch(actionAddPost(data));
   } catch (error) {
     console.error("Error adding post", error);
@@ -56,10 +53,10 @@ export const thunkAddPost = (content) => async (dispatch) => {
 
 export const thunkLoadPalPosts = () => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/posts/all-posts`, {
+    const { data } = await csrfFetch(`/api/posts/all-posts`, {
       method: "GET",
     });
-    const data = await response.json();
+    // console.log(response)
     dispatch(actionLoadPalPosts(data));
   } catch (error) {
     console.error("Error loading posts", error);

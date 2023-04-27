@@ -1,5 +1,6 @@
 // frontend/src/store/session.js
 import { csrfFetch } from './csrf';
+import axios from "axios";
 
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
@@ -17,30 +18,30 @@ const removeUser = () => {
     };
 };
 
+
+
+export const restoreUser = () => async (dispatch) => {
+  const { data } = await csrfFetch("/api/session");
+  dispatch(setUser(data?.user));
+};
+
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
-  const response = await csrfFetch("/api/session", {
+  const { data } = await csrfFetch("/api/session", {
     method: "POST",
-    body: JSON.stringify({
+    data: JSON.stringify({
       credential,
       password,
     }),
   });
-  dispatch(setUser(response?.data?.user));
-  return response;
-};
-
-export const restoreUser = () => async (dispatch) => {
-  const response = await csrfFetch("/api/session");
-  dispatch(setUser(response?.data?.user));
-  return response;
+  dispatch(setUser(data?.user));
 };
 
 export const signup = (user) => async (dispatch) => {
   const { username, firstName, lastName, email, password } = user;
-  const response = await csrfFetch("/api/users", {
+  const {data} = await csrfFetch("/api/users", {
     method: "POST",
-    body: JSON.stringify({
+    data: JSON.stringify({
       username,
       firstName,
       lastName,
@@ -48,8 +49,7 @@ export const signup = (user) => async (dispatch) => {
       password,
     }),
   });
-  dispatch(setUser(response?.data?.user));
-  return response?.data;
+  dispatch(setUser(data?.user));
 };
 
 export const logout = () => async (dispatch) => {

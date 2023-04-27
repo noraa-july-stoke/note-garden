@@ -27,10 +27,9 @@ const actionDeleteReaction = (reaction) => ({
 
 export const thunkLoadPostReactions = (ids) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/reactions?ids=${ids.join(",")}`, {
+    const { data } = await csrfFetch(`/api/reactions?ids=${ids.join(",")}`, {
       method: "GET",
     });
-    const data = await response.json();
     dispatch(actionLoadPostReactions(data));
   } catch (error) {
     console.error("Error loading reactions", error);
@@ -39,12 +38,12 @@ export const thunkLoadPostReactions = (ids) => async (dispatch) => {
 };
 
 export const thunkAddReaction = (reaction) => async (dispatch) => {
+  console.log("thunkAddReaction", reaction)
   try {
-    const response = await csrfFetch(`/api/reactions`, {
+    const { data } = await csrfFetch(`/api/reactions`, {
       method: "POST",
-      body: JSON.stringify(reaction),
+      data: JSON.stringify(reaction),
     });
-    const data = await response.json();
     dispatch(actionAddReaction(data));
   } catch (error) {
     console.error("Error adding reaction", error);
@@ -54,10 +53,9 @@ export const thunkAddReaction = (reaction) => async (dispatch) => {
 
 export const thunkDeleteReaction = (reaction) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/reactions/${reaction.id}`, {
+    const { data } = await csrfFetch(`/api/reactions/${reaction.id}`, {
       method: "DELETE",
     });
-    const data = await response.json();
     dispatch(actionDeleteReaction(data));
   } catch (error) {
     console.error("Error deleting reaction", error);

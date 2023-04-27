@@ -33,10 +33,9 @@ const actionDeleteTextNotebook = (notebookId) => {
 
 export const thunkLoadNotebooks = () => async (dispatch) => {
   try {
-    const response = await csrfFetch("/api/notebooks", {
+    const { data } = await csrfFetch("/api/notebooks", {
       method: "GET",
     });
-    const data = await response.json();
     dispatch(actionLoadNotebooks(data));
   } catch (error) {
     console.error("Error loading notebooks:", error);
@@ -48,11 +47,10 @@ export const thunkAddTextNotebook =
   (notebookData, notebookId) => async (dispatch) => {
     if (!notebookId) {
       try {
-        const response = await csrfFetch("/api/notebooks/text-notebook", {
+        const { data } = await csrfFetch("/api/notebooks/text-notebook", {
           method: "POST",
           body: JSON.stringify(notebookData),
         });
-        const data = await response.json();
         dispatch(actionCreateNotebook(data));
       } catch (error) {
         console.error("Error creating notebook:", error);
@@ -60,14 +58,13 @@ export const thunkAddTextNotebook =
       }
     } else {
       try {
-        const response = await csrfFetch(
+        const { data } = await csrfFetch(
           `/api/notebooks/text-notebook/${notebookId}`,
           {
             method: "PUT",
             body: JSON.stringify(notebookData),
           }
         );
-        const data = await response.json();
         dispatch(actionCreateNotebook(data));
       } catch (error) {
         console.error("Error creating notebook:", error);
@@ -76,18 +73,17 @@ export const thunkAddTextNotebook =
     }
   };
 
+// !@#$ might be a problem here where it goes through and deletes something out of state
+// but there has been an error and the deletion didn't go through on the backend
 export const thunkDeleteTextNotebook = (notebookId) => async (dispatch) => {
   try {
-    const response = await csrfFetch(
+    const { data } = await csrfFetch(
       `/api/notebooks/text-notebook/${notebookId}`,
       {
         method: "DELETE",
       }
     );
-    if (response.ok) {
-      await response.json();
-      dispatch(actionDeleteTextNotebook(notebookId));
-    }
+    dispatch(actionDeleteTextNotebook(notebookId));
   } catch (error) {
     console.error("Error deleting notebook:", error);
     dispatch(actionError(error));

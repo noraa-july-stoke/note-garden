@@ -15,10 +15,9 @@ const actionLoadPals = (pals) => ({
 
 export const thunkLoadPals = () => async(dispatch) => {
     try {
-        const response = await csrfFetch(`/api/pals`, {
+        const { data } = await csrfFetch(`/api/pals`, {
             method: "GET"
         });
-        const data = await response.json();
         dispatch(actionLoadPals(data));
     } catch (error) {
         console.error("Error loading pals", error);
