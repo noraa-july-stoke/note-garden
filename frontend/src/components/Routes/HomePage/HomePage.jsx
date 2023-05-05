@@ -30,6 +30,7 @@ import AuthForms from "../../Forms/AuthForms/AuthForms";
 import "./HomePage.css";
 
 const HomePage = ({ sessionUser, bgColor }) => {
+  const navigate = useNavigate();
   //=============================================================================
   // Variable Declarations, initializers, state variable assignments;
   //=============================================================================
@@ -62,6 +63,8 @@ const HomePage = ({ sessionUser, bgColor }) => {
         <ASCIILogo sessionUser={sessionUser} />
         <div className="home-body-container">
           {!sessionUser && <AuthForms />}
+          {/* if session user exists display a button that navigates to "/home" */}
+          {sessionUser && <button className="home-nav-button" onClick={() => navigate('/feed') }>Go To Feed </button> }
           <ASCIIVideo />
         </div>
       </div>
