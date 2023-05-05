@@ -92,9 +92,12 @@ const Reactions = ({ postReactions }) => {
     }
   };
 
+  // ...
   return (
     <div className="reactions">
-      <button onClick={() => setShowReactions(!showReactions)}>
+      <button
+        className="reaction-toggle"
+        onClick={() => setShowReactions(!showReactions)}>
         {totalReactionsCount}😀
       </button>
       {showReactions && (

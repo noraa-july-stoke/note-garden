@@ -15,20 +15,29 @@ import React from 'react';
 // HELPERS
 // CONTEXTS
 // STYLES
-import './ReactionCounter.css'
+import './Settings.css'
 //=======================================================================
-const ReactionCounter = ({ reactionType, count, isReacted, onClick }) => {
-  const handleClick = () => {
-    onClick(reactionType);
-  };
-
+const Settings = () => {
+  //==========================================
+  //   VARIABLE DECLARATIONS, INITIALIZERS,
+  //       STATE VARIABLE ASSIGNMENTS
+  //==========================================
+  //====================================
+  //              HOOKS
+  //====================================
+  //====================================
+  //      HELPERS/EVENT LISTENERS
+  //         ADDITIONAL LOGIC
+  //====================================
+  //====================================
+  //            JSX BODY
+  //====================================
   return (
-    <div
-    className="reaction-counter-container"
-      onClick={handleClick}>
-      {reactionType} {count}
+    <div className="settings-container">
+      <h2>Settings</h2>
+      {/* Your settings related JSX here */}
     </div>
   );
 };
 
-export default ReactionCounter;
+export default Settings;

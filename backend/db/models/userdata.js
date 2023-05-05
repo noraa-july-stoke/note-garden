@@ -86,22 +86,6 @@ module.exports = (sequelize, DataTypes) => {
       return objectCollaborations;
     }
 
-    // query for and return any posts that the user exists in under the key authorIdId
-    async getPosts() {
-      const Post = sequelize.models.Post;
-      const objectPosts = {};
-
-      const posts = await Post.findAll({
-        where: { authorId: this.id },
-        order: [["createdAt"]],
-      });
-
-      for (let post of posts) {
-        post = post.toJSON();
-        objectPosts[post.id] = post;
-      }
-      return posts;
-    }
     // query for and return any comments the user has left on a post the user exists in under the key userId
     async getComments() {
       const Comment = sequelize.models.Comment;
@@ -133,7 +117,7 @@ module.exports = (sequelize, DataTypes) => {
       const collection = await Collection.create({
         name: "Misc",
         authorId: userId,
-        isPublic: false
+        isPublic: false,
       });
       const user = await this.findByPk(userId);
       await user.update({ defaultCollection: collection.id });
@@ -144,7 +128,7 @@ module.exports = (sequelize, DataTypes) => {
       const album = await PhotoAlbum.create({
         name: "Default Photo Album",
         authorId: userId,
-        isPublic: false
+        isPublic: false,
       });
       const user = await this.findByPk(userId);
       await user.update({ defaultAlbum: album.id });

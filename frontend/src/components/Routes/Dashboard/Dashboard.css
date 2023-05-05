@@ -1,0 +1,49 @@
+/* Dashboard.css */
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px;
+}
+
+.profile-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.tabs-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.content-container {
+  flex: 2;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 5px;
+  overflow: scroll;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 2px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.posts-container {
+  height: 1000px;
+  overflow-y: scroll;
+}

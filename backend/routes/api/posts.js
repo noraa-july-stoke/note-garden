@@ -20,7 +20,7 @@ const express = require("express");
 //  |___\__/\__,/~~\|___   |  ||___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 const { requireAuth } = require("../../utils/auth");
-const { User, UserData, Post, PostContent } = require("../../db/models");
+const { UserData, Post, PostContent } = require("../../db/models");
 //=======================================================================
 const router = express.Router();
 //=======================================================================
@@ -43,8 +43,7 @@ const router = express.Router();
 
 router.get("/", requireAuth, async (req, res) => {
   const userId = req.user.id;
-  const user = await User.findByPk(userId);
-  const posts = await user.getPosts();
+  const posts = await Post.getUserPosts(userId);
   res.status(200).json(posts);
 });
 

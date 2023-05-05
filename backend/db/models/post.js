@@ -16,6 +16,36 @@ const { Model } = require("sequelize");
 const { postFixup } = require("../db-helpers/post-helpers");
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
+
+    static async getUserPosts(userId) {
+      const Post = sequelize.models.Post;
+      const posts = await Post.findAll({
+        where: { authorId: userId },
+        include: [
+          {
+            model: sequelize.models.UserData,
+          },
+          {
+            model: sequelize.models.PostContent,
+          },
+          {
+            model: sequelize.models.Reaction,
+          },
+        ],
+        order: [["createdAt", "DESC"]],
+        order: [["createdAt", "DESC"]],
+      });
+
+      const postObjects = {};
+      for (let post of posts) {
+        post = post.toJSON();
+        const { id } = post;
+
+        postObjects[id] = post
+      }
+
+      return postObjects;
+    }
     //=======================================================
     //Organizes a chronolologcal post feed by friend's posts;
     //=======================================================

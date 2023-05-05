@@ -23,7 +23,7 @@ const PostPhotos = ({ imageState, toggleAddPhotos }) => {
     newImageFiles.splice(index, 1);
     setImageFiles(newImageFiles);
 
-  const newPreviews = [...previews];
+    const newPreviews = [...previews];
     newPreviews.splice(index, 1);
     setPreviews(newPreviews);
   };
@@ -41,11 +41,11 @@ const PostPhotos = ({ imageState, toggleAddPhotos }) => {
     setPhotos(imgUrls);
     setImageFiles([]);
     setPreviews([]);
-    toggleAddPhotos()
+    toggleAddPhotos();
   };
 
   return (
-    <form>
+    <form className="post-photos-form">
       <button className="post-button" type="button" onClick={handleConfirm}>
         Confirm Selected Photos
       </button>
@@ -59,14 +59,19 @@ const PostPhotos = ({ imageState, toggleAddPhotos }) => {
           onChange={handleImageChange}
         />
       </label>
-      {previews.map((preview, index) => (
-        <div key={preview}>
-          <img src={preview} alt="preview" width="100" height="100" />
-          <button type="button" onClick={() => removeImage(index)}>
-            Remove
-          </button>
-        </div>
-      ))}
+      <div className="image-preview-container">
+        {previews.map((preview, index) => (
+          <div key={preview} className="image-preview">
+            <img src={preview} alt="preview" />
+            <button
+              className="remove-image-btn"
+              type="button"
+              onClick={() => removeImage(index)}>
+              x
+            </button>
+          </div>
+        ))}
+      </div>
     </form>
   );
 };

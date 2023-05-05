@@ -1,10 +1,22 @@
-.mini-profile-container {
+.mini-profile-container,
+.feed-mini-profile-container {
   padding-top: 0.5em;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   text-align: center;
+}
+
+.mini-profile-container {
+  flex-direction: column;
+  align-items: center;
+}
+
+.feed-mini-profile-container {
+  flex-direction: row;
+  padding-bottom: 5px;
+  margin-bottom: 1em;
+  border-bottom: 2px solid darkslateGrey;
+  color: white;
 }
 
 .user-data {
@@ -13,18 +25,12 @@
   align-items: center;
   justify-content: center;
   font-weight: bolder;
-  border-bottom: 3px solid white;
   width: 100%;
   text-align: center;
 }
 
-.avatar-pic {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.avatar-pic-container {
+.avatar-pic-container,
+.feed-avatar-pic-container {
   border: 2px solid white;
   width: 55px;
   height: 55px;
@@ -35,51 +41,21 @@
   align-items: center;
 }
 
+.feed-avatar-pic-container {
+  margin-bottom: 2px;
+}
+
 .avatar-pic {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/*=======================================================================
- *           ______ __        ______    __  __      __  __      ___   ___
- *     /\ |   ||__ |__)|\ | /\ ||__    /  `/  \|\/||__)/  \|\ ||__ |\ ||
- *    /~~\|___||___|  \| \|/~~\||___   \__,\__/|  ||   \__/| \||___| \||
- *
- *                       _____       ___ __
- *                      /__`|\ /|   |__ /__`
- *                      .__/| | |___|___.__/
-======================================================================= */
-
-.feed-mini-profile-container {
-  padding-top: 0.5em;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  text-align: center;
-  padding-bottom: 5px;
-  margin-bottom: 1em;
-  border-bottom: 2px solid darkslateGrey;
-  color: white;
-}
-
-.mini-name-pic-container {
+.feed-mini-profile-container .mini-name-pic-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* holds the profile pic and the user's first & last name */
-.feed-avatar-pic-container {
-  border: 2px solid white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 2px;
+  color: black;
 }
 
 .post-profile-info-container {
@@ -89,12 +65,7 @@
   justify-content: flex-end;
   width: 100%;
   height: 100%;
-  color:black;
-}
-
-.mini-name-pic-container {
   color: black;
-
 }
 
 .mini-post-sub-info {
@@ -110,20 +81,9 @@
   font-size: 12px;
 }
 
-/* .avatar-pic-container {
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-} */
-
-/* .avatar-pic {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
+.mini-menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

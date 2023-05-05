@@ -1,3 +1,32 @@
+.reactions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reaction-toggle {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.reaction-toggle:hover {
+  text-decoration: underline;
+}
+
+.reaction-counter {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  align-items: center;
+  margin-top: 0.5em;
+}
+
 .post-reactions-container {
   display: flex;
   flex-direction: row;
@@ -7,17 +36,16 @@
 }
 
 .reaction-button-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.add-reaction-button{
-    border: 1px solid black;
-    padding: 5px;
-    border-radius: 10px;
-
+.add-reaction-button {
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
 }
 
-.reaction-button{
+.reaction-button {
   font-size: 1em;
 }

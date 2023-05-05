@@ -15,20 +15,26 @@ import React from 'react';
 // HELPERS
 // CONTEXTS
 // STYLES
-import './ReactionCounter.css'
+import './Profile.css'
 //=======================================================================
-const ReactionCounter = ({ reactionType, count, isReacted, onClick }) => {
-  const handleClick = () => {
-    onClick(reactionType);
-  };
+
+const Profile = ({ user }) => {
+  const { avatarUrl, username, firstName, lastName, email } = user;
 
   return (
-    <div
-    className="reaction-counter-container"
-      onClick={handleClick}>
-      {reactionType} {count}
+    <div className="profile-container">
+      <div className="avatar-container">
+        <img src={avatarUrl} alt={`${username}'s avatar`} />
+      </div>
+      <div className="user-info">
+        <h2>{username}</h2>
+        <h3>
+          {firstName} {lastName}
+        </h3>
+        <p>Email: {email}</p>
+      </div>
     </div>
   );
 };
 
-export default ReactionCounter;
+export default Profile;

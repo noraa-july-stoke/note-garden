@@ -1,48 +1,77 @@
 .post-form-container {
-    margin: 2em;
+  margin: 2em;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.new-post-title{
-    padding:1em;
+.post-form-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
+.new-post-title {
+  padding: 1em;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
 
 .post-buttons-container {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: center;
+  margin-top: 1em;
 }
 
 .post-button {
-    color: white;
-    border: 3px solid white;
-    padding: 1em;
-    border-radius: 2em;
-    font-weight:bolder;
+  color: white;
+  background-color: #4c4cff;
+  border: 3px solid #4c4cff;
+  padding: 0.5em 1em;
+  border-radius: 2em;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.link-container{
-    display: flex;
-    padding-left: 1em;
-    align-items: center;
+.post-button:hover {
+  background-color: #333;
+  border-color: #333;
 }
 
+.link-container {
+  display: flex;
+  padding-left: 1em;
+  align-items: center;
+}
 
 .remove-post-link-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 1.2em;
-    width: 1.2em;
-    color: white;
-    font-weight: bolder;
-    border: 1px solid white;
-    border-radius: 50%;
-    margin-left: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.2em;
+  width: 1.2em;
+  color: white;
+  background-color: #ff4c4c;
+  font-weight: bolder;
+  border: 1px solid #ff4c4c;
+  border-radius: 50%;
+  margin-left: 2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.previews-container{
-    display: flex;
-    flex-direction: row;
+.remove-post-link-button:hover {
+  background-color: #e00;
+  border-color: #e00;
+}
+
+.previews-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1em;
 }

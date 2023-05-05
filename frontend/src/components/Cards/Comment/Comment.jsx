@@ -33,9 +33,7 @@ const Comment = ({ comment }) => {
   };
 
   return (
-    <div
-      className="comment-container"
-      style={{ backgroundColor: "white", borderBottom: "1px solid black" }}>
+    <div className="comment-container">
       <div className="comment-buttons-container">
         {(comment.userId === user.id || comment.authorId === user.id) && (
           <DeleteButton type="COMMENT" toDelete={comment} />

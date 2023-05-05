@@ -1,0 +1,34 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.avatar-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.avatar-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-info {
+  text-align: center;
+}
+
+.user-info h2 {
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.user-info h3 {
+  margin: 0;
+  margin-bottom: 1rem;
+}

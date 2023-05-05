@@ -9,7 +9,7 @@ export const DeleteReducer = (type, toDelete) => {
         e.preventDefault();
         dispatch(thunkDeleteComment(toDelete));
       };
-      const deleteText = "X";
+      const deleteText = "x";
       return { onClick, deleteText };
     }
     default: // "null case";

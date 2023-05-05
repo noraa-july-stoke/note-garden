@@ -3,28 +3,47 @@
   align-items: center;
   flex-direction: column;
   width: 470px;
-  height:330px;
+  height: 330px;
   margin-bottom: 20px;
   padding: 1em;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin: 2em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+
+.post-link-container a {
+  text-decoration: none;
 }
 
 .post-link-container img {
   width: 100%;
-  height: 150px; /* or any other fixed height */
-  object-fit: contain; /* or object-fit: cover; */
+  height: 150px;
+  object-fit: contain;
+  border-radius: 5px;
+  margin-bottom: 1em;
 }
 
 .post-link__info h2 {
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: bold;
+  color: #333;
 }
 
 .post-link__info p {
   font-size: 14px;
-  color: #444;
+  color: #777;
   margin-bottom: 0;
+}
+
+.post-link-container:hover .post-link__info h2 {
+  color: #4c4cff;
+}
+
+.post-link-container:hover .post-link__info p {
+  color: #666;
 }

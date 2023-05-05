@@ -27,20 +27,9 @@ import "./MiniProfile.css";
 
 //=======================================================================
 const MiniProfile = ({ user, postMode, postDate }) => {
-  //==========================================
-  //   VARIABLE DECLARATIONS, INITIALIZERS,
-  //    STATE VARIABLE ASSIGNMENTS
-  //==========================================
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  //===========================
-  //          HOOKS
-  //===========================
-
-  //===========================
-  // HELPERS/EVENT LISTENERS
-  //===========================
 
   const toggleMenu = (e) => {
     e.preventDefault();
@@ -53,11 +42,6 @@ const MiniProfile = ({ user, postMode, postDate }) => {
     navigate("/");
   };
 
-  //================================================
-  //         JSX BODY
-  //================================================
-  // CREATE A DIFFERENT STRUCTURE WITH
-  // ALTERNATE STYLES DEPENDING ON "postMode"
   const content = postMode ? (
     <div className="feed-mini-profile-container">
       <div className="mini-name-pic-container">
@@ -75,10 +59,10 @@ const MiniProfile = ({ user, postMode, postDate }) => {
       </div>
       <div className="post-profile-info-container">
         <span className="mini-post-sub-info">
-        <h4 className="post-profile-username">{user.username}</h4>
-        <span className="post-profile-time">
-          {formatTimestamp(postDate)}
-        </span>
+          <h4 className="post-profile-username">{user.username}</h4>
+          <span className="post-profile-time">
+            {formatTimestamp(postDate)}
+          </span>
         </span>
       </div>
     </div>

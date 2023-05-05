@@ -23,12 +23,15 @@ import { fetchOpenGraphData } from "../../../api-calls/opengraph";
 // STYLES
 import "./PostLink.css";
 //=======================================================================
+const isValidYoutubeUrl = (url) =>
+    /^https?:\/\/(www\.)?youtube\.com\/watch/.test(url);
 const PostLink = ({ url }) => {
   const [linkData, setLinkData] = useState({});
-  const isValidYoutubeUrl = (url) => {
-    const pattern = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/gi;
-    return pattern.test(url);
-  };
+  // const isValidYoutubeUrl = (url) => {
+  //   const pattern = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/gi;
+  //   return pattern.test(url);
+  // };
+
 
   // const isValidUrl = (url) => {
   //   try {
@@ -88,9 +91,12 @@ const PostLink = ({ url }) => {
   );
 };
 
-const isValidYoutubeUrl = (url) =>
-  /^https?:\/\/(www\.)?youtube\.com\/watch/.test(url);
 
-const getYoutubeVideoId = (url) => url.match(/(?:v=)([\w-]+)/)[1];
+
+
+const getYoutubeVideoId = (url) => {
+  if (!isValidYoutubeUrl(url)) return
+  return url.match(/(?:v=)([\w-]+)/)[1];
+};
 
 export default PostLink;

@@ -36,6 +36,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/Routes/HomePage";
 import FeedPage from "./components/Routes/FeedPage";
+import Dashboard from "./components/Routes/Dashboard";
 import ImageUploadForm from "./components/Forms/ImageUploadForm";
 import NewPost from "./components/NewPost";
 import "./index.css";
@@ -97,6 +98,14 @@ function App() {
           />
           <Route path="test" element={isLoaded && <NewPost />} />
         </Route>
+        <Route
+          path="dashboard"
+          element={
+            sessionUser && (
+              <Dashboard sessionUser={sessionUser} bgColor={bgColor} />
+            )
+          }
+        />
       </Routes>
     </div>
   );

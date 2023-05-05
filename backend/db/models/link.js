@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Link.belongsTo(models.Collection, {
         foreignKey: "collectionId",
       });
+
     }
   }
 

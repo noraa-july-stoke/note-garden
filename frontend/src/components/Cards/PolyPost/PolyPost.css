@@ -1,0 +1,11 @@
+.poly-post-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.post-text-container {
+  font-size: 1em;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}

@@ -88,7 +88,7 @@ const CommentForm = ({ postId, comment, setIsEditing }) => {
   //====================================
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="comment-form">
       <FormTextArea
         label="Add Comment:"
         value={newComment}

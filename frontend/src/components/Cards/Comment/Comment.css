@@ -1,4 +1,36 @@
 .comment-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
   white-space: pre-wrap;
-  padding-left: 1em;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  justify-content: flex-end;
+}
+
+.edit-comment-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+.edit-comment-button:hover {
+  text-decoration: underline;
+}
+
+.comment-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
 }

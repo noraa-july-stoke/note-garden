@@ -15,20 +15,28 @@ import React from 'react';
 // HELPERS
 // CONTEXTS
 // STYLES
-import './ReactionCounter.css'
+import './FriendsSearch.css'
 //=======================================================================
-const ReactionCounter = ({ reactionType, count, isReacted, onClick }) => {
-  const handleClick = () => {
-    onClick(reactionType);
-  };
-
+const FriendsSearch = () => {
+  //==========================================s
+  //   VARIABLE DECLARATIONS, INITIALIZERS,
+  //       STATE VARIABLE ASSIGNMENTS
+  //==========================================
+  //====================================
+  //              HOOKS
+  //====================================
+  //====================================
+  //      HELPERS/EVENT LISTENERS
+  //         ADDITIONAL LOGIC
+  //====================================
+  //====================================
+  //            JSX BODY
+  //====================================
   return (
-    <div
-    className="reaction-counter-container"
-      onClick={handleClick}>
-      {reactionType} {count}
+    <div className="friends-search-container">
+      <h2>Friends Search</h2>
+      {/* Your friends search related JSX here */}
     </div>
   );
 };
-
-export default ReactionCounter;
+export default FriendsSearch

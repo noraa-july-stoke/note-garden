@@ -1,0 +1,11 @@
+.reaction-counter-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  align-items: center;
+  cursor: pointer;
+}
+
+.reaction-counter-container:hover {
+  opacity: 0.8;
+}
