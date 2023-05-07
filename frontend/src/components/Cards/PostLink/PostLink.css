@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 470px;
+  width: fit-content;
   height: 330px;
   margin-bottom: 20px;
   padding: 1em;
