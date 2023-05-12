@@ -27,8 +27,19 @@ router.get('/:id(\\d+)', requireAuth, async (req, res) => {
 
 // Create a new reaction
 router.post('/', requireAuth, async (req, res) => {
+  const userId = req.user.id;
+  const { reactionType, post } = req.body;
+  console.log(reactionType, post)
+
   try {
-    const reaction = await Reaction.create(req.body);
+    const reaction = await Reaction.create({
+      userId,
+      authorId: post.authorId,
+      postId: post.id,
+      commentId: post?.commentId,
+      reactionType
+    });
+
     res.json({ reaction });
   } catch (err) {
     console.error(err);
@@ -56,18 +67,32 @@ router.put('/:id(\\d+)/reaction', requireAuth, async (req, res) => {
 });
 
 // Delete an existing reaction by ID
-router.delete('/:id(\\d+)', requireAuth, async (req, res) => {
+router.delete("/", requireAuth, async (req, res) => {
+  const { reactionType, postId} = req.query;
+  const userId = req.user.id;
+
+
   try {
-    const reaction = await Reaction.findByPk(req.params.id);
+    const reaction = await Reaction.findOne({
+      where: {
+        reactionType: reactionType,
+        postId: postId,
+        userId: userId,
+      },
+    });
+
     if (!reaction) {
-      return res.status(404).json({ message: 'Reaction not found' });
+      return res.status(404).json({ message: "Reaction not found" });
     }
+
     await reaction.destroy();
     res.status(204).end();
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
 
 module.exports = router;

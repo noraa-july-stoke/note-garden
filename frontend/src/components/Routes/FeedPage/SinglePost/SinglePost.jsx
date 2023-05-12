@@ -58,7 +58,7 @@ const SinglePost = ({ post }) => {
         {post.caption}
         <PolyPost contents={post.PostContents} />
       </div>
-      <Reactions postReactions={post.Reactions} />
+      <Reactions postReactions={post.Reactions} post={post} />
       <CommentFeed postId={post.id} />
     </div>
 )};

@@ -11,7 +11,7 @@
 //  | \|\__/|__/|___   |  |\__/|__/\__/|___|___   ||  ||   \__/|  \|.__/
 //=======================================================================
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 //=======================================================================
 //       __  __             ___     ___         __  __  _______
 //  |   /  \/  ` /\ |      |__||   |__    ||\/||__)/  \|__)|/__`
@@ -21,10 +21,16 @@ import { useSelector } from "react-redux";
 //add types into this file
 import "./Reactions.css";
 import ReactionCounter from "./ReactionCounter";
+import {
+  thunkAddReaction,
+  thunkDeleteReaction,
+} from "../../../../store/reactions";
 //=======================================================================
-const Reactions = ({ postReactions }) => {
+const Reactions = ({ postReactions, post }) => {
+  console.log("postReactions", postReactions, post);
   const user = useSelector((state) => state.session?.user);
   const [showReactions, setShowReactions] = useState(false);
+  const dispatch = useDispatch();
 
   const initialReactions = {
     "👍": postReactions?.filter((reaction) => reaction.reactionType === "👍")
@@ -61,6 +67,7 @@ const Reactions = ({ postReactions }) => {
 
   const [reactions, setReactions] = useState(initialReactions);
   const [userReactions, setUserReactions] = useState(initialUserReactions);
+  console.log(userReactions, "USER REACTIONS");
   const totalReactionsCount = Object.values(reactions).reduce(
     (total, reactionCount) => total + reactionCount,
     0
@@ -79,6 +86,10 @@ const Reactions = ({ postReactions }) => {
           [reactionType]: prevReactions[reactionType] - 1,
         };
       });
+
+      // Dispatch delete reaction thunk
+      console.log(reactionType, post, "REACTIONTYPE AND POST");
+      dispatch(thunkDeleteReaction(reactionType, post)); // replace with actual id and userId
     } else {
       // Add reaction to user's list of reactions
       setUserReactions((prevReactions) => [...prevReactions, reactionType]);
@@ -89,6 +100,9 @@ const Reactions = ({ postReactions }) => {
           [reactionType]: prevReactions[reactionType] + 1,
         };
       });
+
+      // Dispatch add reaction thunk
+      dispatch(thunkAddReaction({ reactionType, post })); // replace with actual reactionType and userId
     }
   };
 
