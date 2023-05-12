@@ -34,6 +34,7 @@ const Profile = ({ user }) => {
         <p>Email: {email}</p>
       </div>
     </div>
+
   );
 };
 
