@@ -24,39 +24,28 @@ import { fetchOpenGraphData } from "../../../api-calls/opengraph";
 import "./PostLink.css";
 //=======================================================================
 const isValidYoutubeUrl = (url) =>
-    /^https?:\/\/(www\.)?youtube\.com\/watch/.test(url);
+  /^https?:\/\/(www\.)?youtube\.com\/watch/.test(url);
+
 const PostLink = ({ url }) => {
   const [linkData, setLinkData] = useState({});
-  // const isValidYoutubeUrl = (url) => {
-  //   const pattern = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/gi;
-  //   return pattern.test(url);
-  // };
-
-
-  // const isValidUrl = (url) => {
-  //   try {
-  //     new URL(url);
-  //     return true;
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // };
 
   useEffect(() => {
     if (isValidYoutubeUrl(url)) {
       setLinkData({ youtubeUrl: url });
-    }
-    else {
+    } else {
       fetchData();
     }
   }, [url]);
 
   const fetchData = async () => {
     const data = await fetchOpenGraphData(url);
-    setLinkData(data);
+    if (data) {
+      setLinkData(data);
+    }
   };
 
-  const { og, alt, youtubeUrl } = linkData ? linkData : null;
+  const { og, alt, youtubeUrl } = linkData;
+
   const title = og?.title || alt?.title;
   const image = og?.image || alt?.image;
   const description = og?.description || alt?.description;
@@ -90,15 +79,12 @@ const PostLink = ({ url }) => {
         </a>
       </div>
     );
-  };
-  return null
   }
-
-
-
+  return null;
+};
 
 const getYoutubeVideoId = (url) => {
-  if (!isValidYoutubeUrl(url)) return
+  if (!isValidYoutubeUrl(url)) return;
   return url.match(/(?:v=)([\w-]+)/)[1];
 };
 
