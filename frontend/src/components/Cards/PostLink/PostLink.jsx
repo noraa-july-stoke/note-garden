@@ -56,7 +56,7 @@ const PostLink = ({ url }) => {
     setLinkData(data);
   };
 
-  const { og, alt, youtubeUrl } = linkData;
+  const { og, alt, youtubeUrl } = linkData ? linkData : null;
   const title = og?.title || alt?.title;
   const image = og?.image || alt?.image;
   const description = og?.description || alt?.description;
@@ -84,7 +84,7 @@ const PostLink = ({ url }) => {
         {image && <img src={image} alt={title} />}
         <div className="post-link__info">
           <h2 style={{ color: "black" }}>{title}</h2>
-          {description && <p>{description.slice(0, 300)}...</p>}
+          {description && <p>{description?.slice(0, 300)}...</p>}
         </div>
       </a>
     </div>
